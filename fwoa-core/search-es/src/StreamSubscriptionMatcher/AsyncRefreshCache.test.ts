@@ -15,7 +15,7 @@ describe('AsyncRefreshCache', () => {
       .mockReturnValueOnce(Promise.resolve('initial value'))
       .mockReturnValueOnce(Promise.resolve('latest value'));
 
-    const a = new AsyncRefreshCache<String>(loadFn, 1000);
+    const a = new AsyncRefreshCache<string>(loadFn, 1000);
 
     await expect(a.get()).resolves.toMatchInlineSnapshot(`"initial value"`);
     await expect(a.get()).resolves.toMatchInlineSnapshot(`"initial value"`);
@@ -35,7 +35,7 @@ describe('AsyncRefreshCache', () => {
     jest.clearAllTimers();
     const loadFn = jest.fn(async () => 'hello');
 
-    const a = new AsyncRefreshCache<String>(loadFn, 1000);
+    const a = new AsyncRefreshCache<string>(loadFn, 1000);
 
     expect(loadFn).toHaveBeenCalledTimes(1);
 

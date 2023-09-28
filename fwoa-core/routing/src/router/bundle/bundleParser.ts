@@ -4,10 +4,7 @@
  */
 
 /* eslint-disable no-restricted-syntax */
-import { v4 as uuidv4 } from 'uuid';
-import flatten from 'flat';
-import get from 'lodash/get';
-import set from 'lodash/set';
+import querystring from 'querystring';
 import {
   BatchReadWriteRequest,
   Reference,
@@ -18,8 +15,11 @@ import {
   KeyValueMap,
   RequestContext
 } from '@aws/fhir-works-on-aws-interface';
+import flatten from 'flat';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import { v4 as uuidv4 } from 'uuid';
 
-import querystring from 'querystring';
 import {
   captureFullUrlParts,
   captureIdFromUrn,

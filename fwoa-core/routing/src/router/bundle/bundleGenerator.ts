@@ -3,10 +3,10 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { v4 as uuidv4 } from 'uuid';
 import URL from 'url';
 import { SearchResult, BatchReadWriteResponse } from '@aws/fhir-works-on-aws-interface';
 import { isEmpty } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 type LinkType = 'self' | 'previous' | 'next' | 'first' | 'last';
 

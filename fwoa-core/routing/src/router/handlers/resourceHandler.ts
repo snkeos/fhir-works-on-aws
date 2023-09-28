@@ -12,12 +12,12 @@ import {
   Validator,
   RequestContext
 } from '@aws/fhir-works-on-aws-interface';
-import BundleGenerator from '../bundle/bundleGenerator';
-import CrudHandlerInterface from './CrudHandlerInterface';
-import OperationsGenerator from '../operationsGenerator';
-import { validateResource } from '../validation/validationUtilities';
 import ResourceTypeSearch from '../../utils/ResourceTypeSearch';
 import { openNewXRaySubSegment, closeXRaySubSegment } from '../../utils/xrayUtils';
+import BundleGenerator from '../bundle/bundleGenerator';
+import OperationsGenerator from '../operationsGenerator';
+import { validateResource } from '../validation/validationUtilities';
+import CrudHandlerInterface from './crudHandlerInterface';
 
 export default class ResourceHandler implements CrudHandlerInterface {
   private validators: Validator[];

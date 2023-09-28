@@ -4,9 +4,9 @@
  *
  */
 
-import { matchParsedFhirQueryParams } from './index';
 import { ParsedFhirQueryParams } from '../FhirQueryParser';
 import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
+import { matchParsedFhirQueryParams } from './index';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const givenParam = fhirSearchParametersRegistry.getSearchParameter('Patient', 'given')!;

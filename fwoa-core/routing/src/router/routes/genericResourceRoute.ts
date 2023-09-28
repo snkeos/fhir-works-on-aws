@@ -3,11 +3,11 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import express, { Router } from 'express';
 import { Authorization, TypeOperation } from '@aws/fhir-works-on-aws-interface';
+import express, { Router } from 'express';
 import createError from 'http-errors';
 import { isEmpty, mergeWith } from 'lodash';
-import CrudHandlerInterface from '../handlers/CrudHandlerInterface';
+import CrudHandlerInterface from '../handlers/crudHandlerInterface';
 import RouteHelper from './routeHelper';
 
 export default class GenericResourceRoute {

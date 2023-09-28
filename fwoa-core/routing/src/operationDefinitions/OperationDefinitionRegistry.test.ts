@@ -6,9 +6,9 @@
 
 import { Router } from 'express';
 import ConfigHandler from '../configHandler';
+import ResourceHandler from '../router/handlers/resourceHandler';
 import { OperationDefinitionRegistry } from './OperationDefinitionRegistry';
 import { OperationDefinitionImplementation } from './types';
-import ResourceHandler from '../router/handlers/resourceHandler';
 
 const fakeRouter = jest.fn() as unknown as Router;
 const fakeOperation: OperationDefinitionImplementation = {

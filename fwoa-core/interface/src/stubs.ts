@@ -15,7 +15,7 @@ import { History } from './history';
 import { Persistence } from './persistence';
 import { Search, SearchCapabilityStatement } from './search';
 
-export module stubs {
+export namespace stubs {
   export const bundle: Bundle = {
     batch(request) {
       throw new Error('Method not implemented.');

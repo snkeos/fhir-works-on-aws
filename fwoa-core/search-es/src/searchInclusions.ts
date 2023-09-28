@@ -4,10 +4,10 @@
  */
 import { get, groupBy, mapValues, uniqBy } from 'lodash';
 
-import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
-import { Query } from './elasticSearchService';
-import { getAllValuesForFHIRPath } from './getAllValuesForFHIRPath';
 import { MAX_INCLUSION_PARAM_RESULTS } from './constants';
+import { Query } from './elasticSearchService';
+import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
+import { getAllValuesForFHIRPath } from './getAllValuesForFHIRPath';
 
 /**
  * @example
@@ -29,7 +29,7 @@ import { MAX_INCLUSION_PARAM_RESULTS } from './constants';
 
 export type InclusionSearchParameterType = '_include' | '_revinclude';
 
-export type InclusionSearchParameter = {
+export interface InclusionSearchParameter {
   type: InclusionSearchParameterType;
   isWildcard: false;
   isIterate?: true;
@@ -37,13 +37,13 @@ export type InclusionSearchParameter = {
   searchParameter: string;
   path?: string;
   targetResourceType?: string;
-};
+}
 
-export type WildcardInclusionSearchParameter = {
+export interface WildcardInclusionSearchParameter {
   type: InclusionSearchParameterType;
   isWildcard: true;
   isIterate?: true;
-};
+}
 
 const expandRevIncludeWildcard = (
   resourceTypes: string[],

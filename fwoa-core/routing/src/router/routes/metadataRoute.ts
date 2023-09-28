@@ -3,12 +3,12 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import express, { Router } from 'express';
 import { CapabilityMode, FhirVersion } from '@aws/fhir-works-on-aws-interface';
-import MetadataHandler from '../metadata/metadataHandler';
+import express, { Router } from 'express';
 import ConfigHandler from '../../configHandler';
-import { FHIRStructureDefinitionRegistry } from '../../registry';
 import { OperationDefinitionRegistry } from '../../operationDefinitions/OperationDefinitionRegistry';
+import { FHIRStructureDefinitionRegistry } from '../../registry';
+import MetadataHandler from '../metadata/metadataHandler';
 
 export default class MetadataRoute {
   readonly fhirVersion: FhirVersion;

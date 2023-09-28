@@ -4,10 +4,6 @@
  */
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import * as AWSMock from 'aws-sdk-mock';
-
-import { QueryInput, TransactWriteItemsInput } from 'aws-sdk/clients/dynamodb';
-// @ts-ignore
 import {
   BatchReadWriteRequest,
   BundleResponse,
@@ -15,6 +11,10 @@ import {
   TypeOperation
 } from '@aws/fhir-works-on-aws-interface';
 import AWS from 'aws-sdk';
+import { QueryInput, TransactWriteItemsInput } from 'aws-sdk/clients/dynamodb';
+import * as AWSMock from 'aws-sdk-mock';
+
+// @ts-ignore
 import { timeFromEpochInMsRegExp, utcTimeRegExp, uuidRegExp } from '../testUtilities/regExpressions';
 import { DynamoDBConverter } from './dynamoDb';
 import { DynamoDbBundleService } from './dynamoDbBundleService';

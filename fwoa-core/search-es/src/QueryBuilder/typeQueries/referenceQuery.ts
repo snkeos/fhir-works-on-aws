@@ -4,8 +4,8 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 import { ReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
+import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 
 const SUPPORTED_MODIFIERS: string[] = [];
 

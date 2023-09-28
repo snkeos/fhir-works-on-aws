@@ -4,14 +4,14 @@
  */
 import { BatchReadWriteRequest, BatchReadWriteResponse } from '@aws/fhir-works-on-aws-interface';
 import AWS from 'aws-sdk';
-import * as AWSMock from 'aws-sdk-mock';
 import { QueryInput } from 'aws-sdk/clients/dynamodb';
+import * as AWSMock from 'aws-sdk-mock';
+import sinon = require('sinon');
 import GenerateRollbackRequestsFactory from '../testUtilities/GenerateRollbackRequestsFactory';
 import GenerateStagingRequestsFactory from '../testUtilities/GenerateStagingRequestsFactory';
 import { DynamoDBConverter } from './dynamoDb';
 import DynamoDbBundleServiceHelper from './dynamoDbBundleServiceHelper';
 import DynamoDbHelper from './dynamoDbHelper';
-import sinon = require('sinon');
 
 AWSMock.setSDKInstance(AWS);
 const utcTimeRegExp = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d+)?Z/;

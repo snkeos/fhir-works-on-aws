@@ -19,11 +19,11 @@ import {
 import createError from 'http-errors';
 import isEmpty from 'lodash/isEmpty';
 import { MAX_BUNDLE_ENTRIES } from '../../constants';
-import BundleHandlerInterface from './bundleHandlerInterface';
-import BundleGenerator from './bundleGenerator';
-import BundleParser from './bundleParser';
 import ResourceTypeSearch from '../../utils/ResourceTypeSearch';
 import { validateResource } from '../validation/validationUtilities';
+import BundleGenerator from './bundleGenerator';
+import BundleHandlerInterface from './bundleHandlerInterface';
+import BundleParser from './bundleParser';
 
 export default class BundleHandler implements BundleHandlerInterface {
   private bundleService: Bundle;

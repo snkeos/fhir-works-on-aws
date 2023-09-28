@@ -6,8 +6,6 @@
 /* eslint-disable no-underscore-dangle */
 import URL from 'url';
 
-import { ResponseError } from '@elastic/elasticsearch/lib/errors';
-import { partition, merge, isEmpty } from 'lodash';
 import {
   Search,
   TypeSearchRequest,
@@ -20,7 +18,8 @@ import {
   InvalidSearchParameterError
 } from '@aws/fhir-works-on-aws-interface';
 import { Client, RequestParams } from '@elastic/elasticsearch';
-import { ElasticSearch } from './elasticSearch';
+import { ResponseError } from '@elastic/elasticsearch/lib/errors';
+import { partition, merge, isEmpty } from 'lodash';
 import {
   DEFAULT_SEARCH_RESULTS_PER_PAGE,
   SEARCH_PAGINATION_PARAMS,
@@ -29,22 +28,23 @@ import {
   MAX_ES_WINDOW_SIZE,
   MAX_CHAINED_PARAMS_RESULT
 } from './constants';
+import { ElasticSearch } from './elasticSearch';
+import { parseQueryString, parseQuery, ParsedFhirQueryParams } from './FhirQueryParser';
+import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
+import getComponentLogger from './loggerBuilder';
+import { buildQueryForAllSearchParameters, buildSortClause } from './QueryBuilder';
+import parseChainedParameters, { ChainParameter } from './QueryBuilder/chain';
 import {
   buildIncludeQueries,
   buildRevIncludeQueries,
   InclusionSearchParameter,
   WildcardInclusionSearchParameter
 } from './searchInclusions';
-import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
-import { buildQueryForAllSearchParameters, buildSortClause } from './QueryBuilder';
-import { parseQueryString, parseQuery, ParsedFhirQueryParams } from './FhirQueryParser';
-import parseChainedParameters, { ChainParameter } from './QueryBuilder/chain';
-import getComponentLogger from './loggerBuilder';
 
-export type Query = {
+export interface Query {
   resourceType: string;
   queryRequest: RequestParams.Search<Record<string, any>>;
-};
+}
 
 const logger = getComponentLogger();
 

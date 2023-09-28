@@ -3,7 +3,6 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { v4 as uuidv4 } from 'uuid';
 import {
   clone,
   GenericResource,
@@ -17,14 +16,15 @@ import {
   RequestContext
 } from '@aws/fhir-works-on-aws-interface';
 import createError from 'http-errors';
-import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
-import DynamoDbBundleService from '../__mocks__/dynamoDbBundleService';
-import BundleHandler from './bundleHandler';
+import { v4 as uuidv4 } from 'uuid';
+import ConfigHandler from '../../configHandler';
 import { MAX_BUNDLE_ENTRIES } from '../../constants';
 import { uuidRegExp, utcTimeRegExp } from '../../regExpressions';
 import r4FhirConfigGeneric from '../../sampleData/r4FhirConfigGeneric';
-import ConfigHandler from '../../configHandler';
+import DynamoDbBundleService from '../__mocks__/dynamoDbBundleService';
+import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
+import BundleHandler from './bundleHandler';
 
 const sampleBundleRequestJSON = {
   resourceType: 'Bundle',

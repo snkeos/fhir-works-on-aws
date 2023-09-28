@@ -3,8 +3,8 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import express, { Router } from 'express';
 import { SmartStrategy } from '@aws/fhir-works-on-aws-interface';
+import express, { Router } from 'express';
 import { getWellKnownUriResponse } from '../handlers/wellKnownUriHandler';
 
 export default class WellKnownUriRouteRoute {

@@ -4,11 +4,11 @@
  */
 
 import { InvalidResourceError, Search, Persistence } from '@aws/fhir-works-on-aws-interface';
-import ElasticSearchService from '../__mocks__/elasticSearchService';
-import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
-import SubscriptionValidator, { SubscriptionEndpoint } from './subscriptionValidator';
-import validPatient from '../../sampleData/validV4Patient.json';
 import invalidPatient from '../../sampleData/invalidV4Patient.json';
+import validPatient from '../../sampleData/validV4Patient.json';
+import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
+import ElasticSearchService from '../__mocks__/elasticSearchService';
+import SubscriptionValidator, { SubscriptionEndpoint } from './subscriptionValidator';
 
 const search: Search = ElasticSearchService;
 const persistence: Persistence = DynamoDbDataService;

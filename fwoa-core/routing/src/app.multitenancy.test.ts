@@ -1,13 +1,13 @@
-import express from 'express';
 import { clone, BatchReadWriteResponse } from '@aws/fhir-works-on-aws-interface';
+import express from 'express';
 import { generateServerlessRouter } from './app';
-import r4FhirConfigGenericMultiTenancy from './sampleData/r4FhirConfigGenericMultiTenancy';
-import ElasticSearchService, { setExpectedSearchSet } from './router/__mocks__/elasticSearchService';
-import DynamoDbDataService, { setExpectedCreateResourceId } from './router/__mocks__/dynamoDbDataService';
+import AuthorizationService, { setExpectedTokenDecoded } from './router/__mocks__/authorizationService';
 import DynamoDbBundleService, {
   setExpectedBundleEntryResponses
 } from './router/__mocks__/dynamoDbBundleService';
-import AuthorizationService, { setExpectedTokenDecoded } from './router/__mocks__/authorizationService';
+import DynamoDbDataService, { setExpectedCreateResourceId } from './router/__mocks__/dynamoDbDataService';
+import ElasticSearchService, { setExpectedSearchSet } from './router/__mocks__/elasticSearchService';
+import r4FhirConfigGenericMultiTenancy from './sampleData/r4FhirConfigGenericMultiTenancy';
 import validPatient from './sampleData/validV4Patient.json';
 
 // eslint-disable-next-line import/no-unresolved

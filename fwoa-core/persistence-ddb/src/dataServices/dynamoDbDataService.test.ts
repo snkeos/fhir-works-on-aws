@@ -19,8 +19,8 @@ import {
 } from '@aws/fhir-works-on-aws-interface';
 import { TooManyConcurrentExportRequestsError } from '@aws/fhir-works-on-aws-interface/lib/errors/TooManyConcurrentExportRequestsError';
 import AWS from 'aws-sdk';
-import * as AWSMock from 'aws-sdk-mock';
 import { GetItemInput, PutItemInput, QueryInput, UpdateItemInput } from 'aws-sdk/clients/dynamodb';
+import * as AWSMock from 'aws-sdk-mock';
 import each from 'jest-each';
 import isEqual from 'lodash/isEqual';
 import { ConditionalCheckFailedExceptionMock } from '../testUtilities/ConditionalCheckFailedException';

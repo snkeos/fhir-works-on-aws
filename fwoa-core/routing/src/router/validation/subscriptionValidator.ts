@@ -3,12 +3,6 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import Ajv from 'ajv';
-// @ts-ignore
-import ajvErrors from 'ajv-errors';
-
-import { isEmpty, groupBy } from 'lodash';
-
 import {
   InvalidResourceError,
   Validator,
@@ -16,6 +10,12 @@ import {
   Persistence,
   TypeOperation
 } from '@aws/fhir-works-on-aws-interface';
+import Ajv from 'ajv';
+// @ts-ignore
+import ajvErrors from 'ajv-errors';
+
+import { isEmpty, groupBy } from 'lodash';
+
 import subscriptionSchema from './subscriptionSchema.json';
 
 export interface SubscriptionEndpoint {

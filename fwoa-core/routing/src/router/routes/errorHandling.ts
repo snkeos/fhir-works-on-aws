@@ -1,5 +1,3 @@
-import express from 'express';
-import createError from 'http-errors';
 import {
   isInvalidResourceError,
   isResourceNotFoundError,
@@ -11,6 +9,8 @@ import {
   isInvalidSearchParameterError,
   isResourceConflictError
 } from '@aws/fhir-works-on-aws-interface';
+import express from 'express';
+import createError from 'http-errors';
 import OperationsGenerator from '../operationsGenerator';
 
 export const applicationErrorMapper = (

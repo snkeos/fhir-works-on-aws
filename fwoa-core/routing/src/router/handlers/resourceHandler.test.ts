@@ -6,7 +6,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
-import { v4 as uuidv4 } from 'uuid';
 import {
   SearchResponse,
   Persistence,
@@ -26,14 +25,15 @@ import {
   GetExportStatusResponse,
   RequestContext
 } from '@aws/fhir-works-on-aws-interface';
-import ResourceHandler from './resourceHandler';
+import { v4 as uuidv4 } from 'uuid';
 import invalidPatient from '../../sampleData/invalidV4Patient.json';
 import validPatient from '../../sampleData/validV4Patient.json';
-import OperationsGenerator from '../operationsGenerator';
 
-import ElasticSearchService from '../__mocks__/elasticSearchService';
 import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
+import ElasticSearchService from '../__mocks__/elasticSearchService';
+import OperationsGenerator from '../operationsGenerator';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
+import ResourceHandler from './resourceHandler';
 
 const enum SEARCH_PAGINATION_PARAMS {
   PAGES_OFFSET = '_getpagesoffset',

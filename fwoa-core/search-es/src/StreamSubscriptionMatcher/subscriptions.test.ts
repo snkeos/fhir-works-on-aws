@@ -1,6 +1,6 @@
 import { DynamoDBStreamEvent } from 'aws-lambda/trigger/dynamodb-stream';
-import { buildNotification, filterOutIneligibleResources, parseSubscription } from './subscriptions';
 import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
+import { buildNotification, filterOutIneligibleResources, parseSubscription } from './subscriptions';
 
 describe('filterOutIneligibleResources', () => {
   const dynamoDBStreamEvent = (): DynamoDBStreamEvent => ({

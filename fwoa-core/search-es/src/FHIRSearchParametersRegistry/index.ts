@@ -4,8 +4,8 @@
  */
 
 import { FhirVersion, SearchCapabilityStatement } from '@aws/fhir-works-on-aws-interface';
-import compiledSearchParamsV4 from '../schema/compiledSearchParameters.4.0.1.json';
 import compiledSearchParamsV3 from '../schema/compiledSearchParameters.3.0.1.json';
+import compiledSearchParamsV4 from '../schema/compiledSearchParameters.4.0.1.json';
 
 /**
  * name: SearchParameter name
@@ -52,9 +52,13 @@ import compiledSearchParamsV3 from '../schema/compiledSearchParameters.3.0.1.jso
  *
  */
 
-export type CompiledSearchParam = { resourceType: string; path: string; condition?: string[] };
+export interface CompiledSearchParam {
+  resourceType: string;
+  path: string;
+  condition?: string[];
+}
 
-export type SearchParam = {
+export interface SearchParam {
   name: string;
   url: string;
   type: 'composite' | 'date' | 'number' | 'quantity' | 'reference' | 'special' | 'string' | 'token' | 'uri';
@@ -62,7 +66,7 @@ export type SearchParam = {
   base: string;
   target?: string[];
   compiled: CompiledSearchParam[];
-};
+}
 
 const toCapabilityStatement = (searchParam: SearchParam) => ({
   name: searchParam.name,

@@ -4,9 +4,9 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
+import { DateSearchValue } from '../../FhirQueryParser';
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 import { prefixRangeDate } from './common/prefixRange';
-import { DateSearchValue } from '../../FhirQueryParser';
 
 const SUPPORTED_MODIFIERS: string[] = [];
 

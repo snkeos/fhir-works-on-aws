@@ -4,10 +4,10 @@
  */
 jest.mock('./elasticSearch');
 
-import each from 'jest-each';
 import { InvalidSearchParameterError, SearchFilter } from '@aws/fhir-works-on-aws-interface';
-import { ElasticSearchService } from './elasticSearchService';
+import each from 'jest-each';
 import { ElasticSearch } from './elasticSearch';
+import { ElasticSearchService } from './elasticSearchService';
 
 const FILTER_RULES_FOR_ACTIVE_RESOURCES = [
   {

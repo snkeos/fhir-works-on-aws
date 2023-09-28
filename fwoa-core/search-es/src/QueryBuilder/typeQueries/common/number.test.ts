@@ -3,8 +3,8 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import each from 'jest-each';
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
+import each from 'jest-each';
 import { parseNumber } from './number';
 
 describe('parseNumber', () => {

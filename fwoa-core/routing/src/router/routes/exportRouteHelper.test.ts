@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { mockRequest, mockResponse } from 'mock-req-res';
 import { FhirVersion, BASE_R4_RESOURCES } from '@aws/fhir-works-on-aws-interface';
-import ExportRouteHelper from './exportRouteHelper';
+import { mockRequest, mockResponse } from 'mock-req-res';
 import { utcTimeRegExp } from '../../regExpressions';
+import ExportRouteHelper from './exportRouteHelper';
 
 describe('buildInitiateExportRequest', () => {
   const r4Version: FhirVersion = '4.0.1';

@@ -3,8 +3,6 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import express, { Express } from 'express';
-import cors, { CorsOptions } from 'cors';
 import {
   cleanAuthHeader,
   getRequestInformation,
@@ -15,19 +13,21 @@ import {
   RequestContext,
   VerbType
 } from '@aws/fhir-works-on-aws-interface';
-import GenericResourceRoute from './router/routes/genericResourceRoute';
+import cors, { CorsOptions } from 'cors';
+import express, { Express } from 'express';
 import ConfigHandler from './configHandler';
-import MetadataRoute from './router/routes/metadataRoute';
-import ResourceHandler from './router/handlers/resourceHandler';
-import RootRoute from './router/routes/rootRoute';
-import { applicationErrorMapper, httpErrorHandler, unknownErrorHandler } from './router/routes/errorHandling';
-import ExportRoute from './router/routes/exportRoute';
-import WellKnownUriRouteRoute from './router/routes/wellKnownUriRoute';
-import { FHIRStructureDefinitionRegistry } from './registry';
 import { initializeOperationRegistry } from './operationDefinitions';
+import { FHIRStructureDefinitionRegistry } from './registry';
+import ResourceHandler from './router/handlers/resourceHandler';
+import { setContentTypeMiddleware } from './router/middlewares/setContentType';
 import { setServerUrlMiddleware } from './router/middlewares/setServerUrl';
 import { setTenantIdMiddleware } from './router/middlewares/setTenantId';
-import { setContentTypeMiddleware } from './router/middlewares/setContentType';
+import { applicationErrorMapper, httpErrorHandler, unknownErrorHandler } from './router/routes/errorHandling';
+import ExportRoute from './router/routes/exportRoute';
+import GenericResourceRoute from './router/routes/genericResourceRoute';
+import MetadataRoute from './router/routes/metadataRoute';
+import RootRoute from './router/routes/rootRoute';
+import WellKnownUriRouteRoute from './router/routes/wellKnownUriRoute';
 import { initXRayExpress, openXRaySegment, closeXRaySegment } from './utils/xrayUtils';
 
 const configVersionSupported: ConfigVersion = 1;

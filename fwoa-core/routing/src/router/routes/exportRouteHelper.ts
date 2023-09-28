@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import express from 'express';
 import { ExportType, FhirVersion, InitiateExportRequest } from '@aws/fhir-works-on-aws-interface';
+import express from 'express';
 import createHttpError from 'http-errors';
 import isString from 'lodash/isString';
 import { dateTimeWithTimeZoneRegExp } from '../../regExpressions';
