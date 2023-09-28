@@ -13,14 +13,14 @@ import {
   StringLikeSearchValue,
   TokenSearchValue
 } from '../FhirQueryParser';
-import { ReferenceSearchValue } from '../FhirQueryParser/typeParsers/referenceParser';
 import { CompiledSearchParam } from '../FHIRSearchParametersRegistry';
-import { getAllValuesForFHIRPath } from '../getAllValuesForFHIRPath';
-import { dateMatch } from './matchers/dateMatch';
 import { numberMatch } from './matchers/numberMatch';
+import { dateMatch } from './matchers/dateMatch';
+import { getAllValuesForFHIRPath } from '../getAllValuesForFHIRPath';
+import { stringMatch } from './matchers/stringMatch';
 import { quantityMatch } from './matchers/quantityMatch';
 import { referenceMatch } from './matchers/referenceMatcher';
-import { stringMatch } from './matchers/stringMatch';
+import { ReferenceSearchValue } from '../FhirQueryParser/typeParsers/referenceParser';
 import { tokenMatch } from './matchers/tokenMatch';
 import { uriMatch } from './matchers/uriMatch';
 

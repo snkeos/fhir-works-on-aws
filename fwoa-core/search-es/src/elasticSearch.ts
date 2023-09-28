@@ -3,10 +3,10 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
+import AWS from 'aws-sdk';
 import { Client } from '@elastic/elasticsearch';
 // @ts-ignore
 import { AmazonConnection, AmazonTransport } from 'aws-elasticsearch-connector';
-import AWS from 'aws-sdk';
 
 const { IS_OFFLINE } = process.env;
 

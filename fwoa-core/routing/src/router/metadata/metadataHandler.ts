@@ -10,13 +10,13 @@ import {
   GenericResponse
 } from '@aws/fhir-works-on-aws-interface';
 import createError from 'http-errors';
-import ConfigHandler from '../../configHandler';
-import { OperationDefinitionRegistry } from '../../operationDefinitions/OperationDefinitionRegistry';
-import { FHIRStructureDefinitionRegistry } from '../../registry';
 import { makeGenericResources, makeResource } from './cap.rest.resource.template';
 import makeSecurity from './cap.rest.security.template';
 import makeRest from './cap.rest.template';
 import makeStatement from './cap.template';
+import ConfigHandler from '../../configHandler';
+import { FHIRStructureDefinitionRegistry } from '../../registry';
+import { OperationDefinitionRegistry } from '../../operationDefinitions/OperationDefinitionRegistry';
 
 export default class MetadataHandler implements Capabilities {
   configHandler: ConfigHandler;

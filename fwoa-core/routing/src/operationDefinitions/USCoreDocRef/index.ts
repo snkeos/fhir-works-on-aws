@@ -4,13 +4,13 @@
  *
  */
 
-import { KeyValueMap, RequestContext, TypeOperation } from '@aws/fhir-works-on-aws-interface';
 import express from 'express';
+import { KeyValueMap, RequestContext, TypeOperation } from '@aws/fhir-works-on-aws-interface';
+import { OperationDefinitionImplementation } from '../types';
 import ResourceHandler from '../../router/handlers/resourceHandler';
 import RouteHelper from '../../router/routes/routeHelper';
-import { OperationDefinitionImplementation } from '../types';
-import { convertDocRefParamsToSearchParams } from './convertDocRefParamsToSearchParams';
 import { DocRefParams, parsePostParams, parseQueryParams } from './parseParams';
+import { convertDocRefParamsToSearchParams } from './convertDocRefParamsToSearchParams';
 
 const searchTypeOperation: TypeOperation = 'search-type';
 

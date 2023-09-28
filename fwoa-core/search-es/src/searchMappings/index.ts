@@ -4,16 +4,16 @@
  *
  */
 
-import { unflatten } from 'flat';
 import { mapValues } from 'lodash';
+import { unflatten } from 'flat';
 import searchMappingsBaseV3 from '../schema/searchMappingsBase.3.0.1.json';
 import searchMappingsBaseV4 from '../schema/searchMappingsBase.4.0.1.json';
-import { CUSTOM_MAPPINGS } from './customMappings';
 import { fhirToESMapping } from './fhirTypeToESMapping';
+import { CUSTOM_MAPPINGS } from './customMappings';
 
-interface SearchMappingsBase {
+type SearchMappingsBase = {
   [resourceType: string]: { field: string; type: string }[];
-}
+};
 /**
  * Get the search mappings for ALL resource types
  * @param fhirVersion
@@ -54,11 +54,7 @@ export const getSearchMappings = (
   const resourceMappings = mappings.Resource;
   delete mappings.Resource;
 
-  const mergedMappings = mapValues(mappings, (x) => ({
-    ...x,
-    ...resourceMappings,
-    ...CUSTOM_MAPPINGS
-  }));
+  const mergedMappings = mapValues(mappings, (x) => ({ ...x, ...resourceMappings, ...CUSTOM_MAPPINGS }));
 
   return mapValues(mergedMappings, (x) => ({
     dynamic: false,

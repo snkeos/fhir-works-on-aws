@@ -3,6 +3,7 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
+import express, { Router } from 'express';
 import {
   Authorization,
   Bundle,
@@ -13,7 +14,6 @@ import {
   Resources,
   Validator
 } from '@aws/fhir-works-on-aws-interface';
-import express, { Router } from 'express';
 import createError from 'http-errors';
 import BundleHandler from '../bundle/bundleHandler';
 import RootHandler from '../handlers/rootHandler';

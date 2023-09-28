@@ -4,10 +4,10 @@
  */
 
 import { InvalidResourceError } from '@aws/fhir-works-on-aws-interface';
+import JsonSchemaValidator from './jsonSchemaValidator';
+import validPatient from '../../sampleData/validV4Patient.json';
 import invalidPatient from '../../sampleData/invalidV4Patient.json';
 import validV3Account from '../../sampleData/validV3Account.json';
-import validPatient from '../../sampleData/validV4Patient.json';
-import JsonSchemaValidator from './jsonSchemaValidator';
 
 describe('Validating V4 resources', () => {
   const validatorV4 = new JsonSchemaValidator('4.0.1');

@@ -5,17 +5,17 @@
 
 import { stubs, Persistence } from '@aws/fhir-works-on-aws-interface';
 import each from 'jest-each';
-import ConfigHandler from '../../configHandler';
-import { OperationDefinitionRegistry } from '../../operationDefinitions/OperationDefinitionRegistry';
-import { utcTimeRegExp } from '../../regExpressions';
-import { FHIRStructureDefinitionRegistry } from '../../registry';
+import MetadataHandler from './metadataHandler';
+import { makeOperation } from './cap.rest.resource.template';
 import r4FhirConfigGeneric from '../../sampleData/r4FhirConfigGeneric';
-import r4FhirConfigNoGeneric from '../../sampleData/r4FhirConfigNoGeneric';
 import r4FhirConfigWithExclusions from '../../sampleData/r4FhirConfigWithExclusions';
 import stu3FhirConfigWithExclusions from '../../sampleData/stu3FhirConfigWithExclusions';
+import r4FhirConfigNoGeneric from '../../sampleData/r4FhirConfigNoGeneric';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
-import { makeOperation } from './cap.rest.resource.template';
-import MetadataHandler from './metadataHandler';
+import ConfigHandler from '../../configHandler';
+import { utcTimeRegExp } from '../../regExpressions';
+import { FHIRStructureDefinitionRegistry } from '../../registry';
+import { OperationDefinitionRegistry } from '../../operationDefinitions/OperationDefinitionRegistry';
 
 const r4Validator = new JsonSchemaValidator('4.0.1');
 const stu3Validator = new JsonSchemaValidator('3.0.1');

@@ -4,8 +4,8 @@
  */
 
 import { FhirVersion, SearchCapabilityStatement } from '@aws/fhir-works-on-aws-interface';
-import compiledSearchParamsV3 from '../schema/compiledSearchParameters.3.0.1.json';
 import compiledSearchParamsV4 from '../schema/compiledSearchParameters.4.0.1.json';
+import compiledSearchParamsV3 from '../schema/compiledSearchParameters.3.0.1.json';
 
 /**
  * name: SearchParameter name
@@ -52,13 +52,9 @@ import compiledSearchParamsV4 from '../schema/compiledSearchParameters.4.0.1.jso
  *
  */
 
-export interface CompiledSearchParam {
-  resourceType: string;
-  path: string;
-  condition?: string[];
-}
+export type CompiledSearchParam = { resourceType: string; path: string; condition?: string[] };
 
-export interface SearchParam {
+export type SearchParam = {
   name: string;
   url: string;
   type: 'composite' | 'date' | 'number' | 'quantity' | 'reference' | 'special' | 'string' | 'token' | 'uri';
@@ -66,7 +62,7 @@ export interface SearchParam {
   base: string;
   target?: string[];
   compiled: CompiledSearchParam[];
-}
+};
 
 const toCapabilityStatement = (searchParam: SearchParam) => ({
   name: searchParam.name,
@@ -191,15 +187,11 @@ export class FHIRSearchParametersRegistry {
     const searchParam = this.getSearchParameter(resourceType, name);
 
     if (searchParam === undefined) {
-      return {
-        error: `Search parameter ${name} does not exist in resource ${resourceType}`
-      };
+      return { error: `Search parameter ${name} does not exist in resource ${resourceType}` };
     }
 
     if (searchParam.type !== 'reference') {
-      return {
-        error: `Search parameter ${name} is not of type reference in resource ${resourceType}`
-      };
+      return { error: `Search parameter ${name} is not of type reference in resource ${resourceType}` };
     }
 
     if (targetResourceType !== undefined && !searchParam.target?.includes(targetResourceType)) {

@@ -3,11 +3,11 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
 import each from 'jest-each';
-import { parseNumberSearchValue } from '../../FhirQueryParser/typeParsers/numberParser';
-import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
+import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
 import { numberQuery } from './numberQuery';
+import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
+import { parseNumberSearchValue } from '../../FhirQueryParser/typeParsers/numberParser';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const factorOverrideParam = fhirSearchParametersRegistry.getSearchParameter('ChargeItem', 'factor-override')!

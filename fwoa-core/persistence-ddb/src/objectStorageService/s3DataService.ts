@@ -6,22 +6,21 @@
 /* eslint-disable class-methods-use-this */
 
 import {
-  GenericResponse,
-  Persistence,
-  ReadResourceRequest,
-  vReadResourceRequest,
+  ConditionalDeleteResourceRequest,
   CreateResourceRequest,
   DeleteResourceRequest,
-  UpdateResourceRequest,
-  PatchResourceRequest,
-  ConditionalDeleteResourceRequest,
   FhirVersion,
-  ResourceNotFoundError,
+  GenericResponse,
+  GetExportStatusResponse,
   InitiateExportRequest,
-  GetExportStatusResponse
+  PatchResourceRequest,
+  Persistence,
+  ReadResourceRequest,
+  ResourceNotFoundError,
+  UpdateResourceRequest,
+  vReadResourceRequest
 } from '@aws/fhir-works-on-aws-interface';
 import mime from 'mime-types';
-
 import { SEPARATOR } from '../constants';
 import ObjectNotFoundError from './ObjectNotFoundError';
 import S3ObjectStorageService from './s3ObjectStorageService';

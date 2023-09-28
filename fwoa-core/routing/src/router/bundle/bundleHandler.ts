@@ -19,10 +19,11 @@ import {
 import createError from 'http-errors';
 import isEmpty from 'lodash/isEmpty';
 import { MAX_BUNDLE_ENTRIES } from '../../constants';
-import { validateResource } from '../validation/validationUtilities';
-import BundleGenerator from './bundleGenerator';
 import BundleHandlerInterface from './bundleHandlerInterface';
+import BundleGenerator from './bundleGenerator';
 import BundleParser from './bundleParser';
+import ResourceTypeSearch from '../../utils/ResourceTypeSearch';
+import { validateResource } from '../validation/validationUtilities';
 
 export default class BundleHandler implements BundleHandlerInterface {
   private bundleService: Bundle;
@@ -38,6 +39,8 @@ export default class BundleHandler implements BundleHandlerInterface {
   private resources?: Resources;
 
   private supportedGenericResources: string[];
+
+  private resourceTypeSearch?: ResourceTypeSearch;
 
   constructor(
     bundleService: Bundle,
@@ -56,6 +59,10 @@ export default class BundleHandler implements BundleHandlerInterface {
     this.resources = resources;
 
     this.validators = validators;
+
+    if (this.genericResource) {
+      this.resourceTypeSearch = new ResourceTypeSearch(authService, this.genericResource.typeSearch);
+    }
   }
 
   async processBatch(
@@ -84,7 +91,7 @@ export default class BundleHandler implements BundleHandlerInterface {
       serverUrl
     );
 
-    return BundleGenerator.generateBatchBundle(this.serverUrl, bundleServiceResponse.batchReadWriteResponses);
+    return BundleGenerator.generateBatchBundle(serverUrl, bundleServiceResponse.batchReadWriteResponses);
   }
 
   resourcesInBundleThatServerDoesNotSupport(
@@ -155,7 +162,7 @@ export default class BundleHandler implements BundleHandlerInterface {
     );
 
     return BundleGenerator.generateTransactionBundle(
-      this.serverUrl,
+      serverUrl,
       bundleServiceResponse.batchReadWriteResponses
     );
   }
@@ -167,7 +174,7 @@ export default class BundleHandler implements BundleHandlerInterface {
     serverUrl: string,
     tenantId?: string
   ) {
-    await validateResource(this.validators, 'Bundle', bundleRequestJson, { tenantId });
+    await validateResource(this.validators, bundleRequestJson, { tenantId });
 
     let requests: BatchReadWriteRequest[];
     try {
@@ -181,11 +188,15 @@ export default class BundleHandler implements BundleHandlerInterface {
         message = message.substring(0, message.length - 1);
         throw new Error(`Server does not support these resource and operations: {${message}}`);
       }
-      if (this.genericResource) {
+      if (this.genericResource && this.resourceTypeSearch) {
         requests = await BundleParser.parseResource(
           bundleRequestJson,
           this.genericResource.persistence,
-          this.serverUrl
+          this.resourceTypeSearch,
+          serverUrl,
+          userIdentity,
+          requestContext,
+          tenantId
         );
       } else {
         throw new Error('Cannot process bundle');

@@ -4,8 +4,8 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { TokenSearchValue } from '../../FhirQueryParser';
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
+import { TokenSearchValue } from '../../FhirQueryParser';
 
 // Fields that do not have `.keyword` suffix. This is only important if `useKeywordSubFields` is true
 const FIELDS_WITHOUT_KEYWORD = ['id'];

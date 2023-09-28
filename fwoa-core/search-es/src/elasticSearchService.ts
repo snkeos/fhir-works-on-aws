@@ -6,6 +6,8 @@
 /* eslint-disable no-underscore-dangle */
 import URL from 'url';
 
+import { ResponseError } from '@elastic/elasticsearch/lib/errors';
+import { partition, merge, isEmpty } from 'lodash';
 import {
   Search,
   TypeSearchRequest,
@@ -18,8 +20,7 @@ import {
   InvalidSearchParameterError
 } from '@aws/fhir-works-on-aws-interface';
 import { Client, RequestParams } from '@elastic/elasticsearch';
-import { ResponseError } from '@elastic/elasticsearch/lib/errors';
-import { partition, merge, isEmpty } from 'lodash';
+import { ElasticSearch } from './elasticSearch';
 import {
   DEFAULT_SEARCH_RESULTS_PER_PAGE,
   SEARCH_PAGINATION_PARAMS,
@@ -28,23 +29,22 @@ import {
   MAX_ES_WINDOW_SIZE,
   MAX_CHAINED_PARAMS_RESULT
 } from './constants';
-import { ElasticSearch } from './elasticSearch';
-import { parseQueryString, parseQuery, ParsedFhirQueryParams } from './FhirQueryParser';
-import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
-import getComponentLogger from './loggerBuilder';
-import { buildQueryForAllSearchParameters, buildSortClause } from './QueryBuilder';
-import parseChainedParameters, { ChainParameter } from './QueryBuilder/chain';
 import {
   buildIncludeQueries,
   buildRevIncludeQueries,
   InclusionSearchParameter,
   WildcardInclusionSearchParameter
 } from './searchInclusions';
+import { FHIRSearchParametersRegistry } from './FHIRSearchParametersRegistry';
+import { buildQueryForAllSearchParameters, buildSortClause } from './QueryBuilder';
+import { parseQueryString, parseQuery, ParsedFhirQueryParams } from './FhirQueryParser';
+import parseChainedParameters, { ChainParameter } from './QueryBuilder/chain';
+import getComponentLogger from './loggerBuilder';
 
-export interface Query {
+export type Query = {
   resourceType: string;
   queryRequest: RequestParams.Search<Record<string, any>>;
-}
+};
 
 const logger = getComponentLogger();
 
@@ -229,11 +229,7 @@ export class ElasticSearchService implements Search {
       const { total, hits } = await this.executeQuery(params, request);
       const result: SearchResult = {
         numberOfResults: total,
-        entries: this.hitsToSearchEntries({
-          hits,
-          baseUrl: request.baseUrl,
-          mode: 'match'
-        }),
+        entries: this.hitsToSearchEntries({ hits, baseUrl: request.baseUrl, mode: 'match' }),
         message: ''
       };
 
@@ -342,9 +338,7 @@ export class ElasticSearchService implements Search {
         stepValue = hits.map((hit) => `${resourceType}/${hit.fields.id[0]}`);
       }
       if (chainComplete) {
-        combinedChainedParameters = merge(combinedChainedParameters, {
-          [lastChain.searchParam]: stepValue
-        });
+        combinedChainedParameters = merge(combinedChainedParameters, { [lastChain.searchParam]: stepValue });
       }
     }
     return combinedChainedParameters;
@@ -406,10 +400,7 @@ export class ElasticSearchService implements Search {
     }
     const apiResponse = await this.esClient.msearch({
       body: searchQueriesWithAlias.flatMap((query) => [
-        {
-          index: query.index,
-          ...(request.sessionId && { preference: request.sessionId })
-        },
+        { index: query.index, ...(request.sessionId && { preference: request.sessionId }) },
         { size: query.size, query: query.body!.query }
       ])
     });

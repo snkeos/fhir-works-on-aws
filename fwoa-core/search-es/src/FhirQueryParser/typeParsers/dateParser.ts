@@ -5,7 +5,11 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { lastDayOfMonth, lastDayOfYear, isValid, parseISO, set } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
+import isValid from 'date-fns/isValid';
+import set from 'date-fns/set';
+import lastDayOfMonth from 'date-fns/lastDayOfMonth';
+import lastDayOfYear from 'date-fns/lastDayOfYear';
 
 export interface DateSearchValue {
   prefix: string;
@@ -38,12 +42,7 @@ export const parseDateSearchValue = (param: string): DateSearchValue => {
   // When the date parameter is not fully specified, matches against it are based on the behavior of intervals
   // https://www.hl7.org/fhir/search.html#date
   let endDate: Date;
-  const timeEndOfDay = {
-    hours: 23,
-    minutes: 59,
-    seconds: 59,
-    milliseconds: 999
-  };
+  const timeEndOfDay = { hours: 23, minutes: 59, seconds: 59, milliseconds: 999 };
   if (milliseconds !== undefined) {
     endDate = parsedDate; // date is fully specified
   } else if (seconds !== undefined) {

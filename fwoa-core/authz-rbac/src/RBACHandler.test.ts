@@ -49,6 +49,11 @@ const RBACRules: RBACConfig = {
       operations: ['read', 'vread', 'search-type'],
       resources: ['Patient']
     }
+  },
+  scopeToGroup: {
+    'fhirworks/practitioner': 'practitioner',
+    'fhirworks/non-practitioner': 'non-practitioner',
+    'fhirworks/auditor': 'auditor'
   }
 };
 
@@ -68,7 +73,7 @@ const noGroupsDecoded = {
 };
 const nonPractitionerDecoded = {
   sub: 'fake',
-  'cognito:groups': ['non-practitioner', 'auditor'],
+  'cognito:groups': ['auditor', 'non-practitioner'],
   name: 'not real',
   iat: 1516239022
 };
@@ -512,7 +517,7 @@ describe('getAllowedResourceTypesForOperation', () => {
         userIdentity: nonPractitionerDecoded,
         operation: 'search-type'
       })
-    ).resolves.toEqual([...financialResources, 'Patient']);
+    ).resolves.toEqual(['Patient', ...financialResources]);
   });
 
   test('operation not allowed', async () => {

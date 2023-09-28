@@ -4,8 +4,8 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { ReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
+import { ReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
 
 const SUPPORTED_MODIFIERS: string[] = [];
 
@@ -50,7 +50,5 @@ export function referenceQuery(
   }
 
   const keywordSuffix = useKeywordSubFields ? '.keyword' : '';
-  return {
-    terms: { [`${compiled.path}.reference${keywordSuffix}`]: references }
-  };
+  return { terms: { [`${compiled.path}.reference${keywordSuffix}`]: references } };
 }

@@ -1,31 +1,45 @@
-/*
- *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *  SPDX-License-Identifier: Apache-2.0
- */
-
 import { createLogger, Logger } from 'winston';
 import Transport from 'winston-transport';
-import { runLoggerLevel } from './loggerUtilities';
 
 class SimpleConsole extends Transport {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public log(info: any, callback: () => void): void {
+  log(info: any, callback: () => void) {
     setImmediate(() => this.emit('logged', info));
     const msg = [info.meta, info.message];
     if (info[Symbol.for('splat')]) {
       msg.push(...info[Symbol.for('splat')]);
     }
-    runLoggerLevel(info, msg);
+
+    // Use console here so request ID and log level can be automatically attached in CloudWatch log
+    /* eslint-disable no-console */
+    switch (info[Symbol.for('level')]) {
+      case 'debug':
+        console.debug(...msg);
+        break;
+      case 'info':
+        console.info(...msg);
+        break;
+      case 'warn':
+        console.warn(...msg);
+        break;
+      case 'error':
+        console.error(...msg);
+        break;
+      default:
+        console.log(...msg);
+        break;
+    }
+    /* eslint-enable no-console */
+
     if (callback) {
       callback();
     }
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,import/prefer-default-export
-export function makeLogger(metadata?: any, logLevel?: string): Logger {
+// eslint-disable-next-line import/prefer-default-export
+export function makeLogger(metadata?: any, logLevel: string | undefined = process.env.LOG_LEVEL): Logger {
   return createLogger({
-    level: logLevel ?? process.env.LOG_LEVEL,
+    level: logLevel,
     transports: [new SimpleConsole()],
     defaultMeta: { meta: metadata }
   });

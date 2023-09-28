@@ -6,6 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
+import { v4 as uuidv4 } from 'uuid';
 import {
   SearchResponse,
   Persistence,
@@ -25,16 +26,14 @@ import {
   GetExportStatusResponse,
   RequestContext
 } from '@aws/fhir-works-on-aws-interface';
-import { v4 as uuidv4 } from 'uuid';
+import ResourceHandler from './resourceHandler';
 import invalidPatient from '../../sampleData/invalidV4Patient.json';
 import validPatient from '../../sampleData/validV4Patient.json';
-
-import DynamoDbDataService from '../__mocks_/dynamoDbDataService';
-import ElasticSearchService from '../__mocks_/elasticSearchService';
 import OperationsGenerator from '../operationsGenerator';
+
+import ElasticSearchService from '../__mocks__/elasticSearchService';
+import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
-import ResourceHandler from './resourceHandler';
-import { validateXHTMLResource } from './utils';
 
 const enum SEARCH_PAGINATION_PARAMS {
   PAGES_OFFSET = '_getpagesoffset',
@@ -1069,34 +1068,5 @@ describe('Testing history', () => {
         }
       ]);
     });
-  });
-});
-
-describe('Testing xhtml validation', () => {
-  test('valid patient resource is not affected', () => {
-    // BUILD & OPERATE
-    const validatedPatient = validateXHTMLResource(validPatient);
-
-    // CHECK
-    expect(validatedPatient).toBe(true);
-  });
-
-  test('invalid patient resource is filtered', () => {
-    // BUILD
-    const scriptedPatient = {
-      ...validPatient,
-      name: [
-        {
-          family: '<script>alert(123);</script>Levin',
-          given: ['Henry']
-        }
-      ]
-    };
-    scriptedPatient.name[0].family = '<script>alert(123);</script>Levin';
-    // OPERATE
-    const validatedPatient = validateXHTMLResource(scriptedPatient);
-
-    // CHECK
-    expect(validatedPatient).toBe(false);
   });
 });

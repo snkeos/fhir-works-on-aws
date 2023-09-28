@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { FhirVersion, BASE_R4_RESOURCES } from '@aws/fhir-works-on-aws-interface';
 import { mockRequest, mockResponse } from 'mock-req-res';
-import { utcTimeRegExp } from '../../regExpressions';
+import { FhirVersion, BASE_R4_RESOURCES } from '@aws/fhir-works-on-aws-interface';
 import ExportRouteHelper from './exportRouteHelper';
+import { utcTimeRegExp } from '../../regExpressions';
 
 describe('buildInitiateExportRequest', () => {
   const r4Version: FhirVersion = '4.0.1';
@@ -45,30 +45,6 @@ describe('buildInitiateExportRequest', () => {
       allowedResourceTypes: mockedAllowedResourceTypes,
       fhirVersion: r4Version
     });
-  });
-
-  test('System Export request with invalid _since query parameter', async () => {
-    const req = mockRequest({
-      query: {
-        _outputFormat: 'ndjson',
-        _since: '/2020-09-01T00:00:00Z',
-        _type: 'Patient'
-      },
-      headers: {
-        prefer: 'respond-async'
-      }
-    });
-    await expect(() =>
-      ExportRouteHelper.buildInitiateExportRequest(
-        req,
-        mockedResponse,
-        'system',
-        BASE_R4_RESOURCES,
-        r4Version
-      )
-    ).toThrowError(
-      "Query '_since' should be in the FHIR Instant format: YYYY-MM-DDThh:mm:ss.sss+zz:zz (e.g. 2015-02-07T13:28:17.239+02:00 or 2017-01-01T00:00:00Z)"
-    );
   });
 
   test('Group Export request with query parameters', () => {

@@ -3,10 +3,7 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-export interface KeyValueMap {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
+export type KeyValueMap = { [key: string]: any };
 
 export type IssueSeverity = 'fatal' | 'error' | 'warning' | 'information';
 

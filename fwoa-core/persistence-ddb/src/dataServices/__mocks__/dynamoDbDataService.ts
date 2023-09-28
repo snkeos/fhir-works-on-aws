@@ -17,9 +17,9 @@ import {
   GenericResponse,
   clone
 } from '@aws/fhir-works-on-aws-interface';
-import validPatient from '../sampleData/validV4Patient.json';
+import validPatient from '../../sampleData/validV4Patient.json';
 
-const __mock__dynamoDbDataService: Persistence = class {
+const DynamoDbDataService: Persistence = class {
   static updateCreateSupported: boolean = false;
 
   static async createResource(request: CreateResourceRequest): Promise<GenericResponse> {
@@ -119,4 +119,4 @@ const __mock__dynamoDbDataService: Persistence = class {
     throw new Error('Method not implemented');
   }
 };
-export default __mock__dynamoDbDataService;
+export default DynamoDbDataService;

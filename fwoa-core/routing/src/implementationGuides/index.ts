@@ -9,25 +9,25 @@ import { ImplementationGuides } from '@aws/fhir-works-on-aws-interface';
  * Based on the FHIR StructuredDefinition. This type only includes the fields that are required for the compile process.
  * See: http://www.hl7.org/fhir/structuredefinition.html
  */
-export interface FhirStructureDefinition {
+export type FhirStructureDefinition = {
   resourceType: 'StructureDefinition';
   url: string;
   name: string;
   description: string;
   baseDefinition: string;
   type: string;
-}
+};
 
 /**
  * Based on the FHIR OperationDefinition. This type only includes the fields that are required for the compile process.
  * See: https://www.hl7.org/fhir/operationdefinition.html
  */
-export interface FhirOperationDefinition {
+export type FhirOperationDefinition = {
   resourceType: 'OperationDefinition';
   url: string;
   name: string;
   description: string;
-}
+};
 
 /**
  * This class compiles StructuredDefinitions from IG packages

@@ -451,7 +451,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -1029,7 +1035,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -1038,7 +1050,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -1310,7 +1328,13 @@ Object {
         "type": "keyword",
       },
       "actuality": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "category": Object {
         "properties": Object {
@@ -2169,7 +2193,13 @@ Object {
         },
       },
       "category": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "clinicalStatus": Object {
         "properties": Object {
@@ -2260,7 +2290,13 @@ Object {
         },
       },
       "criticality": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "documentStatus": Object {
         "index": true,
@@ -2773,7 +2809,13 @@ Object {
             "type": "date",
           },
           "severity": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "substance": Object {
             "properties": Object {
@@ -2873,7 +2915,13 @@ Object {
         "type": "keyword",
       },
       "type": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "verificationStatus": Object {
         "properties": Object {
@@ -3437,7 +3485,13 @@ Object {
             },
           },
           "status": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -3713,7 +3767,13 @@ Object {
         "type": "date",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "supportingInformation": Object {
         "properties": Object {
@@ -4231,7 +4291,13 @@ Object {
         },
       },
       "participantStatus": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "resourceType": Object {
         "index": true,
@@ -4251,7 +4317,13 @@ Object {
         "type": "keyword",
       },
       "action": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "agent": Object {
         "properties": Object {
@@ -4853,7 +4925,13 @@ Object {
         },
       },
       "outcome": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "recorded": Object {
         "type": "date",
@@ -6413,7 +6491,13 @@ Object {
         "type": "date",
       },
       "type": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -6698,7 +6782,13 @@ Object {
         },
       },
       "format": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "id": Object {
         "index": true,
@@ -6869,7 +6959,13 @@ Object {
       "rest": Object {
         "properties": Object {
           "mode": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "resource": Object {
             "properties": Object {
@@ -6892,7 +6988,13 @@ Object {
                 "type": "text",
               },
               "type": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
             },
           },
@@ -6960,7 +7062,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -8002,7 +8110,13 @@ Object {
         "type": "text",
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -8194,7 +8308,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -8774,7 +8894,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -10291,7 +10417,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -11492,10 +11624,22 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "use": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -11937,7 +12081,13 @@ Object {
         },
       },
       "outcome": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "patient": Object {
         "properties": Object {
@@ -12083,10 +12233,22 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "use": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -12795,7 +12957,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -12901,19 +13069,37 @@ Object {
       "concept": Object {
         "properties": Object {
           "code": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "designation": Object {
             "properties": Object {
               "language": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
             },
           },
         },
       },
       "content": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "date": Object {
         "type": "date",
@@ -13364,7 +13550,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "supplements": Object {
         "fields": Object {
@@ -14307,7 +14499,13 @@ Object {
         "type": "date",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -14941,7 +15139,13 @@ Object {
         "type": "date",
       },
       "priority": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "recipient": Object {
         "properties": Object {
@@ -15124,7 +15328,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -15184,7 +15394,13 @@ Object {
         "type": "keyword",
       },
       "code": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "date": Object {
         "type": "date",
@@ -15567,7 +15783,13 @@ Object {
       "resource": Object {
         "properties": Object {
           "code": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -15576,7 +15798,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "url": Object {
         "fields": Object {
@@ -15931,7 +16159,13 @@ Object {
         },
       },
       "confidentiality": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "date": Object {
         "type": "date",
@@ -16575,7 +16809,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -16961,12 +17201,24 @@ Object {
           "element": Object {
             "properties": Object {
               "code": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
               "target": Object {
                 "properties": Object {
                   "code": Object {
-                    "type": "keyword",
+                    "fields": Object {
+                      "keyword": Object {
+                        "ignore_above": 256,
+                        "type": "keyword",
+                      },
+                    },
+                    "type": "text",
                   },
                   "dependsOn": Object {
                     "properties": Object {
@@ -17229,7 +17481,13 @@ Object {
         "type": "text",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "targetCanonical": Object {
         "fields": Object {
@@ -19514,7 +19772,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -20052,7 +20316,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -20693,7 +20963,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subscriber": Object {
         "properties": Object {
@@ -21350,7 +21626,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -21792,7 +22074,13 @@ Object {
         },
       },
       "outcome": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "patient": Object {
         "properties": Object {
@@ -21931,7 +22219,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -23060,7 +23354,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
         "properties": Object {
@@ -23626,7 +23926,13 @@ Object {
         "type": "keyword",
       },
       "category": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "documentStatus": Object {
         "index": true,
@@ -24694,7 +25000,13 @@ Object {
         },
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -24933,7 +25245,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -26302,7 +26620,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -26981,7 +27305,13 @@ Object {
         "type": "text",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -27221,10 +27551,22 @@ Object {
           "attachment": Object {
             "properties": Object {
               "contentType": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
               "language": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
               "url": Object {
                 "fields": Object {
@@ -27955,7 +28297,13 @@ Object {
       "relatesTo": Object {
         "properties": Object {
           "code": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "target": Object {
             "properties": Object {
@@ -28052,7 +28400,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -28614,7 +28968,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -29889,7 +30249,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -30495,7 +30861,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -30929,7 +31301,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -31363,7 +31741,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -31987,7 +32371,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
         "properties": Object {
@@ -32512,7 +32902,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -32521,7 +32917,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -33258,7 +33660,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -33267,7 +33675,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -34004,7 +34418,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -34013,7 +34433,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -34724,7 +35150,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "url": Object {
         "fields": Object {
@@ -35929,7 +36361,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -36520,7 +36958,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -37436,7 +37880,13 @@ Object {
         },
       },
       "lifecycleStatus": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -38023,10 +38473,22 @@ Object {
         "type": "keyword",
       },
       "start": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "url": Object {
         "fields": Object {
@@ -39006,7 +39468,13 @@ Object {
         "type": "keyword",
       },
       "type": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -41122,7 +41590,13 @@ Object {
         "type": "date",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -41953,7 +42427,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "statusReason": Object {
         "properties": Object {
@@ -42566,7 +43046,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "targetDisease": Object {
         "properties": Object {
@@ -43791,7 +44277,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -44118,7 +44610,7 @@ Object {
                     "type": "keyword",
                   },
                 },
-                "type": "keyword",
+                "type": "text",
               },
               "state": Object {
                 "fields": Object {
@@ -44139,7 +44631,13 @@ Object {
                 "type": "text",
               },
               "use": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
             },
           },
@@ -44617,7 +45115,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
         "properties": Object {
@@ -45278,7 +45782,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -45452,7 +45962,13 @@ Object {
       "content": Object {
         "properties": Object {
           "contentType": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -45922,7 +46438,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -45931,7 +46453,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -47318,7 +47846,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -47431,7 +47965,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -47452,7 +47986,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -48012,7 +48552,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
         "properties": Object {
@@ -48546,7 +49092,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -48555,7 +49107,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -49311,7 +49869,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -50022,7 +50586,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -50784,7 +51354,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -51499,7 +52075,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "statusReason": Object {
         "properties": Object {
@@ -52289,7 +52871,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -53277,7 +53865,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -53726,7 +54320,13 @@ Object {
         },
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "medicationCodeableConcept": Object {
         "properties": Object {
@@ -53992,7 +54592,13 @@ Object {
         },
       },
       "priority": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "requester": Object {
         "properties": Object {
@@ -54043,7 +54649,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -54754,7 +55366,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -58375,7 +58993,13 @@ Object {
         "type": "keyword",
       },
       "category": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "date": Object {
         "type": "date",
@@ -58689,7 +59313,13 @@ Object {
       "focus": Object {
         "properties": Object {
           "code": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -58882,7 +59512,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -59746,7 +60382,13 @@ Object {
       "response": Object {
         "properties": Object {
           "code": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "identifier": Object {
             "fields": Object {
@@ -60399,7 +61041,13 @@ Object {
         "type": "keyword",
       },
       "type": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "variant": Object {
         "properties": Object {
@@ -60777,7 +61425,13 @@ Object {
         },
       },
       "kind": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -60898,7 +61552,13 @@ Object {
         "type": "text",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
         "properties": Object {
@@ -60957,7 +61617,13 @@ Object {
             },
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -61836,7 +62502,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "supplement": Object {
         "properties": Object {
@@ -63284,7 +63956,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -63593,7 +64271,13 @@ Object {
         "type": "text",
       },
       "code": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "date": Object {
         "type": "date",
@@ -63925,7 +64609,13 @@ Object {
         },
       },
       "kind": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -64046,7 +64736,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "system": Object {
         "type": "boolean",
@@ -64327,7 +65023,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -64348,7 +65044,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -65637,7 +66339,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -65711,7 +66413,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -65732,7 +66434,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -66048,7 +66756,13 @@ Object {
         },
       },
       "gender": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "generalPractitioner": Object {
         "properties": Object {
@@ -66361,7 +67075,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -66941,7 +67655,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -67339,7 +68059,13 @@ Object {
         },
       },
       "outcome": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "paymentIssuer": Object {
         "properties": Object {
@@ -67478,7 +68204,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -67538,7 +68270,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -67559,7 +68291,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -67824,7 +68562,13 @@ Object {
         },
       },
       "gender": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "id": Object {
         "index": true,
@@ -68093,7 +68837,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -68616,7 +69360,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -68625,7 +69375,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -68988,7 +69744,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -69009,7 +69765,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -69315,7 +70077,13 @@ Object {
         },
       },
       "gender": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "id": Object {
         "index": true,
@@ -69492,7 +70260,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -70222,7 +70990,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -71169,7 +71937,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -72409,10 +73183,22 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subjectType": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -73246,7 +74032,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -73353,7 +74145,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "state": Object {
             "fields": Object {
@@ -73374,7 +74166,13 @@ Object {
             "type": "text",
           },
           "use": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -73639,7 +74437,13 @@ Object {
         },
       },
       "gender": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "id": Object {
         "index": true,
@@ -73904,7 +74708,7 @@ Object {
                 "type": "keyword",
               },
             },
-            "type": "keyword",
+            "type": "text",
           },
           "value": Object {
             "fields": Object {
@@ -74437,7 +75241,13 @@ Object {
         "type": "text",
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -74527,14 +75337,26 @@ Object {
         },
       },
       "priority": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "resourceType": Object {
         "index": true,
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -75068,7 +75890,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -75077,7 +75905,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -75823,7 +76657,13 @@ Object {
             "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -75832,7 +76672,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -76884,7 +77730,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -77337,7 +78189,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "study": Object {
         "properties": Object {
@@ -78588,7 +79446,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -79392,10 +80256,22 @@ Object {
         "type": "keyword",
       },
       "base": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "code": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "component": Object {
         "properties": Object {
@@ -79846,13 +80722,31 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "target": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "type": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "url": Object {
         "fields": Object {
@@ -80595,7 +81489,13 @@ Object {
         "type": "text",
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -80876,7 +81776,13 @@ Object {
         },
       },
       "priority": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "replaces": Object {
         "properties": Object {
@@ -81037,7 +81943,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -81694,7 +82606,13 @@ Object {
         "type": "date",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -82325,7 +83243,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "subject": Object {
         "properties": Object {
@@ -82926,7 +83850,13 @@ Object {
       "context": Object {
         "properties": Object {
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -82934,7 +83864,13 @@ Object {
         "type": "date",
       },
       "derivation": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "description": Object {
         "fields": Object {
@@ -83337,7 +84273,13 @@ Object {
         },
       },
       "kind": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "meta": Object {
         "properties": Object {
@@ -83492,7 +84434,13 @@ Object {
         },
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -84177,7 +85125,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -84416,10 +85370,22 @@ Object {
             "type": "text",
           },
           "payload": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
           "type": Object {
-            "type": "keyword",
+            "fields": Object {
+              "keyword": Object {
+                "ignore_above": 256,
+                "type": "keyword",
+              },
+            },
+            "type": "text",
           },
         },
       },
@@ -84807,7 +85773,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -85440,7 +86412,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -86331,7 +87309,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "supplier": Object {
         "properties": Object {
@@ -86900,7 +87884,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "supplier": Object {
         "properties": Object {
@@ -87542,7 +88532,13 @@ Object {
         },
       },
       "intent": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "lastModified": Object {
         "type": "date",
@@ -87767,7 +88763,13 @@ Object {
         },
       },
       "priority": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "requester": Object {
         "properties": Object {
@@ -87818,7 +88820,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },
@@ -88260,7 +89268,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -88878,7 +89892,13 @@ Object {
         "type": "keyword",
       },
       "result": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "testScript": Object {
         "properties": Object {
@@ -89412,7 +90432,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -89646,7 +90672,13 @@ Object {
               "concept": Object {
                 "properties": Object {
                   "code": Object {
-                    "type": "keyword",
+                    "fields": Object {
+                      "keyword": Object {
+                        "ignore_above": 256,
+                        "type": "keyword",
+                      },
+                    },
+                    "type": "text",
                   },
                 },
               },
@@ -89684,7 +90716,13 @@ Object {
           "contains": Object {
             "properties": Object {
               "code": Object {
-                "type": "keyword",
+                "fields": Object {
+                  "keyword": Object {
+                    "ignore_above": 256,
+                    "type": "keyword",
+                  },
+                },
+                "type": "text",
               },
             },
           },
@@ -90132,7 +91170,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
       "title": Object {
         "fields": Object {
@@ -91278,7 +92322,13 @@ Object {
         "type": "keyword",
       },
       "status": Object {
-        "type": "keyword",
+        "fields": Object {
+          "keyword": Object {
+            "ignore_above": 256,
+            "type": "keyword",
+          },
+        },
+        "type": "text",
       },
     },
   },

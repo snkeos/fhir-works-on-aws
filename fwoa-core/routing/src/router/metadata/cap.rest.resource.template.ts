@@ -10,11 +10,11 @@ import {
   SearchCapabilities,
   Resource
 } from '@aws/fhir-works-on-aws-interface';
+import { ResourceCapabilityStatement, ResourceCapability } from '../../registry/ResourceCapabilityInterface';
 import {
   OperationCapability,
   OperationCapabilityStatement
 } from '../../operationDefinitions/OperationDefinitionRegistry';
-import { ResourceCapabilityStatement, ResourceCapability } from '../../registry/ResourceCapabilityInterface';
 
 function makeResourceObject(
   resourceType: string,

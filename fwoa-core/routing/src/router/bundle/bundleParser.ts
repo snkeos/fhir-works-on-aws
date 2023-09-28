@@ -4,27 +4,30 @@
  */
 
 /* eslint-disable no-restricted-syntax */
+import { v4 as uuidv4 } from 'uuid';
+import flatten from 'flat';
+import get from 'lodash/get';
+import set from 'lodash/set';
 import {
   BatchReadWriteRequest,
   Reference,
   Persistence,
   TypeOperation,
   SystemOperation,
-  getRequestInformation
+  getRequestInformation,
+  KeyValueMap,
+  RequestContext
 } from '@aws/fhir-works-on-aws-interface';
-import flatten from 'flat';
-import get from 'lodash/get';
-import set from 'lodash/set';
-import { v4 as uuidv4 } from 'uuid';
 
-import { MAX_BUNDLE_ENTRY_URL_LENGTH, MAX_REFERENCE_URL_LENGTH } from '../../constants';
-
+import querystring from 'querystring';
 import {
   captureFullUrlParts,
   captureIdFromUrn,
   captureResourceIdRegExp,
   captureResourceTypeRegExp
 } from '../../regExpressions';
+
+import ResourceTypeSearch from '../../utils/ResourceTypeSearch';
 
 export default class BundleParser {
   static SELF_CONTAINED_REFERENCE = 'SELF_CONTAINED_REFERENCE';
@@ -40,24 +43,41 @@ export default class BundleParser {
   public static async parseResource(
     bundleRequestJson: any,
     dataService: Persistence,
-    serverUrl: string
+    resourceTypeSearch: ResourceTypeSearch,
+    serverUrl: string,
+    userIdentity: KeyValueMap,
+    requestContext: RequestContext,
+    tenantId?: string
   ): Promise<BatchReadWriteRequest[]> {
-    const requests: BatchReadWriteRequest[] = [];
-    bundleRequestJson.entry.forEach((entry: any) => {
-      const operation = this.getOperation(entry);
+    const preProcessedResources = bundleRequestJson.entry.map((entry: any) => {
+      return this.getResourceIdAndOperation(
+        entry,
+        this.getOperation(entry),
+        resourceTypeSearch,
+        userIdentity,
+        requestContext,
+        serverUrl,
+        tenantId
+      );
+    });
+
+    const preProcessedResourcesResult = await Promise.all(preProcessedResources);
+    const requests: BatchReadWriteRequest[] = preProcessedResourcesResult.map((preProcessedResource: any) => {
+      const operation = preProcessedResource[0];
+      const id = preProcessedResource[1];
+      const entry = preProcessedResource[2];
       const request: BatchReadWriteRequest = {
         operation,
         resource: entry.resource || entry.request.url, // GET requests, only contains the URL of the resource
         fullUrl: entry.fullUrl || '',
         resourceType: this.getResourceType(entry, operation),
-        id: this.getResourceId(entry, operation)
+        id
       };
-
       const references = this.getReferences(entry);
       if (references.length > 0) {
         request.references = references;
       }
-      requests.push(request);
+      return request;
     });
 
     return this.updateReferenceRequestsIfNecessary(
@@ -336,9 +356,6 @@ export default class BundleParser {
 
     const references: Reference[] = referencePaths.map((referencePath) => {
       const entryReference = get(entry.resource, referencePath);
-      if (entryReference.length > MAX_REFERENCE_URL_LENGTH) {
-        throw new Error(`Reference URL exceeds length limit.`);
-      }
       const idFromUrnMatch = entryReference.match(captureIdFromUrn);
       if (idFromUrnMatch) {
         const urlRoot = idFromUrnMatch[1];
@@ -357,11 +374,8 @@ export default class BundleParser {
       if (fullUrlMatch) {
         let rootUrl = fullUrlMatch[1];
         // If the reference doesn't have a urlRoot, check if the entry's fullUrl has a urlRoot
-        if (rootUrl === undefined && entry.fullUrl) {
-          if (entry.fullUrl.length > MAX_BUNDLE_ENTRY_URL_LENGTH) {
-            throw new Error(`Entry full URL length exceeds length limit.`);
-          }
-          if (entry.fullUrl.match(captureFullUrlParts)) {
+        if (rootUrl === undefined) {
+          if (entry.fullUrl && entry.fullUrl.match(captureFullUrlParts)) {
             // eslint-disable-next-line prefer-destructuring
             rootUrl = entry.fullUrl.match(captureFullUrlParts)[1];
           }
@@ -405,16 +419,56 @@ export default class BundleParser {
   }
 
   /**
-   * Get the resource id specified in the entry
+   * Get the resource id and operation specified in the entry
    * @param entry - Entry to parse
    * @param operation - Operation specified in the entry
+   * @param resourceTypeSearch - The search helper object for conditional update
+   * @param userIdentity - auth information
+   * @param requestContext - additional request infos
+   * @param tenantId - Operation specified in the entry
+   * @throws Error in the case of conditional update requirements could not be fulfilled.
    */
-  private static getResourceId(entry: any, operation: TypeOperation | SystemOperation) {
+  private static async getResourceIdAndOperation(
+    entry: any,
+    operation: TypeOperation | SystemOperation,
+    resourceTypeSearch: ResourceTypeSearch,
+    userIdentity: KeyValueMap,
+    requestContext: RequestContext,
+    serverUrl: string,
+    tenantId?: string
+  ): Promise<[TypeOperation | SystemOperation, string, any]> {
     let id = '';
     if (operation === 'create') {
       id = uuidv4();
     } else if (operation === 'update' || operation === 'patch') {
-      id = entry.resource.id;
+      const { url } = entry.request;
+      const pathElements = url.split('?');
+
+      // check for conditional update
+      if (pathElements.length === 2) {
+        const parsedQs = querystring.parse(pathElements[1]);
+
+        const resourceType = this.getResourceType(entry, operation);
+        const searchResults = await resourceTypeSearch.searchResources(
+          resourceType,
+          parsedQs,
+          userIdentity,
+          requestContext,
+          serverUrl,
+          tenantId
+        );
+
+        if (searchResults.entries.length === 0) {
+          return ['create', uuidv4(), entry];
+        }
+        if (searchResults.entries.length === 1) {
+          id = searchResults.entries[0].resource.id;
+        } else {
+          throw new Error(`Cannot process bundle: Conditional update: Too many resources found for ${url}.`);
+        }
+      } else {
+        id = entry.resource.id;
+      }
     } else if (
       operation === 'read' ||
       operation === 'vread' ||
@@ -431,8 +485,7 @@ export default class BundleParser {
       // eslint-disable-next-line prefer-destructuring
       id = match[1];
     }
-
-    return id;
+    return [operation, id, entry];
   }
 
   /**

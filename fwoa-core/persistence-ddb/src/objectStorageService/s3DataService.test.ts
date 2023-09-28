@@ -2,22 +2,19 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-
 jest.mock('./s3ObjectStorageService');
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line max-classes-per-file
 import {
-  vReadResourceRequest,
-  ReadResourceRequest,
-  UpdateResourceRequest,
-  CreateResourceRequest,
-  DeleteResourceRequest,
   GenericResponse,
-  generateMeta,
+  ReadResourceRequest,
   ResourceNotFoundError,
-  ResourceVersionNotFoundError
+  ResourceVersionNotFoundError,
+  generateMeta,
+  vReadResourceRequest
 } from '@aws/fhir-works-on-aws-interface';
-import DynamoDbDataService from '../dataServices/__mock__dynamoDbDataService';
+import DynamoDbDataService from '../dataServices/__mocks__/dynamoDbDataService';
 import validV3JpegBinary from '../sampleData/validV3JpegBinary.json';
 import validV4JpegBinary from '../sampleData/validV4JpegBinary.json';
 import validV4PdfBinary from '../sampleData/validV4PdfBinary.json';

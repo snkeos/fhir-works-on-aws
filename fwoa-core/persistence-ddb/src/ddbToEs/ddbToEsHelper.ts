@@ -8,7 +8,7 @@
 import { Client } from '@elastic/elasticsearch';
 // @ts-ignore
 import { AmazonConnection, AmazonTransport } from 'aws-elasticsearch-connector';
-import { uniqWith, isEqual, partition, groupBy, zipObject } from 'lodash';
+import { groupBy, isEqual, partition, uniqWith, zipObject } from 'lodash';
 import AWS from '../AWS';
 import DOCUMENT_STATUS from '../dataServices/documentStatus';
 import { DOCUMENT_STATUS_FIELD } from '../dataServices/dynamoDbUtil';

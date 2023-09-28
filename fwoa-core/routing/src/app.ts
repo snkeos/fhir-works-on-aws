@@ -3,6 +3,8 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
+import express, { Express } from 'express';
+import cors, { CorsOptions } from 'cors';
 import {
   cleanAuthHeader,
   getRequestInformation,
@@ -13,22 +15,20 @@ import {
   RequestContext,
   VerbType
 } from '@aws/fhir-works-on-aws-interface';
-import cors, { CorsOptions } from 'cors';
-import express, { Express } from 'express';
+import GenericResourceRoute from './router/routes/genericResourceRoute';
 import ConfigHandler from './configHandler';
-import { initializeOperationRegistry } from './operationDefinitions';
-import { FHIRStructureDefinitionRegistry } from './registry';
+import MetadataRoute from './router/routes/metadataRoute';
 import ResourceHandler from './router/handlers/resourceHandler';
-import { setContentTypeMiddleware } from './router/middlewares/setContentType';
-import { setLoggerMiddleware } from './router/middlewares/setLogger';
-import { setServerUrlMiddleware } from './router/middlewares/setServerUrl';
-import { setTenantIdMiddleware } from './router/middlewares/setTenantId';
+import RootRoute from './router/routes/rootRoute';
 import { applicationErrorMapper, httpErrorHandler, unknownErrorHandler } from './router/routes/errorHandling';
 import ExportRoute from './router/routes/exportRoute';
-import GenericResourceRoute from './router/routes/genericResourceRoute';
-import MetadataRoute from './router/routes/metadataRoute';
-import RootRoute from './router/routes/rootRoute';
 import WellKnownUriRouteRoute from './router/routes/wellKnownUriRoute';
+import { FHIRStructureDefinitionRegistry } from './registry';
+import { initializeOperationRegistry } from './operationDefinitions';
+import { setServerUrlMiddleware } from './router/middlewares/setServerUrl';
+import { setTenantIdMiddleware } from './router/middlewares/setTenantId';
+import { setContentTypeMiddleware } from './router/middlewares/setContentType';
+import { initXRayExpress, openXRaySegment, closeXRaySegment } from './utils/xrayUtils';
 
 const configVersionSupported: ConfigVersion = 1;
 
@@ -49,6 +49,8 @@ function prepareRequestContext(req: express.Request): RequestContext {
   return requestContext;
 }
 
+const XRayExpress = initXRayExpress();
+
 export function generateServerlessRouter(
   fhirConfig: FhirConfig,
   supportedGenericResources: string[],
@@ -66,6 +68,8 @@ export function generateServerlessRouter(
 
   const app = express();
   app.disable('x-powered-by');
+
+  openXRaySegment(app, XRayExpress, 'AWS FHIRServer Server API');
 
   const mainRouter = express.Router({ mergeParams: true });
 
@@ -108,6 +112,9 @@ export function generateServerlessRouter(
   // AuthZ
   mainRouter.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
+      if (req.method === 'OPTIONS') {
+        next();
+      }
       const requestInformation =
         operationRegistry.getOperation(req.method, req.path)?.requestInformation ??
         getRequestInformation(req.method, req.path);
@@ -126,10 +133,6 @@ export function generateServerlessRouter(
       next(e);
     }
   });
-
-  if (process.env.ENABLE_SECURITY_LOGGING === 'true') {
-    mainRouter.use(setLoggerMiddleware);
-  }
 
   if (fhirConfig.multiTenancyConfig?.enableMultiTenancy) {
     mainRouter.use(setTenantIdMiddleware(fhirConfig));
@@ -230,6 +233,6 @@ export function generateServerlessRouter(
   } else {
     app.use('/', mainRouter);
   }
-
+  closeXRaySegment(app, XRayExpress);
   return app;
 }

@@ -3,8 +3,20 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { TypeSearchRequest } from '@aws/fhir-works-on-aws-interface';
 import { isEmpty } from 'lodash';
+import { TypeSearchRequest } from '@aws/fhir-works-on-aws-interface';
+import {
+  CompiledSearchParam,
+  FHIRSearchParametersRegistry,
+  SearchParam
+} from '../FHIRSearchParametersRegistry';
+import { stringQuery } from './typeQueries/stringQuery';
+import { dateQuery } from './typeQueries/dateQuery';
+import { tokenQuery } from './typeQueries/tokenQuery';
+import { numberQuery } from './typeQueries/numberQuery';
+import { quantityQuery } from './typeQueries/quantityQuery';
+import { referenceQuery } from './typeQueries/referenceQuery';
+import { uriQuery } from './typeQueries/uriQuery';
 import {
   DateSearchValue,
   NumberSearchValue,
@@ -15,18 +27,6 @@ import {
   TokenSearchValue
 } from '../FhirQueryParser';
 import { ReferenceSearchValue } from '../FhirQueryParser/typeParsers/referenceParser';
-import {
-  CompiledSearchParam,
-  FHIRSearchParametersRegistry,
-  SearchParam
-} from '../FHIRSearchParametersRegistry';
-import { dateQuery } from './typeQueries/dateQuery';
-import { numberQuery } from './typeQueries/numberQuery';
-import { quantityQuery } from './typeQueries/quantityQuery';
-import { referenceQuery } from './typeQueries/referenceQuery';
-import { stringQuery } from './typeQueries/stringQuery';
-import { tokenQuery } from './typeQueries/tokenQuery';
-import { uriQuery } from './typeQueries/uriQuery';
 
 function typeQueryWithConditions(
   searchParam: SearchParam,

@@ -5,9 +5,9 @@
  */
 
 import Ajv from 'ajv';
+import createError from 'http-errors';
 // @ts-ignore
 import ajvErrors from 'ajv-errors';
-import createError from 'http-errors';
 
 const ajv = ajvErrors(new Ajv({ allErrors: true, jsonPointers: true }));
 

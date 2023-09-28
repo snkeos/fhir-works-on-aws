@@ -4,10 +4,10 @@
  *
  */
 
-import ConfigHandler from '../configHandler';
-import { OperationDefinitionRegistry } from './OperationDefinitionRegistry';
 import { OperationDefinitionImplementation } from './types';
 import { USCoreDocRef } from './USCoreDocRef';
+import { OperationDefinitionRegistry } from './OperationDefinitionRegistry';
+import ConfigHandler from '../configHandler';
 
 export const initializeOperationRegistry = (configHandler: ConfigHandler) => {
   const { compiledImplementationGuides } = configHandler.config.profile;

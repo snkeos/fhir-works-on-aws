@@ -5,8 +5,8 @@
  */
 
 import { Router } from 'express';
-import ConfigHandler from '../configHandler';
 import { OperationDefinitionImplementation } from './types';
+import ConfigHandler from '../configHandler';
 
 export interface OperationCapability {
   operation: {

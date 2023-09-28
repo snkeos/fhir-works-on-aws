@@ -7,8 +7,8 @@
 import { Client } from '@elastic/elasticsearch';
 import AWS from 'aws-sdk';
 import getComponentLogger from '../loggerBuilder';
-import DdbToEsHelper from './ddbToEsHelper';
 import ESBulkCommand from './ESBulkCommand';
+import DdbToEsHelper from './ddbToEsHelper';
 
 const logger = getComponentLogger();
 

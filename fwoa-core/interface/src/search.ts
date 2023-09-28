@@ -12,7 +12,6 @@ export interface SearchFilter {
 
 export interface GlobalSearchRequest {
   baseUrl: string; // server's URL
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryParams?: any;
   searchFilters?: SearchFilter[];
   tenantId?: string;
@@ -29,7 +28,6 @@ export interface TypeSearchRequest extends GlobalSearchRequest {
 
 export interface SearchEntry {
   fullUrl: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   search: {
     mode: 'match' | 'include' | 'outcome';

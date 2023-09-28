@@ -7,7 +7,7 @@ import { GenericResponse } from '@aws/fhir-works-on-aws-interface';
 import getComponentLogger from '../loggerBuilder';
 import ObjectNotFoundError from './ObjectNotFoundError';
 import ObjectStorageInterface from './objectStorageInterface';
-import { S3, FHIR_BINARY_BUCKET, S3_KMS_KEY } from './s3';
+import { FHIR_BINARY_BUCKET, S3, S3_KMS_KEY } from './s3';
 
 const logger = getComponentLogger();
 

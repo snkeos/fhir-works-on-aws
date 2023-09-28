@@ -31,7 +31,6 @@ export interface OAuthStrategy {
   managementEndpoint?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export type tokenEndpointAuthMethod = 'client_secret_basic' | 'client_secret_post' | 'private_key_jwt';
 
 /**
@@ -124,7 +123,6 @@ export interface Profile {
   bulkDataAccess?: BulkDataAccess;
   genericResource?: GenericResource;
   resources?: Resources;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   compiledImplementationGuides?: any;
 }
 /**
@@ -184,6 +182,16 @@ export interface MultiTenancyConfig {
    * @example "nested.object.tenantId"
    */
   tenantIdClaimPath: string;
+  /**
+   * The prefix helps to identify the tenant specific values in a custom claim.
+   * @example "tenant:" would identify the tenant value "tenant:12345" in "cognito:groups" claim
+   */
+  tenantIdClaimValuePrefix?: string;
+  /**
+   * This optional option specifies a scope, which allows access to all tenants.
+   * This option is only applicable if useTenantSpecificUrl is enabled.
+   */
+  grantAccessAllTenantsScope?: string;
 }
 
 export interface FhirConfig {

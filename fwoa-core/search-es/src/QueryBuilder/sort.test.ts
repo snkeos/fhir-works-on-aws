@@ -4,8 +4,8 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 import { buildSortClause, parseSortParameter } from './sort';
+import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 

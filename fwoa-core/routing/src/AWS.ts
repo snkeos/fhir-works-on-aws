@@ -4,8 +4,8 @@
  */
 
 import './offlineEnvVariables';
-import AWS from 'aws-sdk';
 import AWSXRay from 'aws-xray-sdk';
+import AWS from 'aws-sdk';
 
 const AWSWithXray = AWSXRay.captureAWS(AWS);
 

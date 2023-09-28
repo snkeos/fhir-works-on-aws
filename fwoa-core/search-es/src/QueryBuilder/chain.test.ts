@@ -4,8 +4,8 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
 import parseChainedParameters, { getUniqueTarget } from './chain';
+import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 

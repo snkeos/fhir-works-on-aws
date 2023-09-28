@@ -4,6 +4,7 @@
  */
 
 /* eslint-disable no-underscore-dangle */
+import express, { Router } from 'express';
 import {
   Authorization,
   BulkDataAccess,
@@ -11,11 +12,10 @@ import {
   FhirVersion,
   InitiateExportRequest
 } from '@aws/fhir-works-on-aws-interface';
-import express, { Router } from 'express';
 import createHttpError from 'http-errors';
+import RouteHelper from './routeHelper';
 import ExportHandler from '../handlers/exportHandler';
 import ExportRouteHelper from './exportRouteHelper';
-import RouteHelper from './routeHelper';
 
 export default class ExportRoute {
   readonly router: Router;

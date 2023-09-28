@@ -2,7 +2,7 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 // eslint-disable-next-line import/prefer-default-export
 export class ResourceNotFoundError extends Error {
   readonly isResourceNotFoundError: boolean;
@@ -12,7 +12,7 @@ export class ResourceNotFoundError extends Error {
   readonly id: string;
 
   constructor(resourceType: string, id: string, message?: string) {
-    const msg = message || 'Resource is not known';
+    const msg = message || `Resource ${resourceType}/${id} is not known`;
     // Node Error class requires passing a string message to the parent class
     super(msg);
     Object.setPrototypeOf(this, ResourceNotFoundError.prototype);

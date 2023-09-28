@@ -20,7 +20,6 @@ export interface BatchReadWriteRequest {
   resourceType: string;
   id: string;
   vid?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   // GET requests, only contains the URL of the resource
   fullUrl?: string;
@@ -44,7 +43,6 @@ export interface BatchReadWriteResponse {
   vid: string;
   resourceType: string;
   operation: TypeOperation | SystemOperation;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   lastModified: string;
   error?: string;

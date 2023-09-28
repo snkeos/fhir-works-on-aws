@@ -4,9 +4,9 @@
  */
 
 import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { parseReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
-import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
 import { referenceQuery } from './referenceQuery';
+import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
+import { parseReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const organizationParam = fhirSearchParametersRegistry.getSearchParameter('Patient', 'organization')!

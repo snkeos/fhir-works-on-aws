@@ -1,6 +1,6 @@
 import { DynamoDBStreamEvent } from 'aws-lambda/trigger/dynamodb-stream';
-import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 import { buildNotification, filterOutIneligibleResources, parseSubscription } from './subscriptions';
+import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 
 describe('filterOutIneligibleResources', () => {
   const dynamoDBStreamEvent = (): DynamoDBStreamEvent => ({
@@ -40,7 +40,7 @@ describe('filterOutIneligibleResources', () => {
           StreamViewType: 'NEW_AND_OLD_IMAGES'
         },
         eventSourceARN:
-          'arn:aws:dynamodb:us-west-2:555555555555:table/resource-db-dev/stream/2021-06-17T09:08:31.388'
+          'arn:aws:dynamodb:us-west-2:494110835610:table/resource-db-dev/stream/2021-06-17T09:08:31.388'
       }
     ]
   });
