@@ -27,9 +27,18 @@ import { loadImplementationGuides } from './implementationGuides/loadCompiledIGs
 import RBACRules from './RBACRules';
 import getAllowListedSubscriptionEndpoints from './subscriptions/allowList';
 
-const { IS_OFFLINE, ENABLE_MULTI_TENANCY, ENABLE_SUBSCRIPTIONS } = process.env;
+const { IS_OFFLINE, ENABLE_MULTI_TENANCY, USE_TENANT_SPECIFIC_URL, ENABLE_SUBSCRIPTIONS } = process.env;
 
 const enableMultiTenancy = ENABLE_MULTI_TENANCY === 'true';
+const useTenantSpecificUrl = USE_TENANT_SPECIFIC_URL === 'true';
+const tenantIdClaimPath =
+  process.env.TENANT_ID_CLAIM_PATH !== '' && process.env.TENANT_ID_CLAIM_PATH !== undefined
+    ? process.env.TENANT_ID_CLAIM_PATH
+    : 'custom:tenantId';
+const tenantIdClaimValuePrefix =
+  process.env.TENANT_ID_CLAIM_VALUE_PREFIX !== '' ? process.env.TENANT_ID_CLAIM_VALUE_PREFIX : undefined;
+const grantAccessAllTenantsScope =
+  process.env.GRANT_ACCESS_ALL_TENANTS_SCOPE !== '' ? process.env.GRANT_ACCESS_ALL_TENANTS_SCOPE : undefined;
 const enableSubscriptions = ENABLE_SUBSCRIPTIONS === 'true';
 
 export const fhirVersion: FhirVersion = '4.0.1';
@@ -144,11 +153,48 @@ export const getFhirConfig = async (): Promise<FhirConfig> => {
     multiTenancyConfig: enableMultiTenancy
       ? {
           enableMultiTenancy: true,
-          useTenantSpecificUrl: true,
-          tenantIdClaimPath: 'custom:tenantId'
+          useTenantSpecificUrl: useTenantSpecificUrl,
+          tenantIdClaimPath: tenantIdClaimPath,
+          tenantIdClaimValuePrefix: tenantIdClaimValuePrefix,
+          grantAccessAllTenantsScope: grantAccessAllTenantsScope
         }
       : undefined
   };
 };
 
 export const genericResources = baseResources;
+
+export function getCorsOrigins(): string | string[] | undefined {
+  const corsOrigins =
+    process.env.CORS_ORIGINS === '[object Object]' || process.env.CORS_ORIGINS === undefined
+      ? undefined
+      : process.env.CORS_ORIGINS;
+
+  // Check, if there are any cors origins set
+  if (corsOrigins !== undefined) {
+    const corsOriginsArray: string[] = corsOrigins.split(',');
+    let cleanCorsOriginsArray: string[] = [];
+
+    // Skip empty array elements, trim whitespaces and transform ALL_ORIGINS to *
+    corsOriginsArray.every((origin) => {
+      const cleanedOrigin = origin.trim();
+      if (cleanedOrigin.toUpperCase() === 'ALL_ORIGINS') {
+        cleanCorsOriginsArray = [];
+        cleanCorsOriginsArray.push('*');
+        return false;
+      }
+      if (cleanedOrigin.length !== 0) {
+        cleanCorsOriginsArray.push(cleanedOrigin);
+      }
+      return true;
+    });
+
+    // If there is only a simple entry, just return the string itself
+    if (cleanCorsOriginsArray.length === 1) {
+      return cleanCorsOriginsArray[0];
+    }
+
+    return cleanCorsOriginsArray;
+  }
+  return undefined;
+}
