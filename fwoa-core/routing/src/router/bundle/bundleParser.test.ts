@@ -12,9 +12,9 @@ import {
 import { ReadResourceRequest } from '@aws/fhir-works-on-aws-interface/lib/persistence';
 import { resourceTypeWithUuidRegExp, uuidRegExp } from '../../regExpressions';
 import ResourceTypeSearch from '../../utils/ResourceTypeSearch';
-import AuthorizationService from '../__mocks__/authorizationService';
-import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
-import ElasticSearchService, { setExpectedSearchSet } from '../__mocks__/elasticSearchService';
+import AuthorizationService from '../mocks/authorizationService';
+import DynamoDbDataService from '../mocks/dynamoDbDataService';
+import ElasticSearchService, { setExpectedSearchSet } from '../mocks/elasticSearchService';
 import BundleParser from './bundleParser';
 
 const practitionerDecoded = {

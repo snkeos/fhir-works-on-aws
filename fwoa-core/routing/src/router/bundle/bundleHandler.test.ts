@@ -21,8 +21,8 @@ import ConfigHandler from '../../configHandler';
 import { MAX_BUNDLE_ENTRIES } from '../../constants';
 import { uuidRegExp, utcTimeRegExp } from '../../regExpressions';
 import r4FhirConfigGeneric from '../../sampleData/r4FhirConfigGeneric';
-import DynamoDbBundleService from '../__mocks__/dynamoDbBundleService';
-import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
+import DynamoDbBundleService from '../mocks/dynamoDbBundleService';
+import DynamoDbDataService from '../mocks/dynamoDbDataService';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
 import BundleHandler from './bundleHandler';
 

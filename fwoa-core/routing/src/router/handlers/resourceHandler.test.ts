@@ -29,8 +29,8 @@ import { v4 as uuidv4 } from 'uuid';
 import invalidPatient from '../../sampleData/invalidV4Patient.json';
 import validPatient from '../../sampleData/validV4Patient.json';
 
-import DynamoDbDataService from '../__mocks__/dynamoDbDataService';
-import ElasticSearchService from '../__mocks__/elasticSearchService';
+import DynamoDbDataService from '../mocks/dynamoDbDataService';
+import ElasticSearchService from '../mocks/elasticSearchService';
 import OperationsGenerator from '../operationsGenerator';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
 import ResourceHandler from './resourceHandler';

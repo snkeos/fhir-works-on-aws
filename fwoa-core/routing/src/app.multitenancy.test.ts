@@ -1,12 +1,12 @@
 import { clone, BatchReadWriteResponse } from '@aws/fhir-works-on-aws-interface';
 import express from 'express';
 import { generateServerlessRouter } from './app';
-import AuthorizationService, { setExpectedTokenDecoded } from './router/__mocks__/authorizationService';
+import AuthorizationService, { setExpectedTokenDecoded } from './router/mocks/authorizationService';
 import DynamoDbBundleService, {
   setExpectedBundleEntryResponses
-} from './router/__mocks__/dynamoDbBundleService';
-import DynamoDbDataService, { setExpectedCreateResourceId } from './router/__mocks__/dynamoDbDataService';
-import ElasticSearchService, { setExpectedSearchSet } from './router/__mocks__/elasticSearchService';
+} from './router/mocks/dynamoDbBundleService';
+import DynamoDbDataService, { setExpectedCreateResourceId } from './router/mocks/dynamoDbDataService';
+import ElasticSearchService, { setExpectedSearchSet } from './router/mocks/elasticSearchService';
 import r4FhirConfigGenericMultiTenancy from './sampleData/r4FhirConfigGenericMultiTenancy';
 import validPatient from './sampleData/validV4Patient.json';
 

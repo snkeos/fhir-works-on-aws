@@ -6,7 +6,7 @@
 import { RoutingImplementationGuides } from './index';
 
 describe('RoutingImplementationGuides', () => {
-  describe(`compile`, async () => {
+  describe(`compile`, () => {
     test(`valid input`, async () => {
       const compiled = new RoutingImplementationGuides().compile([
         {
