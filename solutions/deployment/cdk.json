@@ -24,8 +24,9 @@
     "@aws-cdk/aws-iam:minimizePolicies": true,
     "@aws-cdk/customresources:installLatestAwsSdkDefault": false,
     "@aws-cdk/core:target-partitions": ["aws", "aws-cn"],
-    "region": "us-west-2",
-    "stage": "dev",
+    "region": "eu-central-1",
+    "stage": "int1-fhirworks",
+    "stageType": "dev",
     "enableMultiTenancy": false,
     "enableSubscriptions": false,
     "oauthRedirect": "http://localhost",
@@ -38,6 +39,15 @@
     "igMemorySize": 2048,
     "igStorageSize": 512,
     "enableSecurityLogging": false,
-    "validateXHTML": false
+    "validateXHTML": false, 
+    "grantAccessAllTenantsScope": "cdh/m2m",
+    "useTenantSpecificUrl": true,
+    "tenantIdClaimValuePrefix": "quentry:",
+    "tenantIdClaimPath": "cognito:groups",
+    "useApiKeys": false,
+    "corsOrigins": "ALL_ORIGINS", 
+    "extUserPool": "eu-central-1_Xz79Spbjo", 
+    "extUserPoolClient": "5mqljgihft9nihcsaf082poube", 
+    "extUserPoolDomain": "int3-cog-domain"
   }
 }

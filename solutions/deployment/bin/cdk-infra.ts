@@ -22,7 +22,7 @@ const attributeGroupName: string = 'fhir-works-AttributeGroup';
 const applicationType: string = 'AWS-Solutions';
 const appRegistryApplicationName: string = 'fhir-works-on-aws';
 
-let region: string = app.node.tryGetContext('region') || 'us-west-2';
+let region: string = app.node.tryGetContext('region') || 'eu-central-1';
 let account: string = process.env.CDK_DEFAULT_ACCOUNT!;
 
 // In solutions pipeline build, resolve region and account to token value to be resolved on CF deployment
@@ -32,6 +32,7 @@ if (process.env.SOLUTION_ID === solutionId) {
 }
 
 const stage: string = app.node.tryGetContext('stage') || 'dev';
+const stageType: string = app.node.tryGetContext('stageType') || 'dev';
 const enableMultiTenancy: boolean = app.node.tryGetContext('enableMultiTenancy') || false;
 const enableSubscriptions: boolean = app.node.tryGetContext('enableSubscriptions') || false;
 const oauthRedirect: string = app.node.tryGetContext('oauthRedirect') || 'http://localhost';
@@ -45,6 +46,17 @@ const igMemorySize: number = app.node.tryGetContext('igMemorySize') || 2048;
 const igStorageSize: number = app.node.tryGetContext('igStorageSize') || 512;
 const enableSecurityLogging: boolean = app.node.tryGetContext('enableSecurityLogging') || false;
 const validateXHTML: boolean = app.node.tryGetContext('validateXHTML') || false;
+const corsOrigins: string = app.node.tryGetContext('corsOrigins') || "";
+const useApiKeys: boolean = app.node.tryGetContext('useApiKeys') || true;
+const tenantIdClaimPath: string = app.node.tryGetContext('tenantIdClaimPath') || "";
+const tenantIdClaimValuePrefix: string = app.node.tryGetContext('tenantIdClaimValuePrefix') || "";
+const grantAccessAllTenantsScope: string = app.node.tryGetContext('grantAccessAllTenantsScope') || "";
+const useTenantSpecificUrl: boolean = app.node.tryGetContext('useTenantSpecificUrl') || true;
+const patientCompartmentFileV3: string = 'patientCompartmentSearchParams.3.0.2.json';
+const patientCompartmentFileV4: string = 'patientCompartmentSearchParams.4.0.1.json';
+const extUserPoolId: string = app.node.tryGetContext('extUserPoolId') || '';
+const extUserPoolClientId: string = app.node.tryGetContext('extUserPoolClientId') || '';
+const extUserPoolDomain: string = app.node.tryGetContext('extUserPoolDomain') || '';
 
 // workaround for https://github.com/aws/aws-cdk/issues/15054
 // CDK won't allow having lock file with ".." relatively to project folder
@@ -73,21 +85,30 @@ const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
   },
   stage,
   region,
-  enableMultiTenancy,
   enableSubscriptions,
-  useHapiValidator,
-  enableESHardDelete,
-  logLevel,
-  oauthRedirect,
   enableBackup,
+  enableESHardDelete,
+  enableSecurityLogging,
+  useHapiValidator,  
+  enableMultiTenancy,
+  grantAccessAllTenantsScope,
+  useTenantSpecificUrl,
+  tenantIdClaimPath,
+  tenantIdClaimValuePrefix,
+  logLevel,
   fhirVersion,
   igMemoryLimit,
   igMemorySize,
   igStorageSize,
-  description:
-    '(SO0128) - Solution - Primary Template - This template creates all the necessary resources to deploy FHIR Works on AWS; a framework to deploy a FHIR server on AWS. %%VERSION%%',
-  enableSecurityLogging,
-  validateXHTML
+  validateXHTML,
+  patientCompartmentFileV3,
+  patientCompartmentFileV4,
+  oauthRedirect,
+  extUserPoolId,
+  extUserPoolClientId,
+  extUserPoolDomain,
+  corsOrigins,
+  useApiKeys,
 });
 new FhirWorksAppRegistry(stack, 'FhirWorksAppRegistry', {
   solutionId,
