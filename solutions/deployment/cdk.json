@@ -25,7 +25,7 @@
     "@aws-cdk/customresources:installLatestAwsSdkDefault": false,
     "@aws-cdk/core:target-partitions": ["aws", "aws-cn"],
     "region": "eu-central-1",
-    "stage": "int1-fhirworks",
+    "stage": "int2-fhirworks",
     "stageType": "dev",
     "enableMultiTenancy": false,
     "enableSubscriptions": false,
@@ -46,8 +46,8 @@
     "tenantIdClaimPath": "cognito:groups",
     "useApiKeys": false,
     "corsOrigins": "ALL_ORIGINS", 
-    "extUserPool": "eu-central-1_Xz79Spbjo", 
-    "extUserPoolClient": "5mqljgihft9nihcsaf082poube", 
-    "extUserPoolDomain": "int3-cog-domain"
+    "extUserPool": "eu-central-1_0MpqNqaln", 
+    "extUserPoolClient": "4qufndmiubmdt1kn7g341eb1uq", 
+    "extUserPoolDomain": "int2-cog-domain"
   }
 }
