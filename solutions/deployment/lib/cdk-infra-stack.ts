@@ -68,6 +68,12 @@ export interface FhirWorksStackProps extends StackProps {
   igStorageSize: number;
   enableSecurityLogging: boolean;
   validateXHTML: boolean;
+  // Added Context
+  extUserPoolClientId: string;
+  extUserPoolDomain: string;
+  extUserPoolId: string;
+  stageType: string;
+  useTenantSpecificUrl: boolean;
 }
 
 export default class FhirWorksStack extends Stack {
@@ -88,6 +94,19 @@ export default class FhirWorksStack extends Stack {
       type: 'Number',
       default: 5,
       description: 'Number of Glue workers to use during an Export job.'
+    });
+
+    // Added Parameters
+    const stage = new CfnParameter(this, 'stage', {
+      type: 'String',
+      default: props?.stage || 'dev',
+      description: 'The deployment stage (e.g. dev, qa, prod). Default: dev'
+    });
+
+    const oauthRedirect = new CfnParameter(this, 'oauthRedirect', {
+      type: 'String',
+      default: props?.oauthRedirect || 'http://localhost',
+      description: "Cognito's default OAuth redirect URL used for User Pool. Default: http://localhost"
     });
 
     // define conditions here:
