@@ -439,7 +439,7 @@ export default class FhirWorksStack extends Stack {
     const startExportJobLambdaFunction = new NodejsFunction(this, 'startExportJobLambdaFunction', {
       ...defaultBulkExportLambdaProps,
       handler: 'startExportJobHandler',
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      reservedConcurrentExecutions: isDev ? 2 : 10,
       deadLetterQueue: startExportJobLambdaFunctionDLQ,
     });
 
@@ -1262,7 +1262,7 @@ export default class FhirWorksStack extends Stack {
     const subscriptionsMatcher = new NodejsFunction(this, 'subscriptionsMatcher', {
       timeout: Duration.seconds(20),
       memorySize: isDev ? 512 : 1024,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      reservedConcurrentExecutions: isDev ? 2 : 10,
       runtime: Runtime.NODEJS_16_X,
       description: 'Match ddb events against active Subscriptions and emit notifications',
       deadLetterQueue: subscriptionsMatcherDLQ,
