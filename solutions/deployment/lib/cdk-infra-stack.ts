@@ -20,6 +20,9 @@ import {
   AccessLogFormat,
   LogGroupLogDestination
 } from 'aws-cdk-lib/aws-apigateway';
+import {
+  UserPool,
+} from 'aws-cdk-lib/aws-cognito';
 import { AttributeType, BillingMode, StreamViewType, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb';
 import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
 import {
@@ -45,7 +48,7 @@ import { NagSuppressions } from 'cdk-nag';
 import KMSResources from './kms';
 import ElasticSearchResources from './elasticsearch';
 import SubscriptionsResources from './subscriptions';
-import CognitoResources from './cognito';
+// import CognitoResources from './cognito';
 import BulkExportResources from './bulkExport';
 import BulkExportStateMachine from './bulkExportStateMachine';
 import Backup from './backup';
@@ -313,8 +316,10 @@ export default class FhirWorksStack extends Stack {
       props!.stage
     );
 
+    // TODO: Replace creation of CognitoResources with existing ones pointed at by props
     // Create Cognito Resources here:
-    const cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+    // const cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+    const userPool = UserPool.fromUserPoolId(this, "UserPool", props!.extUserPoolId);
 
     const apiGatewayLogGroup = new LogGroup(this, 'apiGatewayLogGroup', {
       encryptionKey: kmsResources.logKMSKey,
@@ -373,7 +378,7 @@ export default class FhirWorksStack extends Stack {
       EXPORT_REQUEST_TABLE_JOB_STATUS_INDEX: exportRequestTableJobStatusIndex,
       FHIR_BINARY_BUCKET: fhirBinaryBucket.bucketName,
       ELASTICSEARCH_DOMAIN_ENDPOINT: `https://${elasticSearchResources.elasticSearchDomain.domainEndpoint}`,
-      OAUTH2_DOMAIN_ENDPOINT: `https://${cognitoResources.userPoolDomain.ref}.auth.${props!.region
+      OAUTH2_DOMAIN_ENDPOINT: `https://${props!.extUserPoolDomain}.auth.${props!.region
         }.amazoncognito.com/oauth2`,
       EXPORT_RESULTS_BUCKET: bulkExportResources.bulkExportResultsBucket.bucketName,
       EXPORT_RESULTS_SIGNER_ROLE_ARN: bulkExportResources.exportResultsSignerRole.roleArn,
@@ -765,7 +770,7 @@ export default class FhirWorksStack extends Stack {
     const apiGatewayAuthorizer = new CognitoUserPoolsAuthorizer(this, 'apiGatewayAuthorizer', {
       authorizerName: `fhir-works-authorizer-${props!.stage}-${props!.region}`,
       identitySource: 'method.request.header.Authorization',
-      cognitoUserPools: [cognitoResources.userPool],
+      cognitoUserPools: [userPool],
       resultsCacheTtl: Duration.seconds(300)
     });
 
@@ -1443,13 +1448,13 @@ export default class FhirWorksStack extends Stack {
     // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolId', {
       description: 'User pool id for the provisioning users',
-      value: `${cognitoResources.userPool.userPoolId}`,
+      value: `${props!.extUserPoolId}`,
       exportName: `UserPoolId-${props!.stage}`
     });
     // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolAppClientId', {
       description: 'App client id for the provisioning users.',
-      value: `${cognitoResources.userPoolClient.ref}`,
+      value: `${props!.extUserPoolClientId}`,
       exportName: `UserPoolAppClientId-${props!.stage}`
     });
     // eslint-disable-next-line no-new
