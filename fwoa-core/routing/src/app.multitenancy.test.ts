@@ -1,5 +1,5 @@
 import express from 'express';
-import { clone, BatchReadWriteResponse } from 'fhir-works-on-aws-interface';
+import { clone, BatchReadWriteResponse } from '@aws/fhir-works-on-aws-interface';
 import { generateServerlessRouter } from './app';
 import r4FhirConfigGenericMultiTenancy from '../sampleData/r4FhirConfigGenericMultiTenancy';
 import ElasticSearchService, { setExpectedSearchSet } from './router/__mocks__/elasticSearchService';
