@@ -1016,6 +1016,7 @@ export default class FhirWorksStack extends Stack {
     apiGatewayRestApi.root.addResource('{proxy+}').addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
       authorizer: apiGatewayAuthorizer,
       authorizationType: AuthorizationType.COGNITO,
+      authorizationScopes: ['openid', 'profile', 'aws.cognito.signin.user.admin'],
       apiKeyRequired: true
     });
     apiGatewayRestApi.root.addResource('metadata').addMethod('GET', new LambdaIntegration(fhirServerLambda), {
@@ -1448,7 +1449,7 @@ export default class FhirWorksStack extends Stack {
     // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolId', {
       description: 'User pool id for the provisioning users',
-      value: `${props!.extUserPoolId}`,
+      value: `${userPool.userPoolId}`,
       exportName: `UserPoolId-${props!.stage}`
     });
     // eslint-disable-next-line no-new
