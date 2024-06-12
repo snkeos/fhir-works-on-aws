@@ -32,7 +32,6 @@ if (process.env.SOLUTION_ID === solutionId) {
 }
 
 const stage: string = app.node.tryGetContext('stage') || 'dev';
-const stageType: string = app.node.tryGetContext('stageType') || 'dev';
 const enableMultiTenancy: boolean = app.node.tryGetContext('enableMultiTenancy') || false;
 const enableSubscriptions: boolean = app.node.tryGetContext('enableSubscriptions') || false;
 const oauthRedirect: string = app.node.tryGetContext('oauthRedirect') || 'http://localhost';
@@ -46,17 +45,20 @@ const igMemorySize: number = app.node.tryGetContext('igMemorySize') || 2048;
 const igStorageSize: number = app.node.tryGetContext('igStorageSize') || 512;
 const enableSecurityLogging: boolean = app.node.tryGetContext('enableSecurityLogging') || false;
 const validateXHTML: boolean = app.node.tryGetContext('validateXHTML') || false;
-const corsOrigins: string = app.node.tryGetContext('corsOrigins') || "";
-const useApiKeys: boolean = app.node.tryGetContext('useApiKeys') || true;
-const tenantIdClaimPath: string = app.node.tryGetContext('tenantIdClaimPath') || "";
-const tenantIdClaimValuePrefix: string = app.node.tryGetContext('tenantIdClaimValuePrefix') || "";
-const grantAccessAllTenantsScope: string = app.node.tryGetContext('grantAccessAllTenantsScope') || "";
-const useTenantSpecificUrl: boolean = app.node.tryGetContext('useTenantSpecificUrl') || true;
 const patientCompartmentFileV3: string = 'patientCompartmentSearchParams.3.0.2.json';
 const patientCompartmentFileV4: string = 'patientCompartmentSearchParams.4.0.1.json';
+
+// Added Context
+const grantAccessAllTenantsScope: string = app.node.tryGetContext('grantAccessAllTenantsScope') || false;
+const useTenantSpecificUrl: boolean = app.node.tryGetContext('useTenantSpecificUrl') || false;
+const tenantIdClaimValuePrefix: string = app.node.tryGetContext('tenantIdClaimValuePrefix') || false;
+const tenantIdClaimPath: string = app.node.tryGetContext('tenantIdClaimPath') || false;
+const useApiKeys: boolean = app.node.tryGetContext('useApiKeys') || false;
+const corsOrigins: string = app.node.tryGetContext('corsOrigins') || "";
 const extUserPoolId: string = app.node.tryGetContext('extUserPoolId') || '';
 const extUserPoolClientId: string = app.node.tryGetContext('extUserPoolClientId') || '';
 const extUserPoolDomain: string = app.node.tryGetContext('extUserPoolDomain') || '';
+const stageType: string = app.node.tryGetContext('stageType') || 'dev';
 
 // workaround for https://github.com/aws/aws-cdk/issues/15054
 // CDK won't allow having lock file with ".." relatively to project folder
@@ -89,10 +91,9 @@ const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
   enableBackup,
   enableESHardDelete,
   enableSecurityLogging,
-  useHapiValidator,  
+  useHapiValidator,
   enableMultiTenancy,
   grantAccessAllTenantsScope,
-  useTenantSpecificUrl,
   tenantIdClaimPath,
   tenantIdClaimValuePrefix,
   logLevel,
@@ -104,11 +105,14 @@ const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
   patientCompartmentFileV3,
   patientCompartmentFileV4,
   oauthRedirect,
-  extUserPoolId,
-  extUserPoolClientId,
-  extUserPoolDomain,
   corsOrigins,
   useApiKeys,
+  // Added Context
+  extUserPoolClientId,
+  extUserPoolDomain,
+  extUserPoolId,
+  stageType,
+  useTenantSpecificUrl,
 });
 new FhirWorksAppRegistry(stack, 'FhirWorksAppRegistry', {
   solutionId,
@@ -118,7 +122,7 @@ new FhirWorksAppRegistry(stack, 'FhirWorksAppRegistry', {
   applicationType,
   appRegistryApplicationName
 });
-fs.rm('./pnpm-lock.yaml', { force: true }, () => {});
+fs.rm('./pnpm-lock.yaml', { force: true }, () => { });
 
 // run cdk nag
 Aspects.of(app).add(new AwsSolutionsChecks());
