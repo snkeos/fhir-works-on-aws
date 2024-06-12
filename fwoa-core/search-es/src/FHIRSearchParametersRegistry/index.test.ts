@@ -6,9 +6,9 @@
 import { FHIRSearchParametersRegistry } from './index';
 
 describe('FHIRSearchParametersRegistry', () => {
-  // test('getCapabilities snapshot', () => {
-  //     expect(new FHIRSearchParametersRegistry('4.0.1').getCapabilities()).toMatchSnapshot();
-  // });
+  test('getCapabilities snapshot', () => {
+    expect(new FHIRSearchParametersRegistry('4.0.1').getCapabilities()).toMatchSnapshot();
+  });
 
   describe('Implementation Guides', () => {
     test('get search parameters added by IGs', () => {

@@ -4,10 +4,10 @@
  */
 
 export interface ResourceCapability {
-    type: string;
-    supportedProfile: string[];
+  type: string;
+  supportedProfile: string[];
 }
 
 export interface ResourceCapabilityStatement {
-    [resourceType: string]: ResourceCapability;
+  [resourceType: string]: ResourceCapability;
 }

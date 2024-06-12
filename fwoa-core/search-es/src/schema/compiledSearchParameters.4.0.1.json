@@ -21916,7 +21916,7 @@
   {
     "name": "questionnaire",
     "url": "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-questionnaire",
-    "type": "string",
+    "type": "reference",
     "description": "The questionnaire the answers are provided for",
     "base": "QuestionnaireResponse",
     "target": ["Questionnaire"],

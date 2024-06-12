@@ -26547,7 +26547,7 @@ Object {
         "definition": "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-questionnaire",
         "documentation": "The questionnaire the answers are provided for",
         "name": "questionnaire",
-        "type": "string",
+        "type": "reference",
       },
       Object {
         "definition": "http://hl7.org/fhir/SearchParameter/QuestionnaireResponse-source",

@@ -5,6 +5,5 @@
 
 export interface GenericResponse {
   readonly message: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly resource?: any;
 }

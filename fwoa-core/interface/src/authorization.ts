@@ -2,7 +2,6 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-
 import { ExportType } from './bulkDataAccess';
 import { BatchReadWriteRequest } from './bundle';
 import { TypeOperation, SystemOperation, KeyValueMap } from './constants';
@@ -77,7 +76,6 @@ export interface ReadResponseAuthorizedRequest {
   userIdentity: KeyValueMap;
   requestContext?: RequestContext;
   operation: TypeOperation | SystemOperation;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readResponse: any;
   /**
    * The FHIR server base URL. It may contain a path in addition to the hostname. See: https://www.hl7.org/fhir/http.html#root
@@ -90,7 +88,6 @@ export interface WriteRequestAuthorizedRequest {
   userIdentity: KeyValueMap;
   requestContext?: RequestContext;
   operation: TypeOperation;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resourceBody: any;
   /**
    * The FHIR server base URL. It may contain a path in addition to the hostname. See: https://www.hl7.org/fhir/http.html#root
@@ -140,7 +137,6 @@ export interface Authorization {
    * @returns a potentially filtered readResponse
    * @throws UnauthorizedError
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   authorizeAndFilterReadResponse(request: ReadResponseAuthorizedRequest): Promise<any>;
   /**
    * Examines the writes request body to authorize if user is allowed to perform the action requested

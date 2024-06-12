@@ -7,8 +7,8 @@
 import { convertDocRefParamsToSearchParams } from './convertDocRefParamsToSearchParams';
 
 describe('docRefParamsToSearchParams', () => {
-    test('minimal params ', () => {
-        expect(convertDocRefParamsToSearchParams({ patient: 'Patient/1' })).toMatchInlineSnapshot(`
+  test('minimal params ', () => {
+    expect(convertDocRefParamsToSearchParams({ patient: 'Patient/1' })).toMatchInlineSnapshot(`
             Object {
               "_count": "1",
               "_sort": "-period,-date",
@@ -16,20 +16,20 @@ describe('docRefParamsToSearchParams', () => {
               "type": "http://loinc.org|34133-9",
             }
         `);
-    });
-    test('all params ', () => {
-        expect(
-            convertDocRefParamsToSearchParams({
-                patient: 'Patient/1',
-                start: '1990-10-10',
-                end: '1995-10-10',
-                type: {
-                    system: 'https://fwoa.com',
-                    code: 'code123',
-                },
-                onDemand: false,
-            }),
-        ).toMatchInlineSnapshot(`
+  });
+  test('all params ', () => {
+    expect(
+      convertDocRefParamsToSearchParams({
+        patient: 'Patient/1',
+        start: '1990-10-10',
+        end: '1995-10-10',
+        type: {
+          system: 'https://fwoa.com',
+          code: 'code123'
+        },
+        onDemand: false
+      })
+    ).toMatchInlineSnapshot(`
             Object {
               "patient": "Patient/1",
               "period": Array [
@@ -39,28 +39,28 @@ describe('docRefParamsToSearchParams', () => {
               "type": "https://fwoa.com|code123",
             }
         `);
-    });
+  });
 
-    test('on demand', () => {
-        expect(
-            convertDocRefParamsToSearchParams({
-                patient: 'Patient/1',
-                onDemand: true,
-            }),
-        ).toMatchInlineSnapshot(`
+  test('on demand', () => {
+    expect(
+      convertDocRefParamsToSearchParams({
+        patient: 'Patient/1',
+        onDemand: true
+      })
+    ).toMatchInlineSnapshot(`
             Object {
               "_count": "0",
             }
         `);
-    });
+  });
 
-    test('only start', () => {
-        expect(
-            convertDocRefParamsToSearchParams({
-                patient: 'Patient/1',
-                start: '1990',
-            }),
-        ).toMatchInlineSnapshot(`
+  test('only start', () => {
+    expect(
+      convertDocRefParamsToSearchParams({
+        patient: 'Patient/1',
+        start: '1990'
+      })
+    ).toMatchInlineSnapshot(`
             Object {
               "patient": "Patient/1",
               "period": Array [
@@ -69,15 +69,15 @@ describe('docRefParamsToSearchParams', () => {
               "type": "http://loinc.org|34133-9",
             }
         `);
-    });
+  });
 
-    test('only end', () => {
-        expect(
-            convertDocRefParamsToSearchParams({
-                patient: 'Patient/1',
-                end: '2000',
-            }),
-        ).toMatchInlineSnapshot(`
+  test('only end', () => {
+    expect(
+      convertDocRefParamsToSearchParams({
+        patient: 'Patient/1',
+        end: '2000'
+      })
+    ).toMatchInlineSnapshot(`
             Object {
               "patient": "Patient/1",
               "period": Array [
@@ -86,5 +86,5 @@ describe('docRefParamsToSearchParams', () => {
               "type": "http://loinc.org|34133-9",
             }
         `);
-    });
+  });
 });

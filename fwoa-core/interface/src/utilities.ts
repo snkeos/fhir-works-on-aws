@@ -2,13 +2,10 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-
 import { BulkDataAuth } from './authorization';
 import { ExportType } from './bulkDataAccess';
 import { TypeOperation, SystemOperation } from './constants';
-import { MethodNotAllowedError } from './errors/MethodNotAllowedError';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function chunkArray(myArray: any[], chunkSize: number): any[][] {
   const results = [];
 
@@ -19,8 +16,7 @@ export function chunkArray(myArray: any[], chunkSize: number): any[][] {
   return results;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function clone(item: any): any {
+export function clone(item: any) {
   return JSON.parse(JSON.stringify(item));
 }
 
@@ -34,7 +30,7 @@ export function cleanAuthHeader(authorizationHeader?: string): string {
 
 /**
  * Returns everything before the query with the starting and ending '/' removed
- * ex: /Patient/?name=Joe returns Patient
+ * ex: /Patient/?name=Joe -> Patient
  */
 function cleanUrlPath(urlPath: string): string {
   let path = urlPath.split('?')[0];
@@ -134,27 +130,12 @@ export function getRequestInformation(
         if (urlSplit[1].startsWith('_history')) {
           return { operation: 'history-type', resourceType: urlSplit[0] };
         }
-        return {
-          operation: 'history-instance',
-          resourceType: urlSplit[0],
-          id: urlSplit[1]
-        };
+        return { operation: 'history-instance', resourceType: urlSplit[0], id: urlSplit[1] };
       }
-      if (path.includes('_history/')) {
-        return {
-          operation: 'vread',
-          resourceType: urlSplit[0],
-          id: urlSplit[1],
-          vid: urlSplit[3]
-        };
-      }
+      if (path.includes('_history/'))
+        return { operation: 'vread', resourceType: urlSplit[0], id: urlSplit[1], vid: urlSplit[3] };
       // For a generic read it has to be [type]/[id]
-      if (urlSplit.length === 2)
-        return {
-          operation: 'read',
-          resourceType: urlSplit[0],
-          id: urlSplit[1]
-        };
+      if (urlSplit.length === 2) return { operation: 'read', resourceType: urlSplit[0], id: urlSplit[1] };
       if (path.includes('metadata')) return { operation: 'read', resourceType: 'metadata' };
       if (path.length === 0) return { operation: 'search-system' };
       return { operation: 'search-type', resourceType: urlSplit[0] };
@@ -170,7 +151,7 @@ export function getRequestInformation(
       return { operation: 'create', resourceType: urlSplit[0] };
     }
     default: {
-      throw new MethodNotAllowedError('Unable to parse the http verb');
+      throw new Error('Unable to parse the http verb');
     }
   }
 }

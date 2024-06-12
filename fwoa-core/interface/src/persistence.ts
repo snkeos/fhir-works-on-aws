@@ -7,7 +7,6 @@ import { GenericResponse } from './genericResponse';
 
 export interface CreateResourceRequest {
   resourceType: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   id?: string;
   tenantId?: string;
@@ -16,7 +15,6 @@ export interface CreateResourceRequest {
 export interface UpdateResourceRequest {
   id: string;
   resourceType: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   vid?: string; // used in version aware update
   tenantId?: string;
@@ -25,7 +23,6 @@ export interface UpdateResourceRequest {
 export interface PatchResourceRequest {
   id: string;
   resourceType: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resource: any;
   vid?: string; // used in version aware patch
   tenantId?: string;
@@ -37,7 +34,6 @@ export interface ReadResourceRequest {
   tenantId?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface vReadResourceRequest {
   id: string;
   vid: string;
@@ -68,7 +64,6 @@ export interface Persistence {
    * Conditionally create a new FHIR resource
    * For conditional information: https://www.hl7.org/fhir/http.html#ccreate
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   conditionalCreateResource(request: CreateResourceRequest, queryParams: any): Promise<GenericResponse>;
 
   /**
@@ -84,7 +79,6 @@ export interface Persistence {
    * dependent on the supplied updateCreateSupported parameter
    * For conditional information: https://www.hl7.org/fhir/http.html#cond-update
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   conditionalUpdateResource(request: UpdateResourceRequest, queryParams: any): Promise<GenericResponse>;
 
   /**
@@ -98,7 +92,6 @@ export interface Persistence {
    * Useful when a client is minimizing bandwidth, or in scenarios with partial resource access
    * For conditional information: https://www.hl7.org/fhir/http.html#patch
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   conditionalPatchResource(request: PatchResourceRequest, queryParams: any): Promise<GenericResponse>;
 
   /**
@@ -139,7 +132,6 @@ export interface Persistence {
    */
   conditionalDeleteResource(
     request: ConditionalDeleteResourceRequest,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryParams: any
   ): Promise<GenericResponse>;
 
@@ -147,6 +139,5 @@ export interface Persistence {
    * Returns an array of all active Subscriptions.
    * If tenantId is supplied, this method will only return Subscriptions owned by that tenant.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getActiveSubscriptions(params: { tenantId?: string }): Promise<Record<string, any>[]>;
 }

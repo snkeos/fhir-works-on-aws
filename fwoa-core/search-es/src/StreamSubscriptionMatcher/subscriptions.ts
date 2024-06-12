@@ -1,7 +1,7 @@
 import { DynamoDBRecord, DynamoDBStreamEvent } from 'aws-lambda/trigger/dynamodb-stream';
 import AWS from 'aws-sdk';
-import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 import { ParsedFhirQueryParams, parseQueryString } from '../FhirQueryParser';
+import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 import getComponentLogger from '../loggerBuilder';
 
 const logger = getComponentLogger();

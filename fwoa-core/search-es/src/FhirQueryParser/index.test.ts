@@ -4,8 +4,8 @@
  *
  */
 
-import { parseQuery } from './index';
 import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
+import { parseQuery } from './index';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 

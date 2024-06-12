@@ -3,9 +3,9 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
-import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
+import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
 import { TokenSearchValue } from '../../FhirQueryParser';
+import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 
 // Fields that do not have `.keyword` suffix. This is only important if `useKeywordSubFields` is true
 const FIELDS_WITHOUT_KEYWORD = ['id'];

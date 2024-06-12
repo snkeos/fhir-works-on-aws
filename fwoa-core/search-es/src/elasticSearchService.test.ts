@@ -2,13 +2,12 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-
-import each from 'jest-each';
-import { InvalidSearchParameterError, SearchFilter } from 'fhir-works-on-aws-interface';
-import { ElasticSearchService } from './elasticSearchService';
-import { ElasticSearch } from './elasticSearch';
-
 jest.mock('./elasticSearch');
+
+import { InvalidSearchParameterError, SearchFilter } from '@aws/fhir-works-on-aws-interface';
+import each from 'jest-each';
+import { ElasticSearch } from './elasticSearch';
+import { ElasticSearchService } from './elasticSearchService';
 
 const FILTER_RULES_FOR_ACTIVE_RESOURCES = [
   {
@@ -275,9 +274,9 @@ describe('typeSearch', () => {
     });
   });
 
-  test('Invalid Parameter', () => {
+  test('Invalid Parameter', async () => {
     const es = new ElasticSearchService(FILTER_RULES_FOR_ACTIVE_RESOURCES);
-    expect(
+    await expect(
       es.typeSearch({
         resourceType: 'Patient',
         baseUrl: 'https://base-url.com',
@@ -287,9 +286,9 @@ describe('typeSearch', () => {
     ).rejects.toThrowError(InvalidSearchParameterError);
   });
 
-  test('Invalid search range (> 10k)', () => {
+  test('Invalid search range (> 10k)', async () => {
     const es = new ElasticSearchService(FILTER_RULES_FOR_ACTIVE_RESOURCES);
-    expect(
+    await expect(
       es.typeSearch({
         resourceType: 'Patient',
         baseUrl: 'https://base-url.com',

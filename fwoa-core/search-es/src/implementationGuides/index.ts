@@ -3,12 +3,12 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { ImplementationGuides } from 'fhir-works-on-aws-interface';
-import { Parser, Grammar } from 'nearley';
+import { ImplementationGuides } from '@aws/fhir-works-on-aws-interface';
 import { uniqBy } from 'lodash';
+import { Parser, Grammar } from 'nearley';
+import getComponentLogger from '../loggerBuilder';
 import fhirPathGrammar from './reducedFHIRPath';
 import xPathGrammar from './reducedXPath';
-import getComponentLogger from '../loggerBuilder';
 
 const logger = getComponentLogger();
 
@@ -16,7 +16,7 @@ const logger = getComponentLogger();
  * Based on the FHIR SearchParameter. This type only includes the fields that are required for the compile process.
  * See: https://www.hl7.org/fhir/searchparameter.html
  */
-type FhirSearchParam = {
+interface FhirSearchParam {
   resourceType: 'SearchParameter';
   url: string;
   name: string;
@@ -27,7 +27,7 @@ type FhirSearchParam = {
   expression?: string;
   xpath?: string;
   target?: string[];
-};
+}
 
 const isFhirSearchParam = (x: any): x is FhirSearchParam => {
   return (

@@ -14,11 +14,11 @@ import {
   RESOURCE_TABLE
 } from './dynamoDb';
 import {
-  buildHashKey,
   DOCUMENT_STATUS_FIELD,
   DynamoDbUtil,
   LOCK_END_TS_FIELD,
-  SUBSCRIPTION_FIELD
+  SUBSCRIPTION_FIELD,
+  buildHashKey
 } from './dynamoDbUtil';
 
 const EXPORT_INTERNAL_ID_FIELD = '_jobId';

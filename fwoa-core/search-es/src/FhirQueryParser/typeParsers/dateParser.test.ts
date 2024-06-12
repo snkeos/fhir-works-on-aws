@@ -4,8 +4,8 @@
  *
  */
 
+import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
 import each from 'jest-each';
-import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
 import { parseDateSearchValue } from './dateParser';
 
 describe('parseDateSearchValue', () => {

@@ -3,9 +3,9 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
+import { parseQuantitySearchValue } from '../../FhirQueryParser/typeParsers/quantityParser';
 import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
 import { quantityQuery } from './quantityQuery';
-import { parseQuantitySearchValue } from '../../FhirQueryParser/typeParsers/quantityParser';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const quantityParam = fhirSearchParametersRegistry.getSearchParameter('Observation', 'value-quantity')!

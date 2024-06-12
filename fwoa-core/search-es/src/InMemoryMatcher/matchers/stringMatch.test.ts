@@ -4,8 +4,8 @@
  *
  */
 
-import { stringMatch } from './stringMatch';
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
+import { stringMatch } from './stringMatch';
 
 const COMPILED_SEARCH_PARAM: CompiledSearchParam = { path: 'someField', resourceType: 'someResource' };
 

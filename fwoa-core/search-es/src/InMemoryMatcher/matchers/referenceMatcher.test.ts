@@ -1,5 +1,5 @@
-import { referenceMatch } from './referenceMatcher';
 import { ReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
+import { referenceMatch } from './referenceMatcher';
 
 describe('referenceMatch', () => {
   describe('relative', () => {
