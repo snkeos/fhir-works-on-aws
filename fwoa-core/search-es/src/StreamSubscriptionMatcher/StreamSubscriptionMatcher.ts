@@ -4,18 +4,14 @@
  *
  */
 
-import https from 'https';
-import { FhirVersion, Persistence } from '@aws/fhir-works-on-aws-interface';
+import { DynamoDBStreamEvent } from 'aws-lambda/trigger/dynamodb-stream';
+import { chunk } from 'lodash';
+import { FhirVersion, Persistence } from 'fhir-works-on-aws-interface';
+import { v4 } from 'uuid';
 import { SNSClient, PublishBatchCommand } from '@aws-sdk/client-sns';
 import { NodeHttpHandler } from '@aws-sdk/node-http-handler';
-import { DynamoDBStreamEvent } from 'aws-lambda/trigger/dynamodb-stream';
+import https from 'https';
 import { captureAWSv3Client } from 'aws-xray-sdk';
-import { chunk } from 'lodash';
-import { v4 } from 'uuid';
-import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
-import { matchParsedFhirQueryParams } from '../InMemoryMatcher';
-import getComponentLogger from '../loggerBuilder';
-import { AsyncRefreshCache } from './AsyncRefreshCache';
 import {
   buildNotification,
   filterOutIneligibleResources,
@@ -23,6 +19,10 @@ import {
   Subscription,
   SubscriptionNotification
 } from './subscriptions';
+import { matchParsedFhirQueryParams } from '../InMemoryMatcher';
+import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
+import { AsyncRefreshCache } from './AsyncRefreshCache';
+import getComponentLogger from '../loggerBuilder';
 
 const SNS_MAX_BATCH_SIZE = 10;
 const ACTIVE_SUBSCRIPTIONS_CACHE_REFRESH_TIMEOUT = 60_000;
@@ -88,13 +88,13 @@ export class StreamSubscriptionMatcher {
     const agent = new https.Agent({
       maxSockets: 150
     });
-    //to do review items
+
     this.snsClient = captureAWSv3Client(
       new SNSClient({
         region: process.env.AWS_REGION || 'us-west-2',
         maxAttempts: 2,
         requestHandler: new NodeHttpHandler({ httpsAgent: agent })
-      }) as any
+      })
     );
   }
 
@@ -131,10 +131,7 @@ export class StreamSubscriptionMatcher {
             Id: v4(), // The ID only needs to be unique within a batch. A UUID works well here
             Message: JSON.stringify(subscriptionNotification),
             MessageAttributes: {
-              channelType: {
-                DataType: 'String',
-                StringValue: subscriptionNotification.channelType
-              }
+              channelType: { DataType: 'String', StringValue: subscriptionNotification.channelType }
             }
           })),
           TopicArn: this.topicArn

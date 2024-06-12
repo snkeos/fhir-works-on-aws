@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/prefer-default-export
-import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
+import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
+import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
 import { COMPILED_CONDITION_OPERATOR_RESOLVE, NON_SEARCHABLE_PARAMETERS } from '../constants';
 import { parseSearchModifiers, normalizeQueryParams, isChainedParameter } from '../FhirQueryParser/util';
-import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
 
 export interface ChainParameter {
   chain: { resourceType: string; searchParam: string }[];
@@ -54,7 +54,7 @@ const parseChainedParameters = (
     .flatMap(([searchParameter, searchValues]) => {
       // Validate chain and add resource type
       const chain = searchParameter.split('.');
-      const lastChain: string = chain.pop() as string;
+      const lastChain: string = <string>chain.pop();
       let currentResourceType = resourceType;
       const organizedChain: { resourceType: string; searchParam: string }[] = [];
       chain.forEach((currentSearchParam) => {
@@ -101,10 +101,7 @@ const parseChainedParameters = (
         }
         currentResourceType = nextResourceType;
       });
-      organizedChain.push({
-        resourceType: currentResourceType,
-        searchParam: lastChain
-      });
+      organizedChain.push({ resourceType: currentResourceType, searchParam: lastChain });
       return {
         chain: organizedChain.reverse(),
         initialValue: searchValues

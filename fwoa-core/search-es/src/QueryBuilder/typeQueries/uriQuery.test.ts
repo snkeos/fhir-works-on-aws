@@ -3,8 +3,8 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
 import { uriQuery } from './uriQuery';
+import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const profileParam = fhirSearchParametersRegistry.getSearchParameter('Patient', '_profile')!.compiled[0];

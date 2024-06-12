@@ -4,9 +4,9 @@
  *
  */
 
+import { matchParsedFhirQueryParams } from './index';
 import { ParsedFhirQueryParams } from '../FhirQueryParser';
 import { FHIRSearchParametersRegistry, SearchParam } from '../FHIRSearchParametersRegistry';
-import { matchParsedFhirQueryParams } from './index';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const givenParam = fhirSearchParametersRegistry.getSearchParameter('Patient', 'given')!;
@@ -38,12 +38,7 @@ describe('evaluateParsedFhirQueryParams', () => {
     const parsedFhirQueryParams: ParsedFhirQueryParams = {
       resourceType: 'Patient',
       searchParams: [
-        {
-          searchParam: givenParam,
-          name: 'given',
-          parsedSearchValues: ['Sherlock'],
-          type: 'string'
-        }
+        { searchParam: givenParam, name: 'given', parsedSearchValues: ['Sherlock'], type: 'string' }
       ]
     };
 
@@ -64,12 +59,7 @@ describe('evaluateParsedFhirQueryParams', () => {
     const parsedFhirQueryParams: ParsedFhirQueryParams = {
       resourceType: 'Patient',
       searchParams: [
-        {
-          searchParam: givenParam,
-          name: 'given',
-          parsedSearchValues: ['Sherlock'],
-          type: 'string'
-        }
+        { searchParam: givenParam, name: 'given', parsedSearchValues: ['Sherlock'], type: 'string' }
       ]
     };
 
@@ -98,12 +88,7 @@ describe('evaluateParsedFhirQueryParams', () => {
     const parsedFhirQueryParams: ParsedFhirQueryParams = {
       resourceType: 'Patient',
       searchParams: [
-        {
-          searchParam: givenParam,
-          name: 'given',
-          parsedSearchValues: ['Sherlock'],
-          type: 'string'
-        }
+        { searchParam: givenParam, name: 'given', parsedSearchValues: ['Sherlock'], type: 'string' }
       ]
     };
 
@@ -174,13 +159,7 @@ describe('evaluateParsedFhirQueryParams', () => {
   test('compiled conditions must pass', () => {
     const modifiedGivenParam: SearchParam = {
       ...givenParam,
-      compiled: [
-        {
-          resourceType: 'Patient',
-          path: 'name.given',
-          condition: ['name.use', '=', 'official']
-        }
-      ]
+      compiled: [{ resourceType: 'Patient', path: 'name.given', condition: ['name.use', '=', 'official'] }]
     };
 
     const parsedFhirQueryParams: ParsedFhirQueryParams = {

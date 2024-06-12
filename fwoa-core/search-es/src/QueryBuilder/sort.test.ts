@@ -3,9 +3,9 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
+import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
 import { buildSortClause, parseSortParameter } from './sort';
+import { FHIRSearchParametersRegistry } from '../FHIRSearchParametersRegistry';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 

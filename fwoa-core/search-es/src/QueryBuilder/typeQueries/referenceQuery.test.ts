@@ -3,10 +3,10 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
-import { parseReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
-import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
+import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
 import { referenceQuery } from './referenceQuery';
+import { FHIRSearchParametersRegistry } from '../../FHIRSearchParametersRegistry';
+import { parseReferenceSearchValue } from '../../FhirQueryParser/typeParsers/referenceParser';
 
 const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 const organizationParam = fhirSearchParametersRegistry.getSearchParameter('Patient', 'organization')!

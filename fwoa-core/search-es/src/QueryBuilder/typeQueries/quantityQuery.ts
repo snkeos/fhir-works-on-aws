@@ -3,11 +3,11 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
-import { InvalidSearchParameterError } from '@aws/fhir-works-on-aws-interface';
 import { isEmpty } from 'lodash';
-import { QuantitySearchValue } from '../../FhirQueryParser';
+import { InvalidSearchParameterError } from 'fhir-works-on-aws-interface';
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 import { prefixRangeNumber } from './common/prefixRange';
+import { QuantitySearchValue } from '../../FhirQueryParser';
 
 const SUPPORTED_MODIFIERS: string[] = [];
 

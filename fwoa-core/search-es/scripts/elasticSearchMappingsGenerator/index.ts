@@ -37,7 +37,9 @@ const fhirVersionFromFiles = profilesRegistry.getFhirVersion();
 const fhirVersion = fhirVersionFromFiles === '3.0.2' ? '3.0.1' : fhirVersionFromFiles;
 
 // eslint-disable-next-line import/no-dynamic-require
-const compiledSearchParameters: CompiledSearchParameter[] = require(`../../src/schema/compiledSearchParameters.${fhirVersion}.json`);
+const compiledSearchParameters: CompiledSearchParameter[] = require(
+  `../../src/schema/compiledSearchParameters.${fhirVersion}.json`
+);
 
 console.log(`Generating mappings for FHIR version ${fhirVersion}`);
 
