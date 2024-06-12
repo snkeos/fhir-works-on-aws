@@ -6841,15 +6841,7 @@
             },
             "status": {
               "description": "Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical record.",
-              "enum": [
-                "draft",
-                "active",
-                "suspended",
-                "completed",
-                "entered-in-error",
-                "cancelled",
-                "unknown"
-              ],
+              "enum": ["draft", "active", "suspended", "completed", "entered-in-error", "cancelled", "unknown"],
               "type": "string"
             },
             "_status": {
@@ -7038,15 +7030,7 @@
             },
             "status": {
               "description": "Identifies what progress is being made for the specific activity.",
-              "enum": [
-                "not-started",
-                "scheduled",
-                "in-progress",
-                "on-hold",
-                "completed",
-                "cancelled",
-                "unknown"
-              ],
+              "enum": ["not-started", "scheduled", "in-progress", "on-hold", "completed", "cancelled", "unknown"],
               "type": "string"
             },
             "_status": {
@@ -7281,15 +7265,7 @@
             },
             "status": {
               "description": "The current state of the ChargeItem.",
-              "enum": [
-                "planned",
-                "billable",
-                "not-billable",
-                "aborted",
-                "billed",
-                "entered-in-error",
-                "unknown"
-              ],
+              "enum": ["planned", "billable", "not-billable", "aborted", "billed", "entered-in-error", "unknown"],
               "type": "string"
             },
             "_status": {
@@ -14775,15 +14751,7 @@
             },
             "status": {
               "description": "planned | waitlist | active | onhold | finished | cancelled.",
-              "enum": [
-                "planned",
-                "waitlist",
-                "active",
-                "onhold",
-                "finished",
-                "cancelled",
-                "entered-in-error"
-              ],
+              "enum": ["planned", "waitlist", "active", "onhold", "finished", "cancelled", "entered-in-error"],
               "type": "string"
             },
             "_status": {
@@ -14863,15 +14831,7 @@
           "properties": {
             "status": {
               "description": "planned | waitlist | active | onhold | finished | cancelled.",
-              "enum": [
-                "planned",
-                "waitlist",
-                "active",
-                "onhold",
-                "finished",
-                "cancelled",
-                "entered-in-error"
-              ],
+              "enum": ["planned", "waitlist", "active", "onhold", "finished", "cancelled", "entered-in-error"],
               "type": "string"
             },
             "_status": {
@@ -17539,14 +17499,7 @@
             },
             "status": {
               "description": "The status of the response. If the evaluation is completed successfully, the status will indicate success. However, in order to complete the evaluation, the engine may require more information. In this case, the status will be data-required, and the response will contain a description of the additional required information. If the evaluation completed successfully, but the engine determines that a potentially more accurate response could be provided if more data was available, the status will be data-requested, and the response will contain a description of the additional requested information.",
-              "enum": [
-                "success",
-                "data-requested",
-                "data-required",
-                "in-progress",
-                "failure",
-                "entered-in-error"
-              ],
+              "enum": ["success", "data-requested", "data-required", "in-progress", "failure", "entered-in-error"],
               "type": "string"
             },
             "_status": {
@@ -22842,14 +22795,7 @@
           "properties": {
             "type": {
               "description": "A code specifying the kind of relationship that exists with the target resource.",
-              "enum": [
-                "has-member",
-                "derived-from",
-                "sequel-to",
-                "replaces",
-                "qualified-by",
-                "interfered-by"
-              ],
+              "enum": ["has-member", "derived-from", "sequel-to", "replaces", "qualified-by", "interfered-by"],
               "type": "string"
             },
             "_type": {
@@ -28632,18 +28578,7 @@
             },
             "modifier": {
               "description": "A modifier supported for the search parameter.",
-              "enum": [
-                "missing",
-                "exact",
-                "contains",
-                "not",
-                "text",
-                "in",
-                "not-in",
-                "below",
-                "above",
-                "type"
-              ],
+              "enum": ["missing", "exact", "contains", "not", "text", "in", "not-in", "below", "above", "type"],
               "type": "array",
               "items": {
                 "type": "string"
@@ -31312,15 +31247,7 @@
             },
             "status": {
               "description": "Status of the supply request.",
-              "enum": [
-                "draft",
-                "active",
-                "suspended",
-                "cancelled",
-                "completed",
-                "entered-in-error",
-                "unknown"
-              ],
+              "enum": ["draft", "active", "suspended", "cancelled", "completed", "entered-in-error", "unknown"],
               "type": "string"
             },
             "_status": {
@@ -34311,17 +34238,7 @@
             },
             "op": {
               "description": "The kind of operation to perform as a part of the filter criteria.",
-              "enum": [
-                "\u003d",
-                "is-a",
-                "descendent-of",
-                "is-not-a",
-                "regex",
-                "in",
-                "not-in",
-                "generalizes",
-                "exists"
-              ],
+              "enum": ["\u003d", "is-a", "descendent-of", "is-not-a", "regex", "in", "not-in", "generalizes", "exists"],
               "type": "string"
             },
             "_op": {

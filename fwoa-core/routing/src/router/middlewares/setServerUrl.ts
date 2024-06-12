@@ -5,7 +5,7 @@
  *
  */
 
-import { FhirConfig } from '@aws/fhir-works-on-aws-interface';
+import { FhirConfig } from 'fhir-works-on-aws-interface';
 import express from 'express';
 import RouteHelper from '../routes/routeHelper';
 
@@ -14,18 +14,14 @@ import RouteHelper from '../routes/routeHelper';
  * the serverUrl can either be a static value from FhirConfig of a dynamic value for some multi-tenancy setups.
  */
 export const setServerUrlMiddleware: (
-  fhirConfig: FhirConfig
-) => (req: express.Request, res: express.Response, next: express.NextFunction) => void = (
-  fhirConfig: FhirConfig
-) => {
-  return RouteHelper.wrapAsync(
-    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      if (req.baseUrl && req.baseUrl !== '/') {
-        res.locals.serverUrl = fhirConfig.server.url + req.baseUrl;
-      } else {
-        res.locals.serverUrl = fhirConfig.server.url;
-      }
-      next();
-    }
-  );
+    fhirConfig: FhirConfig,
+) => (req: express.Request, res: express.Response, next: express.NextFunction) => void = (fhirConfig: FhirConfig) => {
+    return RouteHelper.wrapAsync(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        if (req.baseUrl && req.baseUrl !== '/') {
+            res.locals.serverUrl = fhirConfig.server.url + req.baseUrl;
+        } else {
+            res.locals.serverUrl = fhirConfig.server.url;
+        }
+        next();
+    });
 };

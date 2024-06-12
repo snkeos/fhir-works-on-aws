@@ -9720,17 +9720,7 @@
         },
         "type": {
           "description": "The type of value a search parameter refers to, and how the content is interpreted.",
-          "enum": [
-            "number",
-            "date",
-            "string",
-            "token",
-            "reference",
-            "composite",
-            "quantity",
-            "uri",
-            "special"
-          ]
+          "enum": ["number", "date", "string", "token", "reference", "composite", "quantity", "uri", "special"]
         },
         "_type": {
           "description": "Extensions for type",
@@ -41097,17 +41087,7 @@
         },
         "searchType": {
           "description": "How the parameter is understood as a search parameter. This is only used if the parameter type is \u0027string\u0027.",
-          "enum": [
-            "number",
-            "date",
-            "string",
-            "token",
-            "reference",
-            "composite",
-            "quantity",
-            "uri",
-            "special"
-          ]
+          "enum": ["number", "date", "string", "token", "reference", "composite", "quantity", "uri", "special"]
         },
         "_searchType": {
           "description": "Extensions for searchType",
@@ -48671,17 +48651,7 @@
         },
         "type": {
           "description": "The type of value that a search parameter may contain, and how the content is interpreted.",
-          "enum": [
-            "number",
-            "date",
-            "string",
-            "token",
-            "reference",
-            "composite",
-            "quantity",
-            "uri",
-            "special"
-          ]
+          "enum": ["number", "date", "string", "token", "reference", "composite", "quantity", "uri", "special"]
         },
         "_type": {
           "description": "Extensions for type",
@@ -58214,17 +58184,7 @@
         },
         "op": {
           "description": "The kind of operation to perform as a part of the filter criteria.",
-          "enum": [
-            "\u003d",
-            "is-a",
-            "descendent-of",
-            "is-not-a",
-            "regex",
-            "in",
-            "not-in",
-            "generalizes",
-            "exists"
-          ]
+          "enum": ["\u003d", "is-a", "descendent-of", "is-not-a", "regex", "in", "not-in", "generalizes", "exists"]
         },
         "_op": {
           "description": "Extensions for op",
