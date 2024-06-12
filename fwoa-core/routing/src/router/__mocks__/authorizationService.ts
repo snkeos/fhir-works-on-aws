@@ -10,7 +10,7 @@ import {
     KeyValueMap,
     GetSearchFilterBasedOnIdentityRequest,
     SearchFilter,
-} from 'fhir-works-on-aws-interface';
+} from '@aws/fhir-works-on-aws-interface';
 
 let expectedtokenDecoded: any;
 
@@ -31,10 +31,10 @@ const AuthorizationService: Authorization = class {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    static async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest): Promise<void> {}
+    static async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest): Promise<void> { }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    static async isBundleRequestAuthorized(request: AuthorizationBundleRequest): Promise<void> {}
+    static async isBundleRequestAuthorized(request: AuthorizationBundleRequest): Promise<void> { }
 
     static async authorizeAndFilterReadResponse(request: ReadResponseAuthorizedRequest): Promise<any> {
         // Currently no additional filtering/checking is needed for RBAC
@@ -42,7 +42,7 @@ const AuthorizationService: Authorization = class {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    static async isWriteRequestAuthorized(request: WriteRequestAuthorizedRequest): Promise<void> {}
+    static async isWriteRequestAuthorized(request: WriteRequestAuthorizedRequest): Promise<void> { }
 
     static async getAllowedResourceTypesForOperation(
         request: AllowedResourceTypesForOperationRequest,
