@@ -57,6 +57,8 @@ const extUserPoolId: string = app.node.tryGetContext('extUserPoolId') || '';
 const extUserPoolClientId: string = app.node.tryGetContext('extUserPoolClientId') || '';
 const extUserPoolDomain: string = app.node.tryGetContext('extUserPoolDomain') || '';
 const stageType: string = app.node.tryGetContext('stageType') || 'dev';
+const patientCompartmentFileV3: string = 'patientCompartmentSearchParams.3.0.2.json';
+const patientCompartmentFileV4: string = 'patientCompartmentSearchParams.4.0.1.json';
 
 // workaround for https://github.com/aws/aws-cdk/issues/15054
 // CDK won't allow having lock file with ".." relatively to project folder
@@ -106,6 +108,13 @@ const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
   extUserPoolId,
   stageType,
   useTenantSpecificUrl,
+  grantAccessAllTenantsScope,
+  tenantIdClaimPath,
+  tenantIdClaimValuePrefix,
+  useApiKeys,
+  corsOrigins,
+  patientCompartmentFileV3,
+  patientCompartmentFileV4,
 });
 new FhirWorksAppRegistry(stack, 'FhirWorksAppRegistry', {
   solutionId,

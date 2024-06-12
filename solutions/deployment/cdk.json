@@ -32,7 +32,7 @@
     "region": "eu-central-1",
     "stage": "cdk-fhirworks",
     "stageType": "dev",
-    "enableMultiTenancy": false,
+    "enableMultiTenancy": true,
     "enableSubscriptions": false,
     "oauthRedirect": "http://localhost",
     "useHapiValidator": false,
