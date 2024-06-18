@@ -351,6 +351,10 @@
       "allowedCategories": ["tools"]
     },
     {
+      "name": "querystring",
+      "allowedCategories": ["production"]
+    },
+    {
       "name": "react",
       "allowedCategories": ["production"]
     },
@@ -433,6 +437,10 @@
     {
       "name": "uuid",
       "allowedCategories": ["production", "tools"]
+    },
+    {
+      "name": "uuidv4",
+      "allowedCategories": ["production"]
     },
     {
       "name": "wait-for-expect",

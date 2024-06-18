@@ -571,7 +571,7 @@ describe('SUCCESS Cases: Testing Bundle with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [
@@ -654,7 +654,7 @@ describe('SUCCESS Cases: Testing Bundle with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: []
@@ -681,7 +681,7 @@ describe('SUCCESS Cases: Testing Batch with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: []
@@ -706,7 +706,7 @@ describe('SUCCESS Cases: Testing Batch with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [
@@ -877,7 +877,7 @@ describe('ERROR Cases: Bundle not authorized', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [

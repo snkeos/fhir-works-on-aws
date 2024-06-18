@@ -61,9 +61,11 @@
     "http-errors": "^1.8.0",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.26",
+    "querystring": "^0.2.1",
     "sanitize-html": "^2.8.0",
     "serverless-http": "^2.7.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@aws/eslint-config-fwoa-eslint-custom": "workspace:*",

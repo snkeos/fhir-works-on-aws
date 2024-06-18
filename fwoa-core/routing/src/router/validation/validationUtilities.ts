@@ -4,6 +4,7 @@
  */
 
 import { InvalidResourceError, TypeOperation, Validator } from '@aws/fhir-works-on-aws-interface';
+import { openNewXRaySubSegment, closeXRaySubSegment } from '../../utils/xrayUtils';
 import { validateXHTMLResource } from '../handlers/utils';
 
 export async function validateResource(
@@ -12,6 +13,7 @@ export async function validateResource(
   resource: any,
   params: { tenantId?: string; typeOperation?: TypeOperation } = {}
 ): Promise<void> {
+  const handlerSubSegment = openNewXRaySubSegment(`validateResource`);
   if (resourceType !== resource.resourceType) {
     throw new InvalidResourceError(`not a valid '${resourceType}'`);
   }
@@ -22,4 +24,5 @@ export async function validateResource(
     // eslint-disable-next-line no-await-in-loop
     await validators[i].validate(resource, params);
   }
+  closeXRaySubSegment(handlerSubSegment);
 }

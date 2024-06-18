@@ -29,6 +29,7 @@ import GenericResourceRoute from './router/routes/genericResourceRoute';
 import MetadataRoute from './router/routes/metadataRoute';
 import RootRoute from './router/routes/rootRoute';
 import WellKnownUriRouteRoute from './router/routes/wellKnownUriRoute';
+import { initXRayExpress, openXRaySegment, closeXRaySegment } from './utils/xrayUtils';
 
 const configVersionSupported: ConfigVersion = 1;
 
@@ -49,6 +50,8 @@ function prepareRequestContext(req: express.Request): RequestContext {
   return requestContext;
 }
 
+const XRayExpress = initXRayExpress();
+
 export function generateServerlessRouter(
   fhirConfig: FhirConfig,
   supportedGenericResources: string[],
@@ -66,6 +69,8 @@ export function generateServerlessRouter(
 
   const app = express();
   app.disable('x-powered-by');
+
+  openXRaySegment(app, XRayExpress, 'AWS FHIRServer Server API');
 
   const mainRouter = express.Router({ mergeParams: true });
 
@@ -108,6 +113,10 @@ export function generateServerlessRouter(
   // AuthZ
   mainRouter.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
+      if (req.method === 'OPTIONS') {
+        next();
+      }
+
       const requestInformation =
         operationRegistry.getOperation(req.method, req.path)?.requestInformation ??
         getRequestInformation(req.method, req.path);
@@ -230,6 +239,8 @@ export function generateServerlessRouter(
   } else {
     app.use('/', mainRouter);
   }
+
+  closeXRaySegment(app, XRayExpress);
 
   return app;
 }
