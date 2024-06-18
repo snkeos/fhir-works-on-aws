@@ -165,7 +165,7 @@ export class DynamoDbBundleService implements Bundle {
         batchReadWriteResponses: []
       };
     }
-
+    logger.error(`Transaction called for the following requests ${requests}`);
     // 1. Put a lock on all requests
     const lockItemsResponse = await this.lockItems(requests, tenantId);
     const { successfulLock } = lockItemsResponse;
@@ -280,6 +280,9 @@ export class DynamoDbBundleService implements Bundle {
     });
 
     const itemsToLock: ItemRequest[] = allNonCreateRequests.map((request) => {
+      logger.error(
+        `Mapping delete request: resourceType: ${request.resourceType}, id: ${request.id}, operation: ${request.operation}`
+      );
       return {
         resourceType: request.resourceType,
         id: request.id,

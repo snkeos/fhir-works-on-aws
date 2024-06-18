@@ -18,7 +18,13 @@ import {
 } from '@aws/fhir-works-on-aws-interface';
 import { TooManyConcurrentExportRequestsError } from '@aws/fhir-works-on-aws-interface/lib/errors/TooManyConcurrentExportRequestsError';
 import AWS from 'aws-sdk';
-import { GetItemInput, PutItemInput, QueryInput, UpdateItemInput } from 'aws-sdk/clients/dynamodb';
+import {
+  GetItemInput,
+  PutItemInput,
+  QueryInput,
+  UpdateItemInput,
+  DeleteItemInput
+} from 'aws-sdk/clients/dynamodb';
 import * as AWSMock from 'aws-sdk-mock';
 import each from 'jest-each';
 import { before } from 'lodash';
@@ -527,7 +533,7 @@ describe('DELETE', () => {
     });
 
     // UPDATE (delete) item (Success)
-    AWSMock.mock('DynamoDB', 'updateItem', (params: UpdateItemInput, callback: Function) => {
+    AWSMock.mock('DynamoDB', 'deleteItem', (params: DeleteItemInput, callback: Function) => {
       callback(null, {
         Items: [DynamoDBConverter.marshall(resource)]
       });
@@ -544,9 +550,7 @@ describe('DELETE', () => {
 
     // CHECK
     expect(serviceResponse.success).toEqual(true);
-    expect(serviceResponse.message).toEqual(
-      `Successfully deleted ResourceType: ${resourceType}, Id: ${id}, VersionId: ${vid}`
-    );
+    expect(serviceResponse.message).toEqual(`Successfully deleted resource Id: ${id}, VersionId: ${vid}`);
   });
 });
 

@@ -75,8 +75,8 @@ export default class DynamoDbBundleServiceHelper {
         }
         case 'update': {
           // Create new entry with status = PENDING
-          // When updating a resource, create a new Document for that resource
-          const { id } = request.resource;
+          // If availabe the id of the request shall be used (condition update use case)
+          const id = request.id || request.resource.id;
           const vid = (idToVersionId[id] || 0) + 1;
           const Item = DynamoDbUtil.prepItemForDdbInsert(
             request.resource,
@@ -95,7 +95,8 @@ export default class DynamoDbBundleServiceHelper {
 
           const { stagingResponse, itemLocked } = this.addStagingResponseAndItemsLocked(request.operation, {
             ...request.resource,
-            meta: { ...Item.meta }
+            meta: { ...Item.meta },
+            id
           });
           newBundleEntryResponses = newBundleEntryResponses.concat(stagingResponse);
           newLocks = newLocks.concat(itemLocked);
