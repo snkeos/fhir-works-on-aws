@@ -155,6 +155,10 @@ NagSuppressions.addStackSuppressions(stack, [
     reason: 'Raised on a custom Lambda not created by our template'
   },
   {
+    id: 'HIPAA.Security-DynamoDBAutoScalingEnabled',
+    reason: 'Autoscaling on the Resource Table is not required'
+  },
+  {
     id: 'HIPAA.Security-LambdaDLQ',
     reason: 'Raised on a custom Lambda not created by our template'
   },
