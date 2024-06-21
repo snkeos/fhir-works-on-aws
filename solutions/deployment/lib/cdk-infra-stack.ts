@@ -1030,6 +1030,38 @@ export default class FhirWorksStack extends Stack {
       usagePlan.addApiKey(apiGatewayApiKey)
     }
 
+    if (!props!.enableMultiTenancy && !props!.useTenantSpecificUrl) {
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/metadata/GET/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata endpoints do not require an Authorizer'
+          }
+        ]
+      );
+    } else {
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/GET/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata endpoints do not require an Authorizer'
+          }
+        ]
+      );
+    }
+
     let fhirServerResource: IResource;
     let proxyResource: IResource;
     let metadataResource: IResource;
@@ -1081,37 +1113,6 @@ export default class FhirWorksStack extends Stack {
     //    - If: '"${self:custom.enableMultiTenancy}" == "true" && "${self:custom.useTenantSpecificUrl}" == "true"'
     //      Exclude:
     //         - resources.extensions.ApiGatewayMethodMetadataGet
-    if (!props!.enableMultiTenancy && !props!.useTenantSpecificUrl) {
-      NagSuppressions.addResourceSuppressionsByPath(
-        this,
-        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/metadata/GET/Resource`,
-        [
-          {
-            id: 'AwsSolutions-APIG4',
-            reason: 'The /metadata endpoints do not require Authorization'
-          },
-          {
-            id: 'AwsSolutions-COG4',
-            reason: 'The /metadata endpoints do not require an Authorizer'
-          }
-        ]
-      );
-    } else {
-      NagSuppressions.addResourceSuppressionsByPath(
-        this,
-        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/GET/Resource`,
-        [
-          {
-            id: 'AwsSolutions-APIG4',
-            reason: 'The /metadata endpoints do not require Authorization'
-          },
-          {
-            id: 'AwsSolutions-COG4',
-            reason: 'The /metadata endpoints do not require an Authorizer'
-          }
-        ]
-      );
-    }
 
     const ddbToEsDLQ = new Queue(this, 'ddbToEsDLQ', {
       retentionPeriod: Duration.days(14),
