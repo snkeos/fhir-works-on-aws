@@ -1061,7 +1061,6 @@ export default class FhirWorksStack extends Stack {
     });
     // events 2
     metadataResource.addMethod('GET', new LambdaIntegration(fhirServerLambda), {
-      authorizationType: AuthorizationType.NONE,
       apiKeyRequired: props!.useApiKeys
     });
 
