@@ -19,7 +19,8 @@ import {
   LambdaIntegration,
   MethodLoggingLevel,
   AccessLogFormat,
-  LogGroupLogDestination
+  LogGroupLogDestination,
+  IResource
 } from 'aws-cdk-lib/aws-apigateway';
 import { AttributeType, BillingMode, StreamViewType, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb';
 import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
@@ -106,12 +107,6 @@ export default class FhirWorksStack extends Stack {
     if (props!.grantAccessAllTenantsScope !== "") {
       cognitoScopes.push(props!.grantAccessAllTenantsScope);
     }
-
-    // If multitenancy supported and url specific tenant set, create tenant specific endpoints
-    const tenantPrefix = (props!.enableMultiTenancy && props!.useTenantSpecificUrl) ? '/tenant/{tenantId}' : '';
-    const serverEndpoint = `${tenantPrefix}/`; // fhirServer.events.0
-    const proxyEndpoint = `${tenantPrefix}/{proxy+}`; // fhirServer.events.1
-    const serverMetadata = `${tenantPrefix}/metadata`; // fhirServer.events.2
 
     // Define parameters
     const exportGlueWorkerType = new CfnParameter(this, 'exportGlueWorkerType', {
@@ -1035,8 +1030,21 @@ export default class FhirWorksStack extends Stack {
       usagePlan.addApiKey(apiGatewayApiKey)
     }
 
+    let fhirServerResource: IResource;
+    let proxyResource: IResource;
+    let metadataResource: IResource;
+
+    // If multitenancy supported and url specific tenant set, create tenant specific endpoints
+    if (props!.enableMultiTenancy && props!.useTenantSpecificUrl) {
+      const tenantEndpoint = apiGatewayRestApi.root.addResource('tenant');
+      fhirServerResource = tenantEndpoint.addResource('{tenantId}');
+    } else {
+      fhirServerResource = apiGatewayRestApi.root;
+    }
+    proxyResource = fhirServerResource.addResource('{proxy+}');
+    metadataResource = fhirServerResource.addResource('metadata');
+
     // events 0
-    const fhirServerResource = apiGatewayRestApi.root.addResource(serverEndpoint);
     fhirServerResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
       authorizer: apiGatewayAuthorizer,
       authorizationType: AuthorizationType.COGNITO,
@@ -1045,7 +1053,6 @@ export default class FhirWorksStack extends Stack {
     });
 
     // events 1
-    const proxyResource = apiGatewayRestApi.root.addResource(proxyEndpoint);
     proxyResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
       authorizer: apiGatewayAuthorizer,
       authorizationType: AuthorizationType.COGNITO,
@@ -1053,7 +1060,6 @@ export default class FhirWorksStack extends Stack {
       authorizationScopes: cognitoScopes
     });
     // events 2
-    const metadataResource = apiGatewayRestApi.root.addResource(serverMetadata);
     metadataResource.addMethod('GET', new LambdaIntegration(fhirServerLambda), {
       authorizationType: AuthorizationType.NONE,
       apiKeyRequired: props!.useApiKeys
