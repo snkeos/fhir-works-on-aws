@@ -25,4 +25,5 @@ export * from './errors/InvalidSearchParameterError';
 export * from './errors/ResourceConflictError';
 export * from './validator';
 export { makeLogger } from './loggerBuilder';
+export { makeEncryptLogger } from './encryptedLoggerBuilder';
 export { stubs } from './stubs';
