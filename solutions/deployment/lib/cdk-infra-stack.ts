@@ -1030,6 +1030,57 @@ export default class FhirWorksStack extends Stack {
       usagePlan.addApiKey(apiGatewayApiKey)
     }
 
+    let fhirServerResource: IResource;
+    let proxyResource: IResource;
+    let metadataResource: IResource;
+
+    // If multitenancy supported and url specific tenant set, create tenant specific endpoints
+    if (props!.enableMultiTenancy && props!.useTenantSpecificUrl) {
+      const tenantEndpoint = apiGatewayRestApi.root.addResource('tenant');
+      fhirServerResource = tenantEndpoint.addResource('{tenantId}');
+    } else {
+      fhirServerResource = apiGatewayRestApi.root;
+    }
+    proxyResource = fhirServerResource.addResource('{proxy+}');
+    metadataResource = fhirServerResource.addResource('metadata');
+
+    // events 0
+    fhirServerResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
+      authorizer: apiGatewayAuthorizer,
+      authorizationType: AuthorizationType.COGNITO,
+      apiKeyRequired: props!.useApiKeys,
+      authorizationScopes: cognitoScopes,
+    });
+
+    // events 1
+    proxyResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
+      authorizer: apiGatewayAuthorizer,
+      authorizationType: AuthorizationType.COGNITO,
+      apiKeyRequired: props!.useApiKeys,
+      authorizationScopes: cognitoScopes
+    });
+    // events 2
+    metadataResource.addMethod('GET', new LambdaIntegration(fhirServerLambda), {
+      apiKeyRequired: props!.useApiKeys
+    });
+
+    if (props!.corsOrigins != '') {
+      // events 3
+      fhirServerResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
+        apiKeyRequired: false
+      });
+      // events 4
+      proxyResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
+        apiKeyRequired: false
+      });
+      metadataResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
+        apiKeyRequired: false
+      });
+    }
+    // Serverless:
+    //    - If: '"${self:custom.enableMultiTenancy}" == "true" && "${self:custom.useTenantSpecificUrl}" == "true"'
+    //      Exclude:
+    //         - resources.extensions.ApiGatewayMethodMetadataGet
     if (!props!.enableMultiTenancy && !props!.useTenantSpecificUrl) {
       NagSuppressions.addResourceSuppressionsByPath(
         this,
@@ -1103,58 +1154,6 @@ export default class FhirWorksStack extends Stack {
         ]
       );
     }
-
-    let fhirServerResource: IResource;
-    let proxyResource: IResource;
-    let metadataResource: IResource;
-
-    // If multitenancy supported and url specific tenant set, create tenant specific endpoints
-    if (props!.enableMultiTenancy && props!.useTenantSpecificUrl) {
-      const tenantEndpoint = apiGatewayRestApi.root.addResource('tenant');
-      fhirServerResource = tenantEndpoint.addResource('{tenantId}');
-    } else {
-      fhirServerResource = apiGatewayRestApi.root;
-    }
-    proxyResource = fhirServerResource.addResource('{proxy+}');
-    metadataResource = fhirServerResource.addResource('metadata');
-
-    // events 0
-    fhirServerResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
-      authorizer: apiGatewayAuthorizer,
-      authorizationType: AuthorizationType.COGNITO,
-      apiKeyRequired: props!.useApiKeys,
-      authorizationScopes: cognitoScopes,
-    });
-
-    // events 1
-    proxyResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
-      authorizer: apiGatewayAuthorizer,
-      authorizationType: AuthorizationType.COGNITO,
-      apiKeyRequired: props!.useApiKeys,
-      authorizationScopes: cognitoScopes
-    });
-    // events 2
-    metadataResource.addMethod('GET', new LambdaIntegration(fhirServerLambda), {
-      apiKeyRequired: props!.useApiKeys
-    });
-
-    if (props!.corsOrigins != '') {
-      // events 3
-      fhirServerResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        apiKeyRequired: false
-      });
-      // events 4
-      proxyResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        apiKeyRequired: false
-      });
-      metadataResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        apiKeyRequired: false
-      });
-    }
-    // Serverless:
-    //    - If: '"${self:custom.enableMultiTenancy}" == "true" && "${self:custom.useTenantSpecificUrl}" == "true"'
-    //      Exclude:
-    //         - resources.extensions.ApiGatewayMethodMetadataGet
 
     const ddbToEsDLQ = new Queue(this, 'ddbToEsDLQ', {
       retentionPeriod: Duration.days(14),
