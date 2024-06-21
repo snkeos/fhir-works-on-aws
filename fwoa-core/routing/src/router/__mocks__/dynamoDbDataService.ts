@@ -15,7 +15,7 @@ import {
     InitiateExportRequest,
     GetExportStatusResponse,
 } from '@aws/fhir-works-on-aws-interface';
-import validPatient from '../../../sampleData/validV4Patient.json';
+import validPatient from '../../sampleData/validV4Patient.json';
 
 let createResourceId: string = 'id';
 
