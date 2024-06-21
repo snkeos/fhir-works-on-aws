@@ -28,7 +28,7 @@ phases:
   post_build:
     commands:
       - ls -al
-      - cd ../solutions/deployment
+      - cd ./solutions/deployment
       - ls -al
       - rushx deploy -c region=$AWS_REGION
   # post_build:
