@@ -1068,16 +1068,13 @@ export default class FhirWorksStack extends Stack {
     if (props!.corsOrigins != '') {
       // events 3
       fhirServerResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        authorizationType: AuthorizationType.NONE,
         apiKeyRequired: false
       });
       // events 4
       proxyResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        authorizationType: AuthorizationType.NONE,
         apiKeyRequired: false
       });
       metadataResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
-        authorizationType: AuthorizationType.NONE,
         apiKeyRequired: false
       });
     }
