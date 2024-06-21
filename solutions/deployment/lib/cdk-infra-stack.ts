@@ -1060,6 +1060,48 @@ export default class FhirWorksStack extends Stack {
           }
         ]
       );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata/OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata/OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /tenant/{tenantId}/OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /tenant/{tenantId}/OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/{proxy+}/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The proxy /OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The proxy /OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
     }
 
     let fhirServerResource: IResource;
