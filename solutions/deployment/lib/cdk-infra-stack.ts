@@ -129,7 +129,7 @@ export default class FhirWorksStack extends Stack {
     });
     const isMultiTenancyEnabled = props!.enableMultiTenancy;
     // if any external user pool properties are empty (extUserPoolID, extUserPoolClientId, or extUserPoolDomain), then use default user pool
-    const isUsingDefaultUserPool = props!.extUserPoolId !== '' || props!.extUserPoolClientId !== '' || props!.extUserPoolDomain !== '';
+    const isUsingExternalUserPool = props!.extUserPoolId !== '' && props!.extUserPoolClientId !== '' && props!.extUserPoolDomain !== '';
     // define other custom variables here
     const resourceTableName = `resource-db-${props!.stage}`;
     const exportRequestTableName = `export-request-${props!.stage}`;
@@ -327,17 +327,12 @@ export default class FhirWorksStack extends Stack {
       props!.stage
     );
 
-    // Create Cognito Resources here if using the user pool is not defined in the props
+    // Create Cognito Resources here if the external user pool is not defined in the props
     let cognitoResources: CognitoResources;
     let defaultUserPool: IUserPool;
     let userPoolClient: string;
     let userPoolDomain: string;
-    if (isUsingDefaultUserPool) {
-      cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
-      defaultUserPool = cognitoResources.userPool;
-      userPoolClient = cognitoResources.userPoolClient.ref;
-      userPoolDomain = cognitoResources.userPoolDomain.ref;
-    } else {
+    if (isUsingExternalUserPool) {
       defaultUserPool = UserPool.fromUserPoolArn(
         this,
         'ExistingUserPool',
@@ -345,6 +340,11 @@ export default class FhirWorksStack extends Stack {
       );
       userPoolClient = props!.extUserPoolClientId;
       userPoolDomain = props!.extUserPoolDomain;
+    } else {
+      cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+      defaultUserPool = cognitoResources.userPool;
+      userPoolClient = cognitoResources.userPoolClient.ref;
+      userPoolDomain = cognitoResources.userPoolDomain.ref;
     }
 
     const apiGatewayLogGroup = new LogGroup(this, 'apiGatewayLogGroup', {
