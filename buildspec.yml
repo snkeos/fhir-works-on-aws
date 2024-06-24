@@ -22,6 +22,7 @@ phases:
       - echo "Bootstrapping CDK"
       # Cannot use CDK bootstrap with custom parameters, which are needed to assume the CDK Toolkit roles for deployment from CodeBuild
       # - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template bootstrap-template.yaml -c Env=$ENV
+      - aws cloudformation validate-template --template-body file://bootstrap-template.yaml
       - |
         aws cloudformation create-stack \
           --stack-name CDKToolkit \
