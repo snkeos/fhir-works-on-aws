@@ -9,6 +9,13 @@ phases:
       - npm install -g aws-cdk
       - export PATH=$PATH:$(npm bin -g)
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+      - echo "STAGE_TYPE=$STAGE_TYPE"
+      - echo "STAGE_NAME=$STAGE_NAME"
+      - echo "USERPOOL_ID=$USERPOOL_ID"
+      - echo "USERPOOL_CLIENT_ID=$USERPOOL_CLIENT_ID"
+      - echo "POOL_DOMAIN=$POOL_DOMAIN"
+      - echo "AWS_REGION=$AWS_REGION"
+      - echo "ALL_TENANTS_SCOPE=$ALL_TENANTS_SCOPE"
   pre_build:
     commands:
       - echo "Installing dependencies and executing unit tests - `pwd`"
@@ -28,9 +35,17 @@ phases:
   post_build:
     commands:
       - ls -al
-      - cd ./solutions/deployment
+      - cd ../solutions/deployment
       - ls -al
-      - rushx deploy -c region=$AWS_REGION
+      - |
+        rushx deploy -c region=$AWS_REGION \
+          -c extUserPoolId=$USERPOOL_ID \
+          -c extUserPoolClientId=$USERPOOL_CLIENT_ID \
+          -c extUserPoolDomain=$POOL_DOMAIN \
+          -c stage=$STAGE_NAME \
+          -c stageType=$STAGE_TYPE \
+          -c grantAccessAllTenantsScope=$ALL_TENANTS_SCOPE \
+          -c enableMultiTenancy=true
   # post_build:
   #   commands:
   #     - echo "Retrieving next stage buildspec `date` `pwd`"
