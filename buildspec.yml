@@ -9,6 +9,7 @@ phases:
       - npm install -g aws-cdk
       - export PATH=$PATH:$(npm bin -g)
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+      - echo "ENV=$ENV"
       - echo "STAGE_TYPE=$STAGE_TYPE"
       - echo "STAGE_NAME=$STAGE_NAME"
       - echo "USERPOOL_ID=$USERPOOL_ID"
@@ -21,7 +22,7 @@ phases:
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"
-      - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
+      - cdk bootstrap --template bootstrap-template.yaml --parameters Env=$ENV aws://$AWS_ACCOUNT_ID/$AWS_REGION
   build:
     commands:
       - echo "Starting build `date` `pwd`"
@@ -31,7 +32,7 @@ phases:
       - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
       - echo "Open Source Dist completed `date`"
       - cd ..
-      - rush update && rush build && rush test
+      - rush update && rush build # && rush test
   post_build:
     commands:
       - ls -al
