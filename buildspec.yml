@@ -20,7 +20,7 @@ phases:
   pre_build:
     commands:
       - echo "Bootstrapping CDK"
-      - cdk bootstrap --template bootstrap-template.yaml --parameters Env=$ENV aws://$AWS_ACCOUNT_ID/$AWS_REGION
+      - cdk bootstrap --template bootstrap-template.yaml -c Env=$ENV aws://$AWS_ACCOUNT_ID/$AWS_REGION
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"
