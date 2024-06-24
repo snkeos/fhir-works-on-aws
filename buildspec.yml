@@ -26,7 +26,7 @@ phases:
       - |
         aws cloudformation create-stack \
           --stack-name CDKToolkit \
-          --template-body bootstrap-template.yaml \
+          --template-body file://bootstrap-template.yaml \
           --capabilities CAPABILITY_NAMED_IAM \
           --region $AWS_REGION \
           --parameters ParameterKey=Env,ParameterValue=$ENV
