@@ -9,7 +9,7 @@ import {
   Stack,
   StackProps
 } from 'aws-cdk-lib';
-import { UserPool } from 'aws-cdk-lib/aws-cognito';
+import { IUserPool, UserPool } from 'aws-cdk-lib/aws-cognito';
 import {
   ApiKeySourceType,
   AuthorizationType,
@@ -128,7 +128,7 @@ export default class FhirWorksStack extends Stack {
       expression: Fn.conditionEquals(props!.stage, 'dev')
     });
     const isMultiTenancyEnabled = props!.enableMultiTenancy;
-    // if any external user pool properties are empty, then use default user pool
+    // if any external user pool properties are empty (extUserPoolID, extUserPoolClientId, or extUserPoolDomain), then use default user pool
     const isUsingDefaultUserPool = props!.extUserPoolId !== '' || props!.extUserPoolClientId !== '' || props!.extUserPoolDomain !== '';
     // define other custom variables here
     const resourceTableName = `resource-db-${props!.stage}`;
@@ -327,16 +327,25 @@ export default class FhirWorksStack extends Stack {
       props!.stage
     );
 
-    // Create Cognito Resources here:
-    const cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
-    const defaultUserPool = isUsingDefaultUserPool ?
-      cognitoResources.userPool :
-      UserPool.fromUserPoolArn(
+    // Create Cognito Resources here if using the user pool is not defined in the props
+    let cognitoResources: CognitoResources;
+    let defaultUserPool: IUserPool;
+    let userPoolClient: string;
+    let userPoolDomain: string;
+    if (isUsingDefaultUserPool) {
+      cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+      defaultUserPool = cognitoResources.userPool;
+      userPoolClient = cognitoResources.userPoolClient.ref;
+      userPoolDomain = cognitoResources.userPoolDomain.ref;
+    } else {
+      defaultUserPool = UserPool.fromUserPoolArn(
         this,
         'ExistingUserPool',
         `arn:${this.partition}:cognito-idp:${props!.region}:${this.account}:userpool/${props!.extUserPoolId}`
       );
-    const userPoolClient = isUsingDefaultUserPool ? cognitoResources.userPoolClient.ref : props!.extUserPoolClientId;
+      userPoolClient = props!.extUserPoolClientId;
+      userPoolDomain = props!.extUserPoolDomain;
+    }
 
     const apiGatewayLogGroup = new LogGroup(this, 'apiGatewayLogGroup', {
       encryptionKey: kmsResources.logKMSKey,
@@ -387,7 +396,6 @@ export default class FhirWorksStack extends Stack {
     );
 
     // determine default user pool domain
-    const userPoolDomain = isUsingDefaultUserPool ? cognitoResources.userPoolDomain.ref : props!.extUserPoolDomain;
     const lambdaDefaultEnvVars = {
       API_URL: `https://${apiGatewayRestApi.restApiId}.execute-api.${props!.region}.amazonaws.com/${props!.stage
         }`,
@@ -1541,6 +1549,24 @@ export default class FhirWorksStack extends Stack {
       isDev
     );
     // create outputs for stack here:
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolId', {
+      description: 'Provided external UserPool Id',
+      value: `${props!.extUserPoolId}`,
+      exportName: `extUserPoolId-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolClientId', {
+      description: 'Provided external UserPool ClientId',
+      value: `${props!.extUserPoolClientId}`,
+      exportName: `extUserPoolClientId-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolDomain', {
+      description: 'Provided external user pool domain',
+      value: `${props!.extUserPoolDomain}`,
+      exportName: `extUserPoolDomain-${props!.stage}`
+    });
     // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolId', {
       description: 'User pool id for the provisioning users',
