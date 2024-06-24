@@ -30,6 +30,7 @@ phases:
           --capabilities CAPABILITY_NAMED_IAM \
           --region $AWS_REGION \
           --parameters ParameterKey=Env,ParameterValue=$ENV
+      - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"
