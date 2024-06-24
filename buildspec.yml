@@ -20,7 +20,14 @@ phases:
   pre_build:
     commands:
       - echo "Bootstrapping CDK"
-      - cdk bootstrap --template bootstrap-template.yaml -c Env=$ENV aws://$AWS_ACCOUNT_ID/$AWS_REGION
+      # Cannot use CDK bootstrap with custom parameters, which are needed to assume the CDK Toolkit roles for deployment from CodeBuild
+      # - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template bootstrap-template.yaml -c Env=$ENV
+      - aws cloudformation create-stack \
+        --stack-name CDKToolkit \
+        --template-body bootstrap-template.yaml \
+        --capabilities CAPABILITY_NAMED_IAM \
+        --region $AWS_REGION
+        --parameters ParameterKey=Env,ParameterValue=$ENV
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"
