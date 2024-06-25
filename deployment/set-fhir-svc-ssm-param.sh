@@ -28,5 +28,7 @@ if [ -z "${SERVICE_ENDPOINT}" ]; then
   exit 1
 fi
 
+echo "Found $EXPORT_NAME with value $SERVICE_ENDPOINT. Setting SSM Parameter $STAGE_NAME-fhirworks-url"
+
 # Print the export value
 aws ssm put-parameter --name "$STAGE_NAME-fhirworks-url" --value "$SERVICE_ENDPOINT" --type "String" --overwrite

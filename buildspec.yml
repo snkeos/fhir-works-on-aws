@@ -64,7 +64,7 @@ phases:
           -c enableMultiTenancy=true
       - echo "FHIRworks deployment succeeded"
       - echo "Setting SSM parameter $STAGE_NAME-fhirworks-url"
-      - cd deployment && chmod +x ./set-ssm-service-endpoint-parameter.sh && ./set-ssm-service-endpoint-parameter.sh $STAGE_NAME
+      - cd ../../deployment && chmod +x ./set-fhir-svc-ssm-param.sh && ./set-fhir-svc-ssm-param.sh $STAGE_NAME
 
   # post_build:
   #   commands:
