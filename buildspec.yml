@@ -25,8 +25,7 @@ phases:
       # - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template bootstrap-template.yaml -c Env=$ENV
       - aws cloudformation validate-template --template-body file://bootstrap-template.yaml
       - echo "Updating CDK role trust policies"
-      - chmod +x ./deployment/update-cdk-role-trust-policy.sh \
-      - ./deployment/update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CODE_BUILD_ROLE
+      - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CODE_BUILD_ROLE
       # - |
       #   aws cloudformation create-stack \
       #     --stack-name CDKToolkit \
