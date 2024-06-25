@@ -40,12 +40,12 @@ phases:
       - echo "Installing dependencies and executing unit tests completed `date`"
   build:
     commands:
-      - echo "Starting build `date` `pwd`"
-      - chmod +x ./build-s3-dist.sh && ./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $VERSION
-      - echo "Build completed `date`"
-      - echo "Starting open-source-dist `date` `pwd`"
-      - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
-      - echo "Open Source Dist completed `date`"
+      # - echo "Starting build `date` `pwd`"
+      # - chmod +x ./build-s3-dist.sh && ./build-s3-dist.sh $DIST_OUTPUT_BUCKET $SOLUTION_NAME $VERSION
+      # - echo "Build completed `date`"
+      # - echo "Starting open-source-dist `date` `pwd`"
+      # - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
+      # - echo "Open Source Dist completed `date`"
       - cd ..
       - rush update && rush build # && rush test
   post_build:
