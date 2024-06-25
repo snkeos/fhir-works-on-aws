@@ -4,6 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/typedef */
 import {
   AccessBulkDataJobRequest,
   Authorization,
@@ -15,6 +16,7 @@ import { History } from './history';
 import { Persistence } from './persistence';
 import { Search, SearchCapabilityStatement } from './search';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace stubs {
   export const bundle: Bundle = {
     batch(request) {
@@ -63,14 +65,14 @@ export namespace stubs {
       return {};
     },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isBundleRequestAuthorized(request) {},
+    async isBundleRequestAuthorized(request) { },
     async authorizeAndFilterReadResponse(request) {
       return request.readResponse;
     },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isWriteRequestAuthorized(request) {},
+    async isWriteRequestAuthorized(request) { },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest) {},
+    async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest) { },
     async getSearchFilterBasedOnIdentity(request: GetSearchFilterBasedOnIdentityRequest) {
       return [];
     },

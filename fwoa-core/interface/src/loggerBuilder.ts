@@ -2,6 +2,7 @@ import { createLogger, Logger } from 'winston';
 import Transport from 'winston-transport';
 
 class SimpleConsole extends Transport {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   log(info: any, callback: () => void) {
     setImmediate(() => this.emit('logged', info));
     const msg = [info.meta, info.message];
@@ -36,7 +37,7 @@ class SimpleConsole extends Transport {
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,import/prefer-default-export
 export function makeLogger(metadata?: any, logLevel: string | undefined = process.env.LOG_LEVEL): Logger {
   return createLogger({
     level: logLevel,
