@@ -4,8 +4,7 @@
  *
  */
 
-import isValid from 'date-fns/isValid';
-import parseISO from 'date-fns/parseISO';
+import { isValid, parseISO } from 'date-fns';
 import { DateSearchValue } from '../../FhirQueryParser';
 
 import { compareNumberToRange, compareRanges } from './common/numericComparison';
@@ -13,7 +12,10 @@ import { compareNumberToRange, compareRanges } from './common/numericComparison'
 // eslint-disable-next-line import/prefer-default-export
 export const dateMatch = (searchValue: DateSearchValue, resourceValue: any): boolean => {
   const { prefix, range } = searchValue;
-  const numericSearchRange = { start: range.start.getTime(), end: range.end.getTime() };
+  const numericSearchRange = {
+    start: range.start.getTime(),
+    end: range.end.getTime()
+  };
 
   if (typeof resourceValue === 'string') {
     const parsedDate = parseISO(resourceValue);
@@ -35,7 +37,10 @@ export const dateMatch = (searchValue: DateSearchValue, resourceValue: any): boo
       return false;
     }
 
-    return compareRanges(prefix, numericSearchRange, { start: startDate.getTime(), end: endDate.getTime() });
+    return compareRanges(prefix, numericSearchRange, {
+      start: startDate.getTime(),
+      end: endDate.getTime()
+    });
   }
 
   return false;

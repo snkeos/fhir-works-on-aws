@@ -54,7 +54,7 @@ const parseChainedParameters = (
     .flatMap(([searchParameter, searchValues]) => {
       // Validate chain and add resource type
       const chain = searchParameter.split('.');
-      const lastChain: string = <string>chain.pop();
+      const lastChain: string = chain.pop() as string;
       let currentResourceType = resourceType;
       const organizedChain: { resourceType: string; searchParam: string }[] = [];
       chain.forEach((currentSearchParam) => {
@@ -101,7 +101,10 @@ const parseChainedParameters = (
         }
         currentResourceType = nextResourceType;
       });
-      organizedChain.push({ resourceType: currentResourceType, searchParam: lastChain });
+      organizedChain.push({
+        resourceType: currentResourceType,
+        searchParam: lastChain
+      });
       return {
         chain: organizedChain.reverse(),
         initialValue: searchValues
