@@ -46,12 +46,12 @@ phases:
       # - echo "Starting open-source-dist `date` `pwd`"
       # - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
       # - echo "Open Source Dist completed `date`"
-      - cd ..
-      - rush update && rush build # && rush test
+      #- cd ..
+      #- rush update # && rush build && rush test
   post_build:
     commands:
       - ls -al
-      - cd ./solutions/deployment
+      - cd ../solutions/deployment
       - ls -al
       - |
         rushx deploy -c region=$AWS_REGION \
