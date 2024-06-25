@@ -62,6 +62,10 @@ phases:
           -c stageType=$STAGE_TYPE \
           -c grantAccessAllTenantsScope=$ALL_TENANTS_SCOPE \
           -c enableMultiTenancy=true
+      - echo "FHIRworks deployment succeeded"
+      - echo "Setting SSM parameter $STAGE_NAME-fhirworks-url"
+      - cd deployment && chmod +x ./set-ssm-service-endpoint-parameter.sh && ./set-ssm-service-endpoint-parameter.sh $STAGE_NAME
+
   # post_build:
   #   commands:
   #     - echo "Retrieving next stage buildspec `date` `pwd`"

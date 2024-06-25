@@ -1550,6 +1550,13 @@ export default class FhirWorksStack extends Stack {
     );
     // create outputs for stack here:
     // eslint-disable-next-line no-new
+    new CfnOutput(this, 'fhirServiceEndpoint', {
+      description: 'FHIRworks Service Endpoint',
+      value: `https://${apiGatewayRestApi.restApiId}.execute-api.${props!.region}.amazonaws.com/${props!.stage
+        }`,
+      exportName: `serviceEndpoint-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
     new CfnOutput(this, 'extUserPoolId', {
       description: 'Provided external UserPool Id',
       value: `${props!.extUserPoolId}`,
