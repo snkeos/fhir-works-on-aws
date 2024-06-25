@@ -10,6 +10,7 @@ phases:
       - export PATH=$PATH:$(npm bin -g)
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
       - echo "ENV=$ENV"
+      - echo "CODE_BUILD_ROLE=$CODE_BUILD_ROLE"
       - echo "STAGE_TYPE=$STAGE_TYPE"
       - echo "STAGE_NAME=$STAGE_NAME"
       - echo "USERPOOL_ID=$USERPOOL_ID"
@@ -23,14 +24,17 @@ phases:
       # Cannot use CDK bootstrap with custom parameters, which are needed to assume the CDK Toolkit roles for deployment from CodeBuild
       # - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template bootstrap-template.yaml -c Env=$ENV
       - aws cloudformation validate-template --template-body file://bootstrap-template.yaml
-      - |
-        aws cloudformation create-stack \
-          --stack-name CDKToolkit \
-          --template-body file://bootstrap-template.yaml \
-          --capabilities CAPABILITY_NAMED_IAM \
-          --region $AWS_REGION \
-          --parameters ParameterKey=Env,ParameterValue=$ENV
-      - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template-body file://bootstrap-template.yaml
+      - echo "Updating CDK role trust policies"
+      - chmod +x ./deployment/update-cdk-role-trust-policy.sh \
+      - ./deployment/update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CODE_BUILD_ROLE
+      # - |
+      #   aws cloudformation create-stack \
+      #     --stack-name CDKToolkit \
+      #     --template-body file://bootstrap-template.yaml \
+      #     --capabilities CAPABILITY_NAMED_IAM \
+      #     --region $AWS_REGION \
+      #     --parameters ParameterKey=Env,ParameterValue=$ENV
+      # - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template-body file://bootstrap-template.yaml
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"

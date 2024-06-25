@@ -60,9 +60,6 @@ Parameters:
     Description: Describe the provenance of the resources in this bootstrap
       stack. Change this when you customize the template. To prevent accidents,
       the CDK CLI will not overwrite bootstrap stacks with a different variant.
-  Env:
-    Type: String
-    Description: CDH Environment (e.g. int1, int2, ...)
 
 Conditions:
   HasTrustedAccounts:
@@ -293,10 +290,6 @@ Resources:
             Principal:
               AWS:
                 Ref: AWS::AccountId
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              AWS: arn:aws:iam::${AWS::AccountId}:role/${Env}-base-${AWS::Region}-CodeBuildRole
           - Fn::If:
               - HasTrustedAccounts
               - Action: sts:AssumeRole
@@ -343,10 +336,6 @@ Resources:
             Principal:
               AWS:
                 Ref: AWS::AccountId
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              AWS: arn:aws:iam::${AWS::AccountId}:role/${Env}-base-${AWS::Region}-CodeBuildRole
           - Fn::If:
               - HasTrustedAccountsForLookup
               - Action: sts:AssumeRole
@@ -451,10 +440,6 @@ Resources:
             Principal:
               AWS:
                 Ref: AWS::AccountId
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              AWS: arn:aws:iam::${AWS::AccountId}:role/${Env}-base-${AWS::Region}-CodeBuildRole
           - Fn::If:
               - HasTrustedAccounts
               - Action: sts:AssumeRole
