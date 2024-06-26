@@ -5,7 +5,6 @@
 
 /* eslint-disable class-methods-use-this */
 
-import uuidv4 from 'uuid/v4';
 import {
     BulkDataAccess,
     GenericResponse,
@@ -23,11 +22,11 @@ import {
     ResourceNotFoundError,
     isResourceNotFoundError,
 } from '@aws/fhir-works-on-aws-interface';
-
 import { Buffer } from 'buffer';
-import { DynamoDbDataService } from './dynamoDbDataService';
+import { v4 as uuidv4 } from 'uuid';
 import S3ObjectStorageService from '../objectStorageService/s3ObjectStorageService';
 import { SEPARATOR } from '../constants';
+import { DynamoDbDataService } from './dynamoDbDataService';
 
 export const decode = (str: string): string => Buffer.from(str, 'base64').toString('utf-8');
 export const encode = (str: string): string => Buffer.from(str, 'utf-8').toString('base64');

@@ -6,10 +6,10 @@
 
 import { Client } from '@elastic/elasticsearch';
 import AWS from 'aws-sdk';
+import { HybridDataService } from '../dataServices/hybridDataService';
 import getComponentLogger from '../loggerBuilder';
 import DdbToEsHelper from './ddbToEsHelper';
 import ESBulkCommand from './ESBulkCommand';
-import { HybridDataService } from '../dataServices/hybridDataService';
 
 const logger = getComponentLogger();
 

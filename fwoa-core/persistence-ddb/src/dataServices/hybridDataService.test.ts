@@ -2,7 +2,6 @@
  *  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *  SPDX-License-Identifier: Apache-2.0
  */
-import AWS from 'aws-sdk';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line max-classes-per-file
@@ -13,12 +12,13 @@ import {
     generateMeta,
     ResourceNotFoundError,
 } from '@aws/fhir-works-on-aws-interface';
+import AWS from 'aws-sdk';
+import S3ObjectStorageService from '../objectStorageService/s3ObjectStorageService';
 import vaildV4Questionnaire from '../sampleData/vaildV4Questionnaire.json';
 import validV4Patient from '../sampleData/validV4Patient.json';
 import { DynamoDbDataService } from './dynamoDbDataService';
 import { HybridDataService, encode, decode } from './hybridDataService';
 
-import S3ObjectStorageService from '../objectStorageService/s3ObjectStorageService';
 
 jest.mock('../objectStorageService/s3ObjectStorageService');
 
