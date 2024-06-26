@@ -173,9 +173,9 @@ export default class DynamoDbBundleServiceHelper {
         case 'create':
         case 'update': {
           /*
-                        DELETE latest record
-                        and remove lock entry from lockedItems
-                     */
+              DELETE latest record
+              and remove lock entry from lockedItems
+           */
           const { transactionRequest, itemToRemoveFromLock } =
             this.generateDeleteLatestRecordAndItemToRemoveFromLock(
               stagingResponse.resourceType,

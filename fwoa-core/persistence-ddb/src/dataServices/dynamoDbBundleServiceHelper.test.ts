@@ -178,11 +178,15 @@ describe('generateRollbackRequests', () => {
     itemsToRemoveFromLock = itemsToRemoveFromLock.concat(expectedUpdateResult.itemsToRemoveFromLock);
     itemsToRemoveFromLock = itemsToRemoveFromLock.concat(expectedDeleteResult.itemsToRemoveFromLock);
 
+    itemsToRemoveFromLock = itemsToRemoveFromLock.filter((item: any) => item !== []);
+
     let transactionRequests: any = [];
     transactionRequests = transactionRequests.concat(expectedCreateResult.transactionRequests);
     transactionRequests = transactionRequests.concat(expectedReadResult.transactionRequests);
     transactionRequests = transactionRequests.concat(expectedUpdateResult.transactionRequests);
     transactionRequests = transactionRequests.concat(expectedDeleteResult.transactionRequests);
+
+    transactionRequests = transactionRequests.filter((req: any) => req !== []);
 
     expect(actualResult).toEqual({ itemsToRemoveFromLock, transactionRequests });
   });
