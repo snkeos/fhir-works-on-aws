@@ -76,9 +76,7 @@ export class RBACHandler implements Authorization {
     await Promise.all(authZPromises);
   }
 
-  async getAllowedResourceTypesForOperation(
-    request: AllowedResourceTypesForOperationRequest
-  ): Promise<string[]> {
+  async getAllowedResourceTypesForOperation(request: AllowedResourceTypesForOperationRequest): Promise<string[]> {
     const { userIdentity, operation } = request;
     const groups: string[] = this.getGroups(userIdentity);
 
@@ -98,7 +96,7 @@ export class RBACHandler implements Authorization {
   }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  async isWriteRequestAuthorized(_request: WriteRequestAuthorizedRequest): Promise<void> {}
+  async isWriteRequestAuthorized(_request: WriteRequestAuthorizedRequest): Promise<void> { }
 
   private getGroups(decoded: { [key: string]: any }): string[] {
     const groups = decoded['cognito:groups'] ?? [];
@@ -113,11 +111,7 @@ export class RBACHandler implements Authorization {
     return groups.sort();
   }
 
-  private isAllowed(
-    groups: string[],
-    operation: TypeOperation | SystemOperation,
-    resourceType?: string
-  ): void {
+  private isAllowed(groups: string[], operation: TypeOperation | SystemOperation, resourceType?: string): void {
     for (let index = 0; index < groups.length; index += 1) {
       const group: string = groups[index];
       if (this.rules.groupRules[group]) {
@@ -148,8 +142,10 @@ export class RBACHandler implements Authorization {
               // TODO: Enable supporting of different profiles by specifying the resources you would want to export
               // in BASE_R4_RESOURCES
               if (
-                (this.fhirVersion === '4.0.1' && isEqual(rule.resources.sort(), BASE_R4_RESOURCES.sort())) ||
-                (this.fhirVersion === '3.0.1' && isEqual(rule.resources.sort(), BASE_STU3_RESOURCES.sort()))
+                (this.fhirVersion === '4.0.1' &&
+                  isEqual(rule.resources.sort(), BASE_R4_RESOURCES.sort())) ||
+                (this.fhirVersion === '3.0.1' &&
+                  isEqual(rule.resources.sort(), BASE_STU3_RESOURCES.sort()))
               ) {
                 return;
               }
@@ -182,9 +178,7 @@ export class RBACHandler implements Authorization {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,class-methods-use-this
-  async getSearchFilterBasedOnIdentity(
-    request: GetSearchFilterBasedOnIdentityRequest
-  ): Promise<SearchFilter[]> {
+  async getSearchFilterBasedOnIdentity(request: GetSearchFilterBasedOnIdentityRequest): Promise<SearchFilter[]> {
     return [];
   }
 }
