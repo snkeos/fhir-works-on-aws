@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable class-methods-use-this */
-
+import { Buffer } from 'buffer';
 import {
     BulkDataAccess,
     GenericResponse,
@@ -22,10 +22,9 @@ import {
     ResourceNotFoundError,
     isResourceNotFoundError,
 } from '@aws/fhir-works-on-aws-interface';
-import { Buffer } from 'buffer';
 import { v4 as uuidv4 } from 'uuid';
-import S3ObjectStorageService from '../objectStorageService/s3ObjectStorageService';
 import { SEPARATOR } from '../constants';
+import S3ObjectStorageService from '../objectStorageService/s3ObjectStorageService';
 import { DynamoDbDataService } from './dynamoDbDataService';
 
 export const decode = (str: string): string => Buffer.from(str, 'base64').toString('utf-8');
@@ -39,6 +38,14 @@ export class HybridDataService implements Persistence, BulkDataAccess {
     readonly enableMultiTenancy: boolean;
 
     private readonly dbPersistenceService: DynamoDbDataService;
+
+    constructor(
+        dbPersistenceService: DynamoDbDataService,
+        { enableMultiTenancy = false }: { enableMultiTenancy?: boolean } = {},
+    ) {
+        this.dbPersistenceService = dbPersistenceService;
+        this.enableMultiTenancy = enableMultiTenancy;
+    }
 
     private static async storeBulkData(bulkData: any, bulkDataLink: string) {
         await S3ObjectStorageService.uploadObject(encode(JSON.stringify(bulkData)), bulkDataLink, 'application/json');
@@ -70,14 +77,6 @@ export class HybridDataService implements Persistence, BulkDataAccess {
             }
         }
         return resource;
-    }
-
-    constructor(
-        dbPersistenceService: DynamoDbDataService,
-        { enableMultiTenancy = false }: { enableMultiTenancy?: boolean } = {},
-    ) {
-        this.dbPersistenceService = dbPersistenceService;
-        this.enableMultiTenancy = enableMultiTenancy;
     }
 
     registerToStoreOnObjectStorage(resourceType: string, attributes: Array<string>): void {

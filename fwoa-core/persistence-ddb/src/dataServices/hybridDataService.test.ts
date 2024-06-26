@@ -3,6 +3,10 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 
+jest.mock('../objectStorageService/s3ObjectStorageService');
+
+jest.setTimeout(100000);
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line max-classes-per-file
 import {
@@ -18,11 +22,6 @@ import vaildV4Questionnaire from '../sampleData/vaildV4Questionnaire.json';
 import validV4Patient from '../sampleData/validV4Patient.json';
 import { DynamoDbDataService } from './dynamoDbDataService';
 import { HybridDataService, encode, decode } from './hybridDataService';
-
-
-jest.mock('../objectStorageService/s3ObjectStorageService');
-
-jest.setTimeout(100000);
 
 class TestObjectStorage {
     private static objects: Map<string, Buffer> = new Map<string, Buffer>();
