@@ -1234,7 +1234,12 @@ export default class FhirWorksStack extends Stack {
                 effect: Effect.ALLOW,
                 actions: ['sqs:SendMessage'],
                 resources: [ddbToEsDLQ.queueArn]
-              })
+              }),
+              new PolicyStatement({
+                effect: Effect.ALLOW,
+                actions: ['s3:*Object', 's3:ListBucket', 's3:DeleteObjectVersion'],
+                resources: [fhirBinaryBucket.bucketArn, fhirBinaryBucket.arnForObjects('*')]
+              }),
             ]
           }),
           KMSPolicy: new PolicyDocument({
@@ -1251,7 +1256,7 @@ export default class FhirWorksStack extends Stack {
                   'kms:GenerateDataKey',
                   'kms:GenerateDataKeyWithoutPlaintext'
                 ],
-                resources: [kmsResources.dynamoDbKMSKey.keyArn, kmsResources.elasticSearchKMSKey.keyArn]
+                resources: [kmsResources.s3KMSKey.keyArn, kmsResources.dynamoDbKMSKey.keyArn, kmsResources.elasticSearchKMSKey.keyArn]
               })
             ]
           })
