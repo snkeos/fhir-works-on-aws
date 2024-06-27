@@ -277,8 +277,7 @@ export default class ElasticSearchResources {
           principals: [
             new ArnPrincipal(this.adminKibanaAccessRole!.roleArn),
             new ArnPrincipal(
-              `arn:${partition}:sts::${account}:assumed-role/${
-                this.kibanaCognitoRole!.roleName
+              `arn:${partition}:sts::${account}:assumed-role/${this.kibanaCognitoRole!.roleName
               }/CognitoIdentityCredentials`
             )
           ],
@@ -302,8 +301,8 @@ export default class ElasticSearchResources {
       },
       enableVersionUpgrade: true,
       capacity: {
-        masterNodes: isDev ? undefined : 3,
-        masterNodeInstanceType: isDev ? undefined : regionMappings.findInMap(region, 'smallEc2'),
+        masterNodes: isDev ? 1 : 3,
+        masterNodeInstanceType: regionMappings.findInMap(region, 'smallEc2'),
         dataNodes: isDev ? 1 : 4,
         dataNodeInstanceType: regionMappings.findInMap(region, isDev ? 'smallEc2' : 'largeEc2')
       },
@@ -315,10 +314,10 @@ export default class ElasticSearchResources {
       automatedSnapshotStartHour: isDev ? undefined : 0,
       cognitoDashboardsAuth: isDev
         ? {
-            identityPoolId: this.kibanaIdentityPool!.ref,
-            userPoolId: this.kibanaUserPool!.ref,
-            role: this.kibanaCognitoRole!
-          }
+          identityPoolId: this.kibanaIdentityPool!.ref,
+          userPoolId: this.kibanaUserPool!.ref,
+          role: this.kibanaCognitoRole!
+        }
         : undefined,
       accessPolicies: elasticSearchDomainAccessPolicy,
       logging: {

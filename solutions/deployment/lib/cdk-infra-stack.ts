@@ -124,7 +124,7 @@ export default class FhirWorksStack extends Stack {
     });
 
     // define conditions here:
-    const isDev = props!.stage === 'dev';
+    const isDev = props!.stage === 'dev' || props!.stageType === 'dev';
     const isDevCondition = new CfnCondition(this, 'isDev', {
       expression: Fn.conditionEquals(props!.stage, 'dev')
     });
