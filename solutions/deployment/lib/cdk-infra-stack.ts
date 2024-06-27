@@ -20,7 +20,8 @@ import {
   MethodLoggingLevel,
   AccessLogFormat,
   LogGroupLogDestination,
-  IResource
+  IResource,
+  TokenAuthorizer
 } from 'aws-cdk-lib/aws-apigateway';
 import { AttributeType, BillingMode, StreamViewType, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb';
 import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
@@ -417,6 +418,10 @@ export default class FhirWorksStack extends Stack {
         : 'ENCRYPTION_TURNED_OFF',
       ENABLE_SECURITY_LOGGING: `${props!.enableSecurityLogging}`,
       VALIDATE_XHTML: props?.validateXHTML ? 'true' : 'false',
+      TENANT_ID_CLAIM_PATH: props!.tenantIdClaimPath,
+      TENANT_ID_CLAIM_VALUE_PREFIX: props!.tenantIdClaimValuePrefix,
+      USE_TENANT_SPECIFIC_URL: `${props!.useTenantSpecificUrl}`,
+      GRANT_ACCESS_ALL_TENANTS_SCOPE: props!.grantAccessAllTenantsScope
     };
 
     const defaultLambdaBundlingOptions = {
@@ -896,7 +901,7 @@ export default class FhirWorksStack extends Stack {
         EXPORT_STATE_MACHINE_ARN: bulkExportStateMachine.bulkExportStateMachine.stateMachineArn,
         PATIENT_COMPARTMENT_V3: props!.patientCompartmentFileV3,
         PATIENT_COMPARTMENT_V4: props!.patientCompartmentFileV4,
-        VALIDATOR_LAMBDA_ALIAS: props!.useHapiValidator ? this.javaHapiValidator!.alias.functionArn : ''
+        VALIDATOR_LAMBDA_ALIAS: props!.useHapiValidator ? this.javaHapiValidator!.alias.functionArn : '',
       },
       role: new Role(this, 'fhirServerLambdaRole', {
         assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
