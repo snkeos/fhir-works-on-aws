@@ -55,12 +55,13 @@ for ROLE_NAME in $CDK_ROLES; do
   else
     echo "Adding trust relationship to $ROLE_NAME"
 
-  # Get the existing trust relationship policy document
-  TRUST_POLICY=$(aws iam get-role --role-name $ROLE_NAME --query "Role.AssumeRolePolicyDocument" --output json)
+    # Get the existing trust relationship policy document
+    TRUST_POLICY=$(aws iam get-role --role-name $ROLE_NAME --query "Role.AssumeRolePolicyDocument" --output json)
 
-  # Add the new role ARN to the trust policy
-  UPDATED_TRUST_POLICY=$(echo $TRUST_POLICY | jq --arg ROLE_ARN "$ROLE_ARN_TO_ALLOW" '.Statement += [{"Effect": "Allow", "Principal": {"AWS": $ROLE_ARN}, "Action": "sts:AssumeRole"}]')
+    # Add the new role ARN to the trust policy
+    UPDATED_TRUST_POLICY=$(echo $TRUST_POLICY | jq --arg ROLE_ARN "$ROLE_ARN_TO_ALLOW" '.Statement += [{"Effect": "Allow", "Principal": {"AWS": $ROLE_ARN}, "Action": "sts:AssumeRole"}]')
 
-  # Update the trust relationship
-  aws iam update-assume-role-policy --role-name $ROLE_NAME --policy-document "$UPDATED_TRUST_POLICY"
+    # Update the trust relationship
+    aws iam update-assume-role-policy --role-name $ROLE_NAME --policy-document "$UPDATED_TRUST_POLICY"
+  fi
 done
