@@ -301,8 +301,8 @@ export default class ElasticSearchResources {
       },
       enableVersionUpgrade: true,
       capacity: {
-        masterNodes: isDev ? 1 : 3,
-        masterNodeInstanceType: regionMappings.findInMap(region, 'smallEc2'),
+        masterNodes: isDev ? undefined : 3,
+        masterNodeInstanceType: isDev ? undefined : regionMappings.findInMap(region, 'smallEc2'),
         dataNodes: isDev ? 1 : 4,
         dataNodeInstanceType: regionMappings.findInMap(region, isDev ? 'smallEc2' : 'largeEc2')
       },
