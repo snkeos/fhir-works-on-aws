@@ -183,7 +183,7 @@ export interface MultiTenancyConfig {
    * @example "tenantId"
    * @example "nested.object.tenantId"
    */
-  tenantIdClaimPath: string;
+  tenantIdClaimPath?: string;
   /**
    * The prefix helps to identify the tenant specific values in a custom claim.
    * @example "tenant:" would identify the tenant value "tenant:12345" in "cognito:groups" claim
