@@ -6,8 +6,14 @@
   "ensureConsistentVersions": true,
   "projectFolderMaxDepth": 3,
   "approvedPackagesPolicy": {
-    "reviewCategories": ["production", "tools", "prototypes"],
-    "ignoredNpmScopes": ["@types"]
+    "reviewCategories": [
+      "production",
+      "tools",
+      "prototypes"
+    ],
+    "ignoredNpmScopes": [
+      "@types"
+    ]
   },
   "gitPolicy": {
     "versionBumpCommitMessage": "Bump versions [skip ci]",
