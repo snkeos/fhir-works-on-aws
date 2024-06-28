@@ -1,4 +1,7 @@
-import { CfnMapping } from 'aws-cdk-lib';
+import {
+  CfnMapping,
+  RemovalPolicy
+} from 'aws-cdk-lib';
 import { Domain, EngineVersion } from 'aws-cdk-lib/aws-opensearchservice';
 import {
   CfnUserPool,
@@ -290,6 +293,7 @@ export default class ElasticSearchResources {
     this.elasticSearchDomain = new Domain(scope, 'elasticSearchDomain', {
       // Assuming ~100GB storage requirement for PROD; min storage requirement is ~290GB https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/sizing-domains.html
       // If you change the size of the Elasticsearch Domain, consider also updating the NUMBER_OF_SHARDS on the updateSearchMappings resource
+      removalPolicy: RemovalPolicy.DESTROY,
       ebs: {
         enabled: true,
         volumeType: EbsDeviceVolumeType.GP2,

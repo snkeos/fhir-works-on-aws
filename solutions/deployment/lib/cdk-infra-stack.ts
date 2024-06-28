@@ -295,7 +295,7 @@ export default class FhirWorksStack extends Stack {
       versioned: true,
       encryption: BucketEncryption.KMS,
       encryptionKey: kmsResources.s3KMSKey,
-      removalPolicy: RemovalPolicy.RETAIN,
+      removalPolicy: RemovalPolicy.DESTROY,
       blockPublicAccess: {
         blockPublicAcls: true,
         blockPublicPolicy: true,
