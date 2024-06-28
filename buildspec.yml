@@ -32,7 +32,7 @@ phases:
       #     --region $AWS_REGION \
       #     --parameters ParameterKey=Env,ParameterValue=$ENV
       - echo "Bootstrapping CDK environment"
-      - export CDK_TOOLKIT_STACK_NAME=cdk-toolkit-$STAGENAME
+      - export CDK_TOOLKIT_STACK_NAME=cdk-toolkit-$STAGE_NAME
       - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --template-body file://bootstrap-template.yaml --toolkit-stack-name $CDK_TOOLKIT_STACK_NAME
       - echo "Updating CDK role trust policies"
       - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CDK_TOOLKIT_STACK_NAME $CODE_BUILD_ROLE
