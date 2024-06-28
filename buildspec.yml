@@ -37,7 +37,7 @@ phases:
         cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION \
           --template-body file://bootstrap-template.yaml \
           --toolkit-stack-name $CDK_TOOLKIT_STACK_NAME \
-          --qualifier $Env
+          --qualifier $ENV
       - echo "Updating CDK role trust policies"
       - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CDK_TOOLKIT_STACK_NAME $CODE_BUILD_ROLE
       - echo "Installing dependencies and executing unit tests - `pwd`"
