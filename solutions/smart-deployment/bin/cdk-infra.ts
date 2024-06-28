@@ -10,6 +10,7 @@ import { FhirWorksAppRegistry } from '@aws/fhir-works-on-aws-utilities';
 
 // initialize with defaults
 const app = new cdk.App();
+app.node.setContext('@aws-cdk/core:bootstrapQualifier', app.node.tryGetContext('qualifier') || "hnb659fds");
 
 const allowedLogLevels = ['error', 'info', 'debug', 'warn'];
 const allowedFHIRVersions = ['4.0.1', '3.0.1'];
@@ -101,7 +102,7 @@ new FhirWorksAppRegistry(stack, 'SmartFhirWorksAppRegistry', {
   applicationType,
   appRegistryApplicationName
 });
-fs.rm('./pnpm-lock.yaml', { force: true }, () => {});
+fs.rm('./pnpm-lock.yaml', { force: true }, () => { });
 // run cdk nag
 Aspects.of(app).add(new AwsSolutionsChecks());
 Aspects.of(app).add(new HIPAASecurityChecks());

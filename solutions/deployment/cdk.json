@@ -29,6 +29,7 @@
       "aws",
       "aws-cn"
     ],
+    "qualifier": "hnb659fds",
     "region": "eu-central-1",
     "stage": "cdk-fhirworks",
     "stageType": "dev",

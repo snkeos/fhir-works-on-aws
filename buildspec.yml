@@ -67,7 +67,7 @@ phases:
           -c stageType=$STAGE_TYPE \
           -c grantAccessAllTenantsScope=$ALL_TENANTS_SCOPE \
           -c enableMultiTenancy=true \
-          --context @aws-cdk/core:bootstrapQualifier=$ENV
+          -c qualifier=$ENV
       - echo "FHIRworks deployment succeeded"
       - echo "Setting SSM parameter $STAGE_NAME-fhirworks-url"
       - cd ../../deployment && chmod +x ./set-fhir-svc-ssm-param.sh && ./set-fhir-svc-ssm-param.sh $STAGE_NAME
