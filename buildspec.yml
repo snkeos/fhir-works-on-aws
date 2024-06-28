@@ -18,7 +18,6 @@ phases:
       - echo "POOL_DOMAIN=$POOL_DOMAIN"
       - echo "AWS_REGION=$AWS_REGION"
       - echo "ALL_TENANTS_SCOPE=$ALL_TENANTS_SCOPE"
-      - export CDK_TOOLKIT_STACK_NAME=cdk-toolkit-$STAGE_NAME
   pre_build:
     commands:
       - echo "Validating CDK bootstrap template"
@@ -35,9 +34,7 @@ phases:
       - echo "Bootstrapping CDK environment"
       - |
         cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION \
-          --template-body file://bootstrap-template.yaml \
-          --toolkit-stack-name $CDK_TOOLKIT_STACK_NAME \
-          --qualifier $ENV
+          --template-body file://bootstrap-template.yaml
       - echo "Updating CDK role trust policies"
       - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CDK_TOOLKIT_STACK_NAME $CODE_BUILD_ROLE
       - echo "Installing dependencies and executing unit tests - `pwd`"
