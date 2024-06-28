@@ -16,7 +16,7 @@
 #   ./update-trust-relationships.sh 123456789012 cdk-toolkit-int1-fhirworks env-CodeBuildRole
 #
 # Check if both arguments are provided
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 3 ]; then
   echo "Usage: $0 <AccountId> <CdkToolkitStackName> <CodeBuildRoleName>"
   exit 1
 fi
