@@ -374,7 +374,7 @@ export default class FhirWorksStack extends Stack {
     const defaultBulkExportLambdaProps = {
       timeout: Duration.seconds(30),
       memorySize: 192,
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       description: 'Start the Glue job for bulk export',
       role: bulkExportResources.glueJobRelatedLambdaRole,
       entry: path.join(__dirname, '../../bulkExport/index.ts'),
@@ -569,7 +569,7 @@ export default class FhirWorksStack extends Stack {
       timeout: Duration.seconds(30),
       memorySize: 192,
       // reservedConcurrentExecutions: isDev ? 1 : 2,
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       role: bulkExportResources.uploadGlueScriptsLambdaRole,
       description: 'Upload glue scripts to s3',
       handler: 'handler',
@@ -644,7 +644,7 @@ export default class FhirWorksStack extends Stack {
       {
         timeout: Duration.seconds(300),
         memorySize: 512,
-        runtime: Runtime.NODEJS_16_X,
+        runtime: Runtime.NODEJS_20_X,
         // reservedConcurrentExecutions: isDev ? 1 : 2,
         description: 'Custom resource Lambda to update the search mappings',
         deadLetterQueue: updateSearchMappingsLambdaFunctionDLQ,
@@ -829,7 +829,7 @@ export default class FhirWorksStack extends Stack {
           }
         }
       },
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       environment: {
         ...lambdaDefaultEnvVars,
         EXPORT_STATE_MACHINE_ARN: bulkExportStateMachine.bulkExportStateMachine.stateMachineArn,
@@ -1037,7 +1037,7 @@ export default class FhirWorksStack extends Stack {
 
     const ddbToEsLambda = new NodejsFunction(this, 'ddbToEs', {
       timeout: Duration.seconds(300),
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       // reservedConcurrentExecutions: isDev ? 1 : 2,
       description: 'Write DDB changes from `resource` table to ElasticSearch service',
       handler: 'handler',
@@ -1153,7 +1153,7 @@ export default class FhirWorksStack extends Stack {
     ]);
     const subscriptionReaper = new NodejsFunction(this, 'subscriptionReaper', {
       timeout: Duration.seconds(30),
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       // reservedConcurrentExecutions: isDev ? 1 : 2,
       description: 'Scheduled Lambda to remove expired Subscriptions',
       deadLetterQueue: subscriptionReaperDLQ,
@@ -1236,7 +1236,7 @@ export default class FhirWorksStack extends Stack {
       timeout: Duration.seconds(20),
       memorySize: isDev ? 512 : 1024,
       // reservedConcurrentExecutions: isDev ? 1 : 2,
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       description: 'Match ddb events against active Subscriptions and emit notifications',
       deadLetterQueue: subscriptionsMatcherDLQ,
       role: new Role(this, 'subscriptionsMatcherLambdaRole', {
@@ -1374,7 +1374,7 @@ export default class FhirWorksStack extends Stack {
     // eslint-disable-next-line no-new
     new NodejsFunction(this, 'subscriptionsRestHook', {
       timeout: Duration.seconds(10),
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       // reservedConcurrentExecutions: isDev ? 1 : 2,
       description: 'Send rest-hook notification for subscription',
       role: subscriptionsResources.restHookLambdaRole,
