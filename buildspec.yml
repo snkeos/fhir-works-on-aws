@@ -39,7 +39,7 @@ phases:
           --toolkit-stack-name $CDK_TOOLKIT_STACK_NAME \
           --qualifier $ENV
       - echo "Updating CDK role trust policies"
-      - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CDK_TOOLKIT_STACK_NAME $CODE_BUILD_ROLE
+      - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CODE_BUILD_ROLE $CDK_TOOLKIT_STACK_NAME
       - echo "Installing dependencies and executing unit tests - `pwd`"
       - chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
       - echo "Installing dependencies and executing unit tests completed `date`"

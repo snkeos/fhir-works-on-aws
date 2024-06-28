@@ -5,26 +5,26 @@
 # not currently possible to add custom parameters to the boostrap template and the CodeBuild role must be allowed
 # to assume the CDK roles for CDK deployment from CodePipeline.
 #
-# Usage: update-cdk-role-trust-policy.sh <AccountId> <CdkToolkitStackName> <CodeBuildRoleName>
+# Usage: update-cdk-role-trust-policy.sh <AccountId> <CodeBuildRoleName> <CdkToolkitStackName>
 #
 # Arguments:
 #   AccountId           AWS Account ID where the roles are created.
-#   CdkToolkitStackName The name of the CDK Toolkit stack
 #   CodeBuildRoleName   The name of the CodeBuild role to be allowed to assume the CDK Toolkit roles.
+#   CdkToolkitStackName The name of the CDK Toolkit stack
 #
 # Example:
-#   ./update-trust-relationships.sh 123456789012 cdk-toolkit-int1-fhirworks env-CodeBuildRole
+#   ./update-trust-relationships.sh 123456789012 env-CodeBuildRole cdk-toolkit-int1-fhirworks
 #
 # Check if both arguments are provided
 if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <AccountId> <CdkToolkitStackName> <CodeBuildRoleName>"
+  echo "Usage: $0 <AccountId> <CodeBuildRoleName> <CdkToolkitStackName>"
   exit 1
 fi
 
 # Arguments
 ACCOUNT_ID=$1
-CDK_TOOLKIT_STACK_NAME=$2
-CODEBUILD_ROLE_NAME=$3
+CODEBUILD_ROLE_NAME=$2
+CDK_TOOLKIT_STACK_NAME=$3
 ROLE_ARN_TO_ALLOW="arn:aws:iam::$ACCOUNT_ID:role/$CODEBUILD_ROLE_NAME"
 
 # Function to check if a role already has the CodeBuild role's ARN in its trust policy

@@ -32,6 +32,7 @@ if (process.env.SOLUTION_ID === solutionId) {
   account = cdk.Aws.ACCOUNT_ID;
 }
 
+const qualifier: string = app.node.tryGetContext('qualifier') || 'hnb659fds';
 const stage: string = app.node.tryGetContext('stage') || 'dev';
 const enableMultiTenancy: boolean = app.node.tryGetContext('enableMultiTenancy') || false;
 const enableSubscriptions: boolean = app.node.tryGetContext('enableSubscriptions') || false;
@@ -78,7 +79,7 @@ if (!allowedLogLevels.includes(logLevel)) {
 }
 
 const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
-  synthesizer: new DefaultStackSynthesizer({ generateBootstrapVersionRule: false }),
+  synthesizer: new DefaultStackSynthesizer({ generateBootstrapVersionRule: false, qualifier: qualifier }),
   env: {
     account,
     region
