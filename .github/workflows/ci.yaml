@@ -27,5 +27,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4.1.6
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-to-assume: ${{ secrets.TEST_ROLE }}
+          aws-region: eu-central-1
+          role-session-name: fwoa-test-workflow
+
       - name: Run unit tests
         run: cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
