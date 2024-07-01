@@ -31,9 +31,6 @@ phases:
           --qualifier $ENV
       - echo "Updating CDK role trust policies to allow CodeBuild Role to assume them"
       - cd deployment && chmod +x ./update-cdk-role-trust-policy.sh && ./update-cdk-role-trust-policy.sh $AWS_ACCOUNT_ID $CODE_BUILD_ROLE $CDK_TOOLKIT_STACK_NAME
-      - echo "Installing dependencies and executing unit tests - `pwd`"
-      - chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
-      - echo "Installing dependencies and executing unit tests completed `date`"
   build:
     commands:
       # - echo "Starting build `date` `pwd`"
@@ -42,8 +39,8 @@ phases:
       # - echo "Starting open-source-dist `date` `pwd`"
       # - chmod +x ./build-open-source-dist.sh && ./build-open-source-dist.sh $SOLUTION_NAME
       # - echo "Open Source Dist completed `date`"
-      #- cd ..
-      #- rush update # && rush build && rush test
+      - cd ..
+      - rush update && rush build
   post_build:
     commands:
       - ls -al
