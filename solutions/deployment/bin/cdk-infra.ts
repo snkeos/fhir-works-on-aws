@@ -78,14 +78,14 @@ if (!allowedLogLevels.includes(logLevel)) {
   logLevel = 'error';
 }
 
-const stack = new FhirWorksStack(app, `fhir - service - ${stage} `, {
+const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
   synthesizer: new DefaultStackSynthesizer({ generateBootstrapVersionRule: false, qualifier: qualifier }),
   env: {
     account,
     region
   },
   tags: {
-    FHIR_SERVICE: `fhir - service - ${region} -${stage} `
+    FHIR_SERVICE: `fhir-service-${region}-${stage} `
   },
   stage,
   region,
