@@ -15,13 +15,7 @@ app.node.setContext('@aws-cdk/core:bootstrapQualifier', app.node.tryGetContext('
 const allowedLogLevels = ['error', 'info', 'debug', 'warn'];
 const allowedFHIRVersions = ['4.0.1', '3.0.1'];
 
-// FhirWorksAppRegistry Constants
-const solutionId: string = 'SO0128';
-const solutionName: string = 'FHIR Works on AWS';
-const solutionVersion: string = '6.0.0';
-const attributeGroupName: string = 'fhir-works-AttributeGroup';
-const applicationType: string = 'AWS-Solutions';
-const appRegistryApplicationName: string = 'fhir-works-on-aws';
+
 
 let region: string = app.node.tryGetContext('region') || 'us-west-2';
 let account: string = process.env.CDK_DEFAULT_ACCOUNT!;
@@ -62,6 +56,14 @@ const stageType: string = app.node.tryGetContext('stageType') || 'dev';
 const patientCompartmentFileV3: string = 'patientCompartmentSearchParams.3.0.2.json';
 const patientCompartmentFileV4: string = 'patientCompartmentSearchParams.4.0.1.json';
 
+// FhirWorksAppRegistry Constants
+const solutionId: string = 'SO0128';
+const solutionName: string = 'FHIR Works on AWS';
+const solutionVersion: string = '6.0.0';
+const applicationType: string = 'AWS-Solutions';
+const attributeGroupName: string = `${qualifier}-fhir-works-AttributeGroup`;
+const appRegistryApplicationName: string = `${qualifier}-fhir-works-on-aws`;
+
 // workaround for https://github.com/aws/aws-cdk/issues/15054
 // CDK won't allow having lock file with ".." relatively to project folder
 // https://github.com/aws/aws-cdk/blob/main/packages/%40aws-cdk/aws-lambda-nodejs/lib/bundling.ts#L110
@@ -74,18 +76,18 @@ if (useHapiValidator) {
 }
 
 if (!allowedLogLevels.includes(logLevel)) {
-  console.log(`invalid log level specified: ${logLevel}`);
+  console.log(`invalid log level specified: ${logLevel} `);
   logLevel = 'error';
 }
 
-const stack = new FhirWorksStack(app, `fhir-service-${stage}`, {
+const stack = new FhirWorksStack(app, `fhir - service - ${stage} `, {
   synthesizer: new DefaultStackSynthesizer({ generateBootstrapVersionRule: false, qualifier: qualifier }),
   env: {
     account,
     region
   },
   tags: {
-    FHIR_SERVICE: `fhir-service-${region}-${stage}`
+    FHIR_SERVICE: `fhir - service - ${region} -${stage} `
   },
   stage,
   region,
