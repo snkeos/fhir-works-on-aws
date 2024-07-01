@@ -18,9 +18,11 @@ jobs:
   build-and-test:
     # Workaround for environment variables as workflow parameters: https://github.com/orgs/community/discussions/26671
     runs-on: ubuntu-22.04
-    # Tests expected AWS_REGION to be set
+    # Tests expect AWS env vars to be set
     env:
       AWS_REGION: eu-central-1
+      AWS_ACCESS_KEY_ID: test_key_id
+      AWS_SECRET_ACCESS_KEY: test_access_key
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4.1.6
