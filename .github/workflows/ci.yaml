@@ -1,0 +1,30 @@
+name: "CI"
+
+on:
+  pull_request:
+    branches:
+      - main
+      - v**
+
+  push:
+    branches:
+      - main
+      - v**
+    tags:
+      - v*
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # General init section to setup global variables e.g., compiler version, test os
+  init:
+    # Workaround for environment variables as workflow parameters: https://github.com/orgs/community/discussions/26671
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4.1.6
+
+      - name: Run unit tests
+        run: cd deployment &&./run-unit-tests.sh && ./run-unit-tests.sh
