@@ -7,9 +7,7 @@ import {
   IssueSeverity,
   IssueCode,
   isInvalidSearchParameterError,
-  isResourceConflictError,
-  isBadRequestError,
-  isMethodNotAllowed
+  isResourceConflictError
 } from '@aws/fhir-works-on-aws-interface';
 import express from 'express';
 import createError from 'http-errors';
@@ -22,10 +20,6 @@ export const applicationErrorMapper = (
   next: express.NextFunction
 ) => {
   console.error(err);
-  if (isMethodNotAllowed(err)) {
-    next(new createError.MethodNotAllowed(err.message));
-    return;
-  }
   if (isResourceNotFoundError(err)) {
     next(new createError.NotFound(err.message));
     return;
@@ -34,7 +28,7 @@ export const applicationErrorMapper = (
     next(new createError.NotFound(err.message));
     return;
   }
-  if (isInvalidResourceError(err) || isBadRequestError(err)) {
+  if (isInvalidResourceError(err)) {
     next(new createError.BadRequest(err.message));
     return;
   }

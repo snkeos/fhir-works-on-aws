@@ -3223,12 +3223,7 @@
     "type": "token",
     "description": "What was found",
     "base": "ClinicalImpression",
-    "compiled": [
-      {
-        "resourceType": "ClinicalImpression",
-        "path": "finding.itemCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ClinicalImpression", "path": "finding.itemCodeableConcept" }]
   },
   {
     "name": "finding-ref",
@@ -4580,12 +4575,7 @@
     "type": "uri",
     "description": "Reference to property mapping depends on",
     "base": "ConceptMap",
-    "compiled": [
-      {
-        "resourceType": "ConceptMap",
-        "path": "group.element.target.dependsOn.property"
-      }
-    ]
+    "compiled": [{ "resourceType": "ConceptMap", "path": "group.element.target.dependsOn.property" }]
   },
   {
     "name": "description",
@@ -4633,12 +4623,7 @@
     "type": "uri",
     "description": "Reference to property mapping depends on",
     "base": "ConceptMap",
-    "compiled": [
-      {
-        "resourceType": "ConceptMap",
-        "path": "group.element.target.product.property"
-      }
-    ]
+    "compiled": [{ "resourceType": "ConceptMap", "path": "group.element.target.product.property" }]
   },
   {
     "name": "publisher",
@@ -7015,12 +7000,7 @@
     "type": "token",
     "description": "Human language of the content (BCP-47)",
     "base": "DocumentReference",
-    "compiled": [
-      {
-        "resourceType": "DocumentReference",
-        "path": "content.attachment.language"
-      }
-    ]
+    "compiled": [{ "resourceType": "DocumentReference", "path": "content.attachment.language" }]
   },
   {
     "name": "location",
@@ -7044,12 +7024,7 @@
     "type": "token",
     "description": "Identifier of related objects or events",
     "base": "DocumentReference",
-    "compiled": [
-      {
-        "resourceType": "DocumentReference",
-        "path": "context.related.identifier"
-      }
-    ]
+    "compiled": [{ "resourceType": "DocumentReference", "path": "context.related.identifier" }]
   },
   {
     "name": "related-ref",
@@ -7483,12 +7458,7 @@
     "type": "token",
     "description": "Wheelchair, translator, stretcher, etc.",
     "base": "Encounter",
-    "compiled": [
-      {
-        "resourceType": "Encounter",
-        "path": "hospitalization.specialArrangement"
-      }
-    ]
+    "compiled": [{ "resourceType": "Encounter", "path": "hospitalization.specialArrangement" }]
   },
   {
     "name": "status",
@@ -8093,10 +8063,7 @@
     "base": "Group",
     "compiled": [
       { "resourceType": "Group", "path": "characteristic.value" },
-      {
-        "resourceType": "Group",
-        "path": "characteristic.valueCodeableConcept"
-      },
+      { "resourceType": "Group", "path": "characteristic.valueCodeableConcept" },
       { "resourceType": "Group", "path": "characteristic.valueBoolean" },
       { "resourceType": "Group", "path": "characteristic.valueQuantity" },
       { "resourceType": "Group", "path": "characteristic.valueRange" }
@@ -8390,12 +8357,7 @@
     "type": "number",
     "description": "Dose number within series",
     "base": "Immunization",
-    "compiled": [
-      {
-        "resourceType": "Immunization",
-        "path": "vaccinationProtocol.doseSequence"
-      }
-    ]
+    "compiled": [{ "resourceType": "Immunization", "path": "vaccinationProtocol.doseSequence" }]
   },
   {
     "name": "location",
@@ -8495,12 +8457,7 @@
     "type": "date",
     "description": "Date recommendation created",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.date"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.date" }]
   },
   {
     "name": "dose-number",
@@ -8508,12 +8465,7 @@
     "type": "number",
     "description": "Recommended dose number",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.doseNumber"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.doseNumber" }]
   },
   {
     "name": "dose-sequence",
@@ -8522,10 +8474,7 @@
     "description": "Dose number within sequence",
     "base": "ImmunizationRecommendation",
     "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.protocol.doseSequence"
-      }
+      { "resourceType": "ImmunizationRecommendation", "path": "recommendation.protocol.doseSequence" }
     ]
   },
   {
@@ -8544,10 +8493,7 @@
     "base": "ImmunizationRecommendation",
     "target": ["AllergyIntolerance", "Observation"],
     "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.supportingPatientInformation"
-      }
+      { "resourceType": "ImmunizationRecommendation", "path": "recommendation.supportingPatientInformation" }
     ]
   },
   {
@@ -8565,12 +8511,7 @@
     "type": "token",
     "description": "Vaccine administration status",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.forecastStatus"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.forecastStatus" }]
   },
   {
     "name": "support",
@@ -8580,10 +8521,7 @@
     "base": "ImmunizationRecommendation",
     "target": ["Immunization"],
     "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.supportingImmunization"
-      }
+      { "resourceType": "ImmunizationRecommendation", "path": "recommendation.supportingImmunization" }
     ]
   },
   {
@@ -8592,12 +8530,7 @@
     "type": "token",
     "description": "Disease to be immunized against",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.targetDisease"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.targetDisease" }]
   },
   {
     "name": "vaccine-type",
@@ -8605,12 +8538,7 @@
     "type": "token",
     "description": "Vaccine recommendation applies to",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.vaccineCode"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.vaccineCode" }]
   },
   {
     "name": "date",
@@ -8793,18 +8721,9 @@
       "VisionPrescription"
     ],
     "compiled": [
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "package.resource.source"
-      },
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "package.resource.sourceUri"
-      },
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "package.resource.sourceReference"
-      }
+      { "resourceType": "ImplementationGuide", "path": "package.resource.source" },
+      { "resourceType": "ImplementationGuide", "path": "package.resource.sourceUri" },
+      { "resourceType": "ImplementationGuide", "path": "package.resource.sourceReference" }
     ]
   },
   {
@@ -10832,12 +10751,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [Medication](medication.html): Codes that identify this medication\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [MedicationDispense](medicationdispense.html): Return dispenses of this medicine code\r\n",
     "base": "MedicationRequest",
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -10845,12 +10759,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [Medication](medication.html): Codes that identify this medication\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [MedicationDispense](medicationdispense.html): Return dispenses of this medicine code\r\n",
     "base": "MedicationAdministration",
-    "compiled": [
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationAdministration", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -10858,12 +10767,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [Medication](medication.html): Codes that identify this medication\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [MedicationDispense](medicationdispense.html): Return dispenses of this medicine code\r\n",
     "base": "MedicationStatement",
-    "compiled": [
-      {
-        "resourceType": "MedicationStatement",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationStatement", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -10871,12 +10775,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [Medication](medication.html): Codes that identify this medication\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [MedicationDispense](medicationdispense.html): Return dispenses of this medicine code\r\n",
     "base": "MedicationDispense",
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "container",
@@ -10943,12 +10842,7 @@
     "type": "token",
     "description": "The item in the package",
     "base": "Medication",
-    "compiled": [
-      {
-        "resourceType": "Medication",
-        "path": "package.content.itemCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "Medication", "path": "package.content.itemCodeableConcept" }]
   },
   {
     "name": "status",
@@ -10984,10 +10878,7 @@
     "base": "MedicationAdministration",
     "compiled": [
       { "resourceType": "MedicationAdministration", "path": "effective" },
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "effectiveDateTime"
-      },
+      { "resourceType": "MedicationAdministration", "path": "effectiveDateTime" },
       { "resourceType": "MedicationAdministration", "path": "effectivePeriod" }
     ]
   },
@@ -11039,12 +10930,7 @@
     "description": "Multiple Resources: \r\n\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication reference\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication resource\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication reference\r\n* [MedicationDispense](medicationdispense.html): Return dispenses of this medicine resource\r\n",
     "base": "MedicationAdministration",
     "target": ["Medication"],
-    "compiled": [
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "medicationReference"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationAdministration", "path": "medicationReference" }]
   },
   {
     "name": "medication",
@@ -11133,12 +11019,7 @@
     "description": "Multiple Resources: \r\n\r\n* [MedicationAdministration](medicationadministration.html): The identity of a prescription to list administrations from\r\n* [MedicationDispense](medicationdispense.html): The identity of a prescription to list dispenses from\r\n",
     "base": "MedicationDispense",
     "target": ["MedicationRequest"],
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "authorizingPrescription"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "authorizingPrescription" }]
   },
   {
     "name": "reason-given",
@@ -11240,12 +11121,7 @@
     "description": "Return dispenses with the specified responsible party",
     "base": "MedicationDispense",
     "target": ["Practitioner"],
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "substitution.responsibleParty"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "substitution.responsibleParty" }]
   },
   {
     "name": "subject",
@@ -11311,12 +11187,7 @@
     "type": "date",
     "description": "Multiple Resources: \r\n\r\n* [MedicationRequest](medicationrequest.html): Returns medication request to be administered on a specific date\r\n",
     "base": "MedicationRequest",
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "dosageInstruction.timing.event"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "dosageInstruction.timing.event" }]
   },
   {
     "name": "intended-dispenser",
@@ -11325,12 +11196,7 @@
     "description": "Returns prescriptions intended to be dispensed by this Organization",
     "base": "MedicationRequest",
     "target": ["Organization"],
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "dispenseRequest.performer"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "dispenseRequest.performer" }]
   },
   {
     "name": "intent",
@@ -11903,12 +11769,7 @@
     "type": "token",
     "description": "Type of module component to add to the feeding",
     "base": "NutritionOrder",
-    "compiled": [
-      {
-        "resourceType": "NutritionOrder",
-        "path": "enteralFormula.additiveType"
-      }
-    ]
+    "compiled": [{ "resourceType": "NutritionOrder", "path": "enteralFormula.additiveType" }]
   },
   {
     "name": "datetime",
@@ -11924,12 +11785,7 @@
     "type": "token",
     "description": "Type of enteral or infant formula",
     "base": "NutritionOrder",
-    "compiled": [
-      {
-        "resourceType": "NutritionOrder",
-        "path": "enteralFormula.baseFormulaType"
-      }
-    ]
+    "compiled": [{ "resourceType": "NutritionOrder", "path": "enteralFormula.baseFormulaType" }]
   },
   {
     "name": "oraldiet",
@@ -12019,10 +11875,7 @@
     "base": "Observation",
     "compiled": [
       { "resourceType": "Observation", "path": "valueCodeableConcept" },
-      {
-        "resourceType": "Observation",
-        "path": "component.valueCodeableConcept"
-      }
+      { "resourceType": "Observation", "path": "component.valueCodeableConcept" }
     ]
   },
   {
@@ -12058,12 +11911,7 @@
     "type": "token",
     "description": "The value of the component observation, if the value is a CodeableConcept",
     "base": "Observation",
-    "compiled": [
-      {
-        "resourceType": "Observation",
-        "path": "component.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "Observation", "path": "component.valueCodeableConcept" }]
   },
   {
     "name": "component-value-quantity",
@@ -12672,11 +12520,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Patient](patient.html): A value in an email contact\r\n",
     "base": "PractitionerRole",
     "compiled": [
-      {
-        "resourceType": "PractitionerRole",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "PractitionerRole", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -12686,11 +12530,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Patient](patient.html): A value in an email contact\r\n",
     "base": "RelatedPerson",
     "compiled": [
-      {
-        "resourceType": "RelatedPerson",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "RelatedPerson", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -12700,11 +12540,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Patient](patient.html): A value in an email contact\r\n",
     "base": "Practitioner",
     "compiled": [
-      {
-        "resourceType": "Practitioner",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Practitioner", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -12714,11 +12550,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Patient](patient.html): A value in an email contact\r\n",
     "base": "Person",
     "compiled": [
-      {
-        "resourceType": "Person",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Person", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -12728,11 +12560,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Patient](patient.html): A value in an email contact\r\n",
     "base": "Patient",
     "compiled": [
-      {
-        "resourceType": "Patient",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Patient", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -12857,11 +12685,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Patient](patient.html): A value in a phone contact\r\n",
     "base": "PractitionerRole",
     "compiled": [
-      {
-        "resourceType": "PractitionerRole",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "PractitionerRole", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -12871,11 +12695,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Patient](patient.html): A value in a phone contact\r\n",
     "base": "RelatedPerson",
     "compiled": [
-      {
-        "resourceType": "RelatedPerson",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "RelatedPerson", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -12885,11 +12705,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Patient](patient.html): A value in a phone contact\r\n",
     "base": "Practitioner",
     "compiled": [
-      {
-        "resourceType": "Practitioner",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Practitioner", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -12899,11 +12715,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Patient](patient.html): A value in a phone contact\r\n",
     "base": "Person",
     "compiled": [
-      {
-        "resourceType": "Person",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Person", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -12913,11 +12725,7 @@
     "description": "Multiple Resources: \r\n\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Patient](patient.html): A value in a phone contact\r\n",
     "base": "Patient",
     "compiled": [
-      {
-        "resourceType": "Patient",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Patient", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -16148,14 +15956,8 @@
     "base": "RiskAssessment",
     "compiled": [
       { "resourceType": "RiskAssessment", "path": "prediction.probability" },
-      {
-        "resourceType": "RiskAssessment",
-        "path": "prediction.probabilityDecimal"
-      },
-      {
-        "resourceType": "RiskAssessment",
-        "path": "prediction.probabilityRange"
-      }
+      { "resourceType": "RiskAssessment", "path": "prediction.probabilityDecimal" },
+      { "resourceType": "RiskAssessment", "path": "prediction.probabilityRange" }
     ]
   },
   {
@@ -17310,14 +17112,8 @@
     "description": "Path that identifies the base element",
     "base": "StructureDefinition",
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.base.path"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "differential.element.base.path"
-      }
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.base.path" },
+      { "resourceType": "StructureDefinition", "path": "differential.element.base.path" }
     ]
   },
   {
@@ -17415,14 +17211,8 @@
     "description": "A path that is constrained in the profile",
     "base": "StructureDefinition",
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.path"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "differential.element.path"
-      }
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.path" },
+      { "resourceType": "StructureDefinition", "path": "differential.element.path" }
     ]
   },
   {
@@ -17473,18 +17263,9 @@
     "base": "StructureDefinition",
     "target": ["ValueSet"],
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.binding.valueSet"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.binding.valueSetUri"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.binding.valueSetReference"
-      }
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.binding.valueSet" },
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.binding.valueSetUri" },
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.binding.valueSetReference" }
     ]
   },
   {
@@ -17647,10 +17428,7 @@
     "base": "Substance",
     "compiled": [
       { "resourceType": "Substance", "path": "code" },
-      {
-        "resourceType": "Substance",
-        "path": "ingredient.substanceCodeableConcept"
-      }
+      { "resourceType": "Substance", "path": "ingredient.substanceCodeableConcept" }
     ]
   },
   {
@@ -18393,12 +18171,7 @@
     "type": "string",
     "description": "TestScript required and validated capability",
     "base": "TestScript",
-    "compiled": [
-      {
-        "resourceType": "TestScript",
-        "path": "metadata.capability.description"
-      }
-    ]
+    "compiled": [{ "resourceType": "TestScript", "path": "metadata.capability.description" }]
   },
   {
     "name": "title",

@@ -6,6 +6,7 @@
 
 import { Client } from '@elastic/elasticsearch';
 import AWS from 'aws-sdk';
+import { HybridDataService } from '../dataServices/hybridDataService';
 import getComponentLogger from '../loggerBuilder';
 import DdbToEsHelper from './ddbToEsHelper';
 import ESBulkCommand from './ESBulkCommand';
@@ -41,6 +42,17 @@ function getAlias(ddbImage: any) {
   };
 }
 
+async function composeResource(image: any, removeResource: boolean) {
+  if (!removeResource) {
+    try {
+      return { image: await HybridDataService.attachPayloadToResource(image), removeResource };
+    } catch (e) {
+      return { image, removeResource };
+    }
+  }
+  return { image, removeResource };
+}
+
 export class DdbToEsSync {
   private readonly ddbToEsHelper: DdbToEsHelper;
 
@@ -69,7 +81,7 @@ export class DdbToEsSync {
     try {
       const idToCommand: Record<string, ESBulkCommand> = {};
       const aliasesToCreate: { alias: string; index: string }[] = [];
-
+      const composedImages: Array<Promise<any>> = [];
       for (let i = 0; i < event.Records.length; i += 1) {
         const record = event.Records[i];
         logger.debug('EventName: ', record.eventName);
@@ -83,7 +95,12 @@ export class DdbToEsSync {
           // eslint-disable-next-line no-continue
           continue;
         }
+        composedImages.push(composeResource(image, removeResource));
+      }
 
+      const composedImagesResults = await Promise.all(composedImages);
+      composedImagesResults.forEach((composedImageStruct) => {
+        const { image, removeResource } = composedImageStruct;
         const alias = this.getAliasFn(image);
 
         if (!this.knownAliases.has(alias.alias)) {
@@ -100,7 +117,7 @@ export class DdbToEsSync {
           // Meaning the last record in the event stream is the "newest"
           idToCommand[cmd.id] = cmd;
         }
-      }
+      });
       if (!this.disableIndexAndAliasCreation) {
         await this.ddbToEsHelper.createIndexAndAliasIfNotExist(aliasesToCreate);
         // update cache of all known aliases

@@ -40,7 +40,12 @@ const RBACRules = (baseResources: string[]): RBACConfig => {
         operations: ['read', 'vread', 'search-type'],
         resources: ['Patient']
       }
-    }
+    },
+    scopeToGroup: {
+      'fhir/practitioner': 'practitioner',
+      'fhir/non-practitioner': 'non-practitioner',
+      'fhir/auditor': 'auditor',
+    },
   };
 };
 

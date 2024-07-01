@@ -62,15 +62,8 @@ const grammar: Grammar = {
       ]
     },
     { name: 'expression', symbols: ['path'], postprocess: id },
-    {
-      name: 'expression$ebnf$1$subexpression$1',
-      symbols: [{ literal: '.' }, 'path']
-    },
-    {
-      name: 'expression$ebnf$1',
-      symbols: ['expression$ebnf$1$subexpression$1'],
-      postprocess: id
-    },
+    { name: 'expression$ebnf$1$subexpression$1', symbols: [{ literal: '.' }, 'path'] },
+    { name: 'expression$ebnf$1', symbols: ['expression$ebnf$1$subexpression$1'], postprocess: id },
     { name: 'expression$ebnf$1', symbols: [], postprocess: () => null },
     {
       name: 'expression',
@@ -86,15 +79,8 @@ const grammar: Grammar = {
       symbols: [{ literal: ' ' }, { literal: 'a' }, { literal: 's' }, { literal: ' ' }],
       postprocess: (d) => d.join('')
     },
-    {
-      name: 'expression$ebnf$2$subexpression$1',
-      symbols: [{ literal: '.' }, 'IDENTIFIER']
-    },
-    {
-      name: 'expression$ebnf$2',
-      symbols: ['expression$ebnf$2$subexpression$1'],
-      postprocess: id
-    },
+    { name: 'expression$ebnf$2$subexpression$1', symbols: [{ literal: '.' }, 'IDENTIFIER'] },
+    { name: 'expression$ebnf$2', symbols: ['expression$ebnf$2$subexpression$1'], postprocess: id },
     { name: 'expression$ebnf$2', symbols: [], postprocess: () => null },
     {
       name: 'expression',
@@ -119,18 +105,12 @@ const grammar: Grammar = {
     {
       name: 'expression',
       symbols: ['path', 'expression$string$2', 'IDENTIFIER'],
-      postprocess: (d) => ({
-        ...d[0],
-        path: `${d[0].path}${d[2][0].toUpperCase() + d[2].substring(1)}`
-      })
+      postprocess: (d) => ({ ...d[0], path: `${d[0].path}${d[2][0].toUpperCase() + d[2].substring(1)}` })
     },
     {
       name: 'expression',
       symbols: ['path', { literal: '.' }, 'typeFn', { literal: '(' }, 'IDENTIFIER', { literal: ')' }],
-      postprocess: (d) => ({
-        ...d[0],
-        path: `${d[0].path}${d[4][0].toUpperCase() + d[4].substring(1)}`
-      })
+      postprocess: (d) => ({ ...d[0], path: `${d[0].path}${d[4][0].toUpperCase() + d[4].substring(1)}` })
     },
     {
       name: 'expression$string$3',
@@ -193,16 +173,10 @@ const grammar: Grammar = {
     {
       name: 'expression',
       symbols: ['path', 'expression$string$5', 'IDENTIFIER', { literal: ')' }],
-      postprocess: (d) => ({
-        ...d[0],
-        condition: [d[0].path, 'resolve', d[2]]
-      })
+      postprocess: (d) => ({ ...d[0], condition: [d[0].path, 'resolve', d[2]] })
     },
     { name: 'path$ebnf$1', symbols: [] },
-    {
-      name: 'path$ebnf$1$subexpression$1',
-      symbols: [{ literal: '.' }, 'IDENTIFIER']
-    },
+    { name: 'path$ebnf$1$subexpression$1', symbols: [{ literal: '.' }, 'IDENTIFIER'] },
     {
       name: 'path$ebnf$1',
       symbols: ['path$ebnf$1', 'path$ebnf$1$subexpression$1'],
@@ -258,28 +232,16 @@ const grammar: Grammar = {
       symbols: ['IDENTIFIER$ebnf$1', /[a-zA-Z-]/],
       postprocess: (d) => d[0].concat([d[1]])
     },
-    {
-      name: 'IDENTIFIER',
-      symbols: ['IDENTIFIER$ebnf$1'],
-      postprocess: (d) => d[0].join('')
-    },
+    { name: 'IDENTIFIER', symbols: ['IDENTIFIER$ebnf$1'], postprocess: (d) => d[0].join('') },
     { name: 'STRING_VALUE$ebnf$1', symbols: [/[a-zA-Z0-9-:/.]/] },
     {
       name: 'STRING_VALUE$ebnf$1',
       symbols: ['STRING_VALUE$ebnf$1', /[a-zA-Z0-9-:/.]/],
       postprocess: (d) => d[0].concat([d[1]])
     },
-    {
-      name: 'STRING_VALUE',
-      symbols: ['STRING_VALUE$ebnf$1'],
-      postprocess: (d) => d[0].join('')
-    },
+    { name: 'STRING_VALUE', symbols: ['STRING_VALUE$ebnf$1'], postprocess: (d) => d[0].join('') },
     { name: '_$ebnf$1', symbols: [] },
-    {
-      name: '_$ebnf$1',
-      symbols: ['_$ebnf$1', /[\s]/],
-      postprocess: (d) => d[0].concat([d[1]])
-    },
+    { name: '_$ebnf$1', symbols: ['_$ebnf$1', /[\s]/], postprocess: (d) => d[0].concat([d[1]]) },
     { name: '_', symbols: ['_$ebnf$1'], postprocess: () => null }
   ],
   ParserStart: 'Main'

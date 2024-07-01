@@ -42,11 +42,7 @@ const grammar: Grammar = {
       symbols: ['unionExpression', '_', { literal: '|' }, '_', 'expression'],
       postprocess: (d) => [Array.isArray(d[0]) ? d[0].flat() : d[0], d[4]].flat()
     },
-    {
-      name: 'unionExpression',
-      symbols: ['expression'],
-      postprocess: (d) => [d[0]]
-    },
+    { name: 'unionExpression', symbols: ['expression'], postprocess: (d) => [d[0]] },
     { name: 'unionExpression', symbols: ['_id'], postprocess: (d) => [d[0]] },
     {
       name: '_id$string$1',
@@ -72,11 +68,7 @@ const grammar: Grammar = {
       ],
       postprocess: (d) => d.join('')
     },
-    {
-      name: 'expression$ebnf$1',
-      symbols: ['expression$ebnf$1$string$1'],
-      postprocess: id
-    },
+    { name: 'expression$ebnf$1', symbols: ['expression$ebnf$1$string$1'], postprocess: id },
     { name: 'expression$ebnf$1', symbols: [], postprocess: () => null },
     {
       name: 'expression',
@@ -87,11 +79,7 @@ const grammar: Grammar = {
         condition: [`${d[0].path}.${d[1][0]}`, d[1][1], d[1][2]]
       })
     },
-    {
-      name: 'path$string$1',
-      symbols: [{ literal: 'f' }, { literal: ':' }],
-      postprocess: (d) => d.join('')
-    },
+    { name: 'path$string$1', symbols: [{ literal: 'f' }, { literal: ':' }], postprocess: (d) => d.join('') },
     {
       name: 'path',
       symbols: ['path$string$1', 'IDENTIFIER', 'pathContinuation'],
@@ -122,11 +110,7 @@ const grammar: Grammar = {
       symbols: [{ literal: '[' }, 'simpleWhereExp', { literal: ']' }],
       postprocess: (d) => d[1]
     },
-    {
-      name: 'simpleWhereExp$ebnf$1',
-      symbols: ['wherePrefix'],
-      postprocess: id
-    },
+    { name: 'simpleWhereExp$ebnf$1', symbols: ['wherePrefix'], postprocess: id },
     { name: 'simpleWhereExp$ebnf$1', symbols: [], postprocess: () => null },
     {
       name: 'simpleWhereExp$ebnf$2$string$1',
@@ -141,11 +125,7 @@ const grammar: Grammar = {
       ],
       postprocess: (d) => d.join('')
     },
-    {
-      name: 'simpleWhereExp$ebnf$2',
-      symbols: ['simpleWhereExp$ebnf$2$string$1'],
-      postprocess: id
-    },
+    { name: 'simpleWhereExp$ebnf$2', symbols: ['simpleWhereExp$ebnf$2$string$1'], postprocess: id },
     { name: 'simpleWhereExp$ebnf$2', symbols: [], postprocess: () => null },
     {
       name: 'simpleWhereExp',
@@ -175,28 +155,16 @@ const grammar: Grammar = {
       symbols: ['IDENTIFIER$ebnf$1', /[a-zA-Z-]/],
       postprocess: (d) => d[0].concat([d[1]])
     },
-    {
-      name: 'IDENTIFIER',
-      symbols: ['IDENTIFIER$ebnf$1'],
-      postprocess: (d) => d[0].join('')
-    },
+    { name: 'IDENTIFIER', symbols: ['IDENTIFIER$ebnf$1'], postprocess: (d) => d[0].join('') },
     { name: 'STRING_VALUE$ebnf$1', symbols: [/[a-zA-Z0-9-:/.]/] },
     {
       name: 'STRING_VALUE$ebnf$1',
       symbols: ['STRING_VALUE$ebnf$1', /[a-zA-Z0-9-:/.]/],
       postprocess: (d) => d[0].concat([d[1]])
     },
-    {
-      name: 'STRING_VALUE',
-      symbols: ['STRING_VALUE$ebnf$1'],
-      postprocess: (d) => d[0].join('')
-    },
+    { name: 'STRING_VALUE', symbols: ['STRING_VALUE$ebnf$1'], postprocess: (d) => d[0].join('') },
     { name: '_$ebnf$1', symbols: [] },
-    {
-      name: '_$ebnf$1',
-      symbols: ['_$ebnf$1', /[\s]/],
-      postprocess: (d) => d[0].concat([d[1]])
-    },
+    { name: '_$ebnf$1', symbols: ['_$ebnf$1', /[\s]/], postprocess: (d) => d[0].concat([d[1]]) },
     { name: '_', symbols: ['_$ebnf$1'], postprocess: () => null }
   ],
   ParserStart: 'Main'

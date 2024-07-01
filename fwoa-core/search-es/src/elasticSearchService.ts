@@ -229,11 +229,7 @@ export class ElasticSearchService implements Search {
       const { total, hits } = await this.executeQuery(params, request);
       const result: SearchResult = {
         numberOfResults: total,
-        entries: this.hitsToSearchEntries({
-          hits,
-          baseUrl: request.baseUrl,
-          mode: 'match'
-        }),
+        entries: this.hitsToSearchEntries({ hits, baseUrl: request.baseUrl, mode: 'match' }),
         message: ''
       };
 
@@ -342,9 +338,7 @@ export class ElasticSearchService implements Search {
         stepValue = hits.map((hit) => `${resourceType}/${hit.fields.id[0]}`);
       }
       if (chainComplete) {
-        combinedChainedParameters = merge(combinedChainedParameters, {
-          [lastChain.searchParam]: stepValue
-        });
+        combinedChainedParameters = merge(combinedChainedParameters, { [lastChain.searchParam]: stepValue });
       }
     }
     return combinedChainedParameters;
@@ -406,10 +400,7 @@ export class ElasticSearchService implements Search {
     }
     const apiResponse = await this.esClient.msearch({
       body: searchQueriesWithAlias.flatMap((query) => [
-        {
-          index: query.index,
-          ...(request.sessionId && { preference: request.sessionId })
-        },
+        { index: query.index, ...(request.sessionId && { preference: request.sessionId }) },
         { size: query.size, query: query.body!.query }
       ])
     });

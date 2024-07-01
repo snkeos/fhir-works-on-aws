@@ -48,7 +48,7 @@ export class RBACHandler implements Authorization {
 
   async verifyAccessToken(request: VerifyAccessTokenRequest): Promise<KeyValueMap> {
     const decoded = decode(request.accessToken, { json: true }) ?? {};
-    const groups: string[] = decoded['cognito:groups'] ?? [];
+    const groups: string[] = this.getGroups(decoded);
 
     if (request.bulkDataAuth) {
       this.isBulkDataAccessAllowed(groups, request.bulkDataAuth);
@@ -67,7 +67,7 @@ export class RBACHandler implements Authorization {
   }
 
   async isBundleRequestAuthorized(request: AuthorizationBundleRequest): Promise<void> {
-    const groups: string[] = request.userIdentity['cognito:groups'] ?? [];
+    const groups: string[] = this.getGroups(request.userIdentity);
 
     const authZPromises: Promise<void>[] = request.requests.map(async (batch: BatchReadWriteRequest) => {
       return this.isAllowed(groups, batch.operation, batch.resourceType);
@@ -76,11 +76,9 @@ export class RBACHandler implements Authorization {
     await Promise.all(authZPromises);
   }
 
-  async getAllowedResourceTypesForOperation(
-    request: AllowedResourceTypesForOperationRequest
-  ): Promise<string[]> {
+  async getAllowedResourceTypesForOperation(request: AllowedResourceTypesForOperationRequest): Promise<string[]> {
     const { userIdentity, operation } = request;
-    const groups: string[] = userIdentity['cognito:groups'] ?? [];
+    const groups: string[] = this.getGroups(userIdentity);
 
     return groups.flatMap((group) => {
       const groupRule = this.rules.groupRules[group];
@@ -98,13 +96,22 @@ export class RBACHandler implements Authorization {
   }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  async isWriteRequestAuthorized(_request: WriteRequestAuthorizedRequest): Promise<void> {}
+  async isWriteRequestAuthorized(_request: WriteRequestAuthorizedRequest): Promise<void> { }
 
-  private isAllowed(
-    groups: string[],
-    operation: TypeOperation | SystemOperation,
-    resourceType?: string
-  ): void {
+  private getGroups(decoded: { [key: string]: any }): string[] {
+    const groups = decoded['cognito:groups'] ?? [];
+    const scopes = decoded.scope?.split(' ') || [];
+    scopes.forEach((scope: string) => {
+      const group = this.rules.scopeToGroup && this.rules.scopeToGroup[scope];
+      if (group && !groups.includes(group)) {
+        groups.push(group);
+      }
+    });
+    // sort() so that the groups always show in the same order, independently if they are coming from scopes or direct groups
+    return groups.sort();
+  }
+
+  private isAllowed(groups: string[], operation: TypeOperation | SystemOperation, resourceType?: string): void {
     for (let index = 0; index < groups.length; index += 1) {
       const group: string = groups[index];
       if (this.rules.groupRules[group]) {
@@ -135,8 +142,10 @@ export class RBACHandler implements Authorization {
               // TODO: Enable supporting of different profiles by specifying the resources you would want to export
               // in BASE_R4_RESOURCES
               if (
-                (this.fhirVersion === '4.0.1' && isEqual(rule.resources.sort(), BASE_R4_RESOURCES.sort())) ||
-                (this.fhirVersion === '3.0.1' && isEqual(rule.resources.sort(), BASE_STU3_RESOURCES.sort()))
+                (this.fhirVersion === '4.0.1' &&
+                  isEqual(rule.resources.sort(), BASE_R4_RESOURCES.sort())) ||
+                (this.fhirVersion === '3.0.1' &&
+                  isEqual(rule.resources.sort(), BASE_STU3_RESOURCES.sort()))
               ) {
                 return;
               }
@@ -169,9 +178,7 @@ export class RBACHandler implements Authorization {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,class-methods-use-this
-  async getSearchFilterBasedOnIdentity(
-    request: GetSearchFilterBasedOnIdentityRequest
-  ): Promise<SearchFilter[]> {
+  async getSearchFilterBasedOnIdentity(request: GetSearchFilterBasedOnIdentityRequest): Promise<SearchFilter[]> {
     return [];
   }
 }

@@ -14,11 +14,11 @@ import {
   RESOURCE_TABLE
 } from './dynamoDb';
 import {
-  buildHashKey,
   DOCUMENT_STATUS_FIELD,
   DynamoDbUtil,
   LOCK_END_TS_FIELD,
-  SUBSCRIPTION_FIELD
+  SUBSCRIPTION_FIELD,
+  buildHashKey
 } from './dynamoDbUtil';
 
 const EXPORT_INTERNAL_ID_FIELD = '_jobId';
@@ -93,14 +93,13 @@ export default class DynamoDbParamBuilder {
   static buildGetResourcesQueryParam(
     id: string,
     resourceType: string,
-    maxNumberOfVersions: number,
+    maxNumberOfVersions?: number,
     projectionExpression?: string,
     tenantId?: string
   ) {
     const params: any = {
       TableName: RESOURCE_TABLE,
       ScanIndexForward: false,
-      Limit: maxNumberOfVersions,
       FilterExpression: '#r = :resourceType',
       KeyConditionExpression: 'id = :hkey',
       ExpressionAttributeNames: { '#r': 'resourceType' },
@@ -109,7 +108,10 @@ export default class DynamoDbParamBuilder {
         ':resourceType': resourceType
       })
     };
-
+    // If maxNumberOfVersions is zero then retrieve all versions
+    if (maxNumberOfVersions) {
+      params.Limit = maxNumberOfVersions;
+    }
     if (projectionExpression) {
       // @ts-ignore
       params.ProjectionExpression = projectionExpression;

@@ -16,6 +16,7 @@ import {
   DynamoDb,
   DynamoDbDataService,
   DynamoDbBundleService,
+  HybridDataService,
   S3DataService,
   DynamoDbUtil
 } from '@aws/fhir-works-on-aws-persistence-ddb';
@@ -27,28 +28,34 @@ import { loadImplementationGuides } from './implementationGuides/loadCompiledIGs
 import RBACRules from './RBACRules';
 import getAllowListedSubscriptionEndpoints from './subscriptions/allowList';
 
-const { IS_OFFLINE, ENABLE_MULTI_TENANCY, ENABLE_SUBSCRIPTIONS } = process.env;
+const { IS_OFFLINE, ENABLE_MULTI_TENANCY, USE_TENANT_SPECIFIC_URL, ENABLE_SUBSCRIPTIONS } = process.env;
 
 const enableMultiTenancy = ENABLE_MULTI_TENANCY === 'true';
+const useTenantSpecificUrl = USE_TENANT_SPECIFIC_URL === 'true';
+const tenantIdClaimPath =
+  process.env.TENANT_ID_CLAIM_PATH !== '' ? process.env.TENANT_ID_CLAIM_PATH : 'custom:tenantId';
+const tenantIdClaimValuePrefix =
+  process.env.TENANT_ID_CLAIM_VALUE_PREFIX !== '' ? process.env.TENANT_ID_CLAIM_VALUE_PREFIX : undefined;
+const grantAccessAllTenantsScope =
+  process.env.GRANT_ACCESS_ALL_TENANTS_SCOPE !== '' ? process.env.GRANT_ACCESS_ALL_TENANTS_SCOPE : undefined;
+
 const enableSubscriptions = ENABLE_SUBSCRIPTIONS === 'true';
 
 export const fhirVersion: FhirVersion = '4.0.1';
 const baseResources = fhirVersion === '4.0.1' ? BASE_R4_RESOURCES : BASE_STU3_RESOURCES;
-const authService = IS_OFFLINE
-  ? stubs.passThroughAuthz
-  : new RBACHandler(RBACRules(baseResources), fhirVersion);
+const authService = IS_OFFLINE ? stubs.passThroughAuthz : new RBACHandler(RBACRules(baseResources), fhirVersion);
 const dynamoDbDataService = new DynamoDbDataService(DynamoDb, false, { enableMultiTenancy });
 const dynamoDbBundleService = new DynamoDbBundleService(DynamoDb, undefined, undefined, {
-  enableMultiTenancy
+  enableMultiTenancy,
 });
+
+const hybridDataService = new HybridDataService(dynamoDbDataService, { enableMultiTenancy });
+hybridDataService.registerToStoreOnObjectStorage(`Questionnaire`, [`item`]);
+hybridDataService.registerToStoreOnObjectStorage(`QuestionnaireResponse`, [`item`]);
 
 // Configure the input validators. Validators run in the order that they appear on the array. Use an empty array to disable input validation.
 const validators: Validator[] = [];
-if (
-  process.env.VALIDATOR_LAMBDA_ALIAS &&
-  process.env.VALIDATOR_LAMBDA_ALIAS !== '[object Object]' &&
-  process.env.VALIDATOR_LAMBDA_ALIAS !== ''
-) {
+if (process.env.VALIDATOR_LAMBDA_ALIAS && process.env.VALIDATOR_LAMBDA_ALIAS !== '[object Object]') {
   // The HAPI FHIR Validator must be deployed separately. It is the recommended choice when using implementation guides.
   validators.push(new HapiFhirLambdaValidator(process.env.VALIDATOR_LAMBDA_ALIAS));
 } else if (process.env.OFFLINE_VALIDATOR_LAMBDA_ALIAS) {
@@ -127,7 +134,7 @@ export const getFhirConfig = async (): Promise<FhirConfig> => {
       genericResource: {
         operations: ['create', 'read', 'update', 'delete', 'vread', 'search-type'],
         fhirVersions: [fhirVersion],
-        persistence: dynamoDbDataService,
+        persistence: hybridDataService,
         typeSearch: esSearch,
         typeHistory: stubs.history
       },
@@ -143,12 +150,49 @@ export const getFhirConfig = async (): Promise<FhirConfig> => {
     },
     multiTenancyConfig: enableMultiTenancy
       ? {
-          enableMultiTenancy: true,
-          useTenantSpecificUrl: true,
-          tenantIdClaimPath: 'custom:tenantId'
-        }
-      : undefined
+        enableMultiTenancy: true,
+        useTenantSpecificUrl,
+        tenantIdClaimPath,
+        tenantIdClaimValuePrefix,
+        grantAccessAllTenantsScope,
+      }
+      : undefined,
   };
 };
+
+export function getCorsOrigins(): string | string[] | undefined {
+  const corsOrigins =
+    process.env.CORS_ORIGINS === '[object Object]' || process.env.CORS_ORIGINS === undefined
+      ? undefined
+      : process.env.CORS_ORIGINS;
+
+  // Check, if there are any cors origins set
+  if (corsOrigins !== undefined) {
+    const corsOriginsArray: string[] = corsOrigins.split(',');
+    let cleanCorsOriginsArray: string[] = [];
+
+    // Skip empty array elements, trim whitespaces and transform ALL_ORIGINS to *
+    corsOriginsArray.every((origin) => {
+      const cleanedOrigin = origin.trim();
+      if (cleanedOrigin.toUpperCase() === 'ALL_ORIGINS') {
+        cleanCorsOriginsArray = [];
+        cleanCorsOriginsArray.push('*');
+        return false;
+      }
+      if (cleanedOrigin.length !== 0) {
+        cleanCorsOriginsArray.push(cleanedOrigin);
+      }
+      return true;
+    });
+
+    // If there is only a sinple entry, just return the string itself
+    if (cleanCorsOriginsArray.length === 1) {
+      return cleanCorsOriginsArray[0];
+    }
+
+    return cleanCorsOriginsArray;
+  }
+  return undefined;
+}
 
 export const genericResources = baseResources;

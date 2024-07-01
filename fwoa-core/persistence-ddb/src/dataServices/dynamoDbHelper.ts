@@ -17,10 +17,10 @@ export default class DynamoDbHelper {
     this.dynamoDb = dynamoDb;
   }
 
-  private async getMostRecentResources(
+  async getMostRecentResources(
     resourceType: string,
     id: string,
-    maxNumberOfVersionsToGet: number,
+    maxNumberOfVersionsToGet?: number,
     projectionExpression?: string,
     tenantId?: string
   ): Promise<ItemList> {
@@ -74,8 +74,6 @@ export default class DynamoDbHelper {
     tenantId?: string
   ): Promise<GenericResponse> {
     const items = await this.getMostRecentResources(resourceType, id, 2, undefined, tenantId);
-
-    // TODO: review type conversion
     const latestItemDocStatus: DOCUMENT_STATUS = <DOCUMENT_STATUS>(<unknown>items[0][DOCUMENT_STATUS_FIELD]);
     if (latestItemDocStatus === DOCUMENT_STATUS.DELETED) {
       throw new ResourceNotFoundError(resourceType, id);

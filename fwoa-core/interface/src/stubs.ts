@@ -65,14 +65,14 @@ export namespace stubs {
       return {};
     },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isBundleRequestAuthorized(request) {},
+    async isBundleRequestAuthorized(request) { },
     async authorizeAndFilterReadResponse(request) {
       return request.readResponse;
     },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isWriteRequestAuthorized(request) {},
+    async isWriteRequestAuthorized(request) { },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest) {},
+    async isAccessBulkDataJobAllowed(request: AccessBulkDataJobRequest) { },
     async getSearchFilterBasedOnIdentity(request: GetSearchFilterBasedOnIdentityRequest) {
       return [];
     },

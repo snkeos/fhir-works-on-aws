@@ -7,10 +7,7 @@
 import { CompiledSearchParam } from '../../FHIRSearchParametersRegistry';
 import { stringMatch } from './stringMatch';
 
-const COMPILED_SEARCH_PARAM: CompiledSearchParam = {
-  path: 'someField',
-  resourceType: 'someResource'
-};
+const COMPILED_SEARCH_PARAM: CompiledSearchParam = { path: 'someField', resourceType: 'someResource' };
 
 describe('stringMatch', () => {
   test('matches string', () => {
@@ -45,10 +42,7 @@ describe('stringMatch', () => {
   describe('special cases', () => {
     describe('name', () => {
       test.each(['family', 'given', 'text', 'prefix', 'suffix'])('%p field', (field) => {
-        const compiledNameParam = {
-          path: 'name',
-          resourceType: 'someResource'
-        };
+        const compiledNameParam = { path: 'name', resourceType: 'someResource' };
         expect(
           stringMatch(compiledNameParam, 'John', {
             [field]: 'John'
@@ -67,10 +61,7 @@ describe('stringMatch', () => {
       test.each(['city', 'country', 'district', 'line', 'postalCode', 'state', 'text'])(
         '%p field',
         (field) => {
-          const compiledNameParam = {
-            path: 'address',
-            resourceType: 'someResource'
-          };
+          const compiledNameParam = { path: 'address', resourceType: 'someResource' };
           expect(
             stringMatch(compiledNameParam, 'somePlace', {
               [field]: 'somePlace'

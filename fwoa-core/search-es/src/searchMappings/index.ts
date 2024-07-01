@@ -54,11 +54,7 @@ export const getSearchMappings = (
   const resourceMappings = mappings.Resource;
   delete mappings.Resource;
 
-  const mergedMappings = mapValues(mappings, (x) => ({
-    ...x,
-    ...resourceMappings,
-    ...CUSTOM_MAPPINGS
-  }));
+  const mergedMappings = mapValues(mappings, (x) => ({ ...x, ...resourceMappings, ...CUSTOM_MAPPINGS }));
 
   return mapValues(mergedMappings, (x) => ({
     dynamic: false,

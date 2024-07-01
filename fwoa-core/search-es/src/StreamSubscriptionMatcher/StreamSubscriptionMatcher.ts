@@ -88,13 +88,13 @@ export class StreamSubscriptionMatcher {
     const agent = new https.Agent({
       maxSockets: 150
     });
-    //to do review items
+
     this.snsClient = captureAWSv3Client(
       new SNSClient({
         region: process.env.AWS_REGION || 'us-west-2',
         maxAttempts: 2,
         requestHandler: new NodeHttpHandler({ httpsAgent: agent })
-      }) as any
+      })
     );
   }
 
@@ -131,10 +131,7 @@ export class StreamSubscriptionMatcher {
             Id: v4(), // The ID only needs to be unique within a batch. A UUID works well here
             Message: JSON.stringify(subscriptionNotification),
             MessageAttributes: {
-              channelType: {
-                DataType: 'String',
-                StringValue: subscriptionNotification.channelType
-              }
+              channelType: { DataType: 'String', StringValue: subscriptionNotification.channelType }
             }
           })),
           TopicArn: this.topicArn

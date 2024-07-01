@@ -88,13 +88,23 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
 
   private assertValidTenancyMode(tenantId?: string) {
     if (this.enableMultiTenancy && tenantId === undefined) {
-      throw new Error(
-        'This instance has multi-tenancy enabled, but the incoming request is missing tenantId'
-      );
+      throw new Error('This instance has multi-tenancy enabled, but the incoming request is missing tenantId');
     }
     if (!this.enableMultiTenancy && tenantId !== undefined) {
       throw new Error('This instance has multi-tenancy disabled, but the incoming request has a tenantId');
     }
+  }
+
+  async readAllResourceVersions(request: ReadResourceRequest, projectionExpression?: string): Promise<Array<any>> {
+    this.assertValidTenancyMode(request.tenantId);
+    const items = await this.dynamoDbHelper.getMostRecentResources(
+      request.resourceType,
+      request.id,
+      undefined,
+      projectionExpression,
+      request.tenantId,
+    );
+    return items.map((x: any) => DynamoDbUtil.cleanItem(x));
   }
 
   async readResource(request: ReadResourceRequest): Promise<GenericResponse> {
@@ -131,23 +141,22 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
     return this.createResourceWithId(resourceType, resource, uuidv4(), tenantId);
   }
 
-  private async createResourceWithId(
-    resourceType: string,
-    resource: any,
-    resourceId: string,
-    tenantId?: string
-  ) {
+  async createResourceWithId(resourceType: string, resource: any, resourceId: string, tenantId?: string) {
+    return this.createResourceWithIdNoClone(resourceType, clone(resource), resourceId, tenantId);
+  }
+
+  async createResourceWithIdNoClone(resourceType: string, resource: any, resourceId: string, tenantId?: string) {
     const regex = new RegExp('^[a-zA-Z0-9-.]{1,64}$');
     if (!regex.test(resourceId)) {
-      throw new InvalidResourceError('Resource creation failed, id is not valid');
+      throw new InvalidResourceError(`Resource creation failed, id ${resourceId} is not valid`);
     }
 
     const vid = 1;
-    let resourceClone = clone(resource);
-    resourceClone.resourceType = resourceType;
+    let resourceShallowCopy = resource;
+    resourceShallowCopy.resourceType = resourceType;
 
     const param = DynamoDbParamBuilder.buildPutAvailableItemParam(
-      resourceClone,
+      resourceShallowCopy,
       resourceId,
       vid,
       false,
@@ -163,11 +172,11 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
       throw e;
     }
     const item = DynamoDBConverter.unmarshall(param.Item);
-    resourceClone = DynamoDbUtil.cleanItem(item);
+    resourceShallowCopy = DynamoDbUtil.cleanItem(item);
     return {
       success: true,
       message: 'Resource created',
-      resource: resourceClone
+      resource: resourceShallowCopy
     };
   }
 
@@ -178,22 +187,15 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
 
     const { versionId } = itemServiceResponse.resource.meta;
 
-    return this.deleteVersionedResource(resourceType, id, parseInt(versionId, 10), tenantId);
+    return this.deleteVersionedResource(id, parseInt(versionId, 10), tenantId);
   }
 
-  async deleteVersionedResource(resourceType: string, id: string, vid: number, tenantId?: string) {
-    const updateStatusToDeletedParam = DynamoDbParamBuilder.buildUpdateDocumentStatusParam(
-      DOCUMENT_STATUS.AVAILABLE,
-      DOCUMENT_STATUS.DELETED,
-      id,
-      vid,
-      resourceType,
-      tenantId
-    ).Update;
-    await this.dynamoDb.updateItem(updateStatusToDeletedParam).promise();
+  async deleteVersionedResource(id: string, vid: number, tenantId?: string) {
+    const deleteParamInput = DynamoDbParamBuilder.buildDeleteParam(id, vid, tenantId).Delete;
+    await this.dynamoDb.deleteItem(deleteParamInput).promise();
     return {
       success: true,
-      message: `Successfully deleted ResourceType: ${resourceType}, Id: ${id}, VersionId: ${vid}`
+      message: `Successfully deleted resource Id: ${id}, VersionId: ${vid}`
     };
   }
 
@@ -209,12 +211,16 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
       }
       throw e;
     }
-    const resourceClone = clone(resource);
+    return this.updateResourceNoCheckForExistenceNoClone(resourceType, clone(resource), id, tenantId);
+  }
+
+  async updateResourceNoCheckForExistenceNoClone(resourceType: string, resource: any, id: string, tenantId?: string) {
+    const resourceShallowCopy = resource;
     const batchRequest: BatchReadWriteRequest = {
       operation: 'update',
       resourceType,
       id,
-      resource: resourceClone
+      resource: resourceShallowCopy
     };
 
     // Sending the request to `atomicallyReadWriteResources` to take advantage of LOCKING management handled by
@@ -225,11 +231,11 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
       tenantId
     });
     const batchReadWriteEntryResponse = response.batchReadWriteResponses[0];
-    resourceClone.meta = batchReadWriteEntryResponse.resource.meta;
+    resourceShallowCopy.meta = batchReadWriteEntryResponse.resource.meta;
     return {
       success: true,
       message: 'Resource updated',
-      resource: resourceClone
+      resource: resourceShallowCopy
     };
   }
 
@@ -254,12 +260,12 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
     const exportJobItems = await this.getJobsWithExportStatuses(jobStatusesToThrottle);
 
     if (exportJobItems) {
-      const numberOfConcurrentUserRequest = exportJobItems.filter((item) => {
+      const numberOfConcurrentUserRequest = exportJobItems.filter((item: any) => {
         return DynamoDBConverter.unmarshall(item).jobOwnerId === requesterUserId;
       }).length;
       let concurrentTenantRequest = exportJobItems;
       if (tenantId) {
-        concurrentTenantRequest = exportJobItems.filter((item) => {
+        concurrentTenantRequest = exportJobItems.filter((item: any) => {
           return DynamoDBConverter.unmarshall(item).tenantId === tenantId;
         });
       }
@@ -438,10 +444,7 @@ export class DynamoDbDataService implements Persistence, BulkDataAccess {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  conditionalDeleteResource(
-    request: ConditionalDeleteResourceRequest,
-    queryParams: any
-  ): Promise<GenericResponse> {
+  conditionalDeleteResource(request: ConditionalDeleteResourceRequest, queryParams: any): Promise<GenericResponse> {
     throw new Error('Method not implemented.');
   }
 }

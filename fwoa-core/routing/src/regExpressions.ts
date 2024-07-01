@@ -8,16 +8,14 @@ export const resourceTypeWithUuidRegExp = /\w+\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/;
 
 export const utcTimeRegExp = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d+)?Z/;
 export const dateTimeWithTimeZoneRegExp =
-  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d+)?(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])$/;
+  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d+)?(?:Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])/;
 export const timeFromEpochInMsRegExp = /\d{13}/;
 
 // Exp. Patient/de5b1d47-2780-4508-9273-4e0ec133ee3a
-// Exp. /Patient/de5b1d47-2780-4508-9273-4e0ec133ee3a
-export const captureResourceIdRegExp = /^\/?\w{1,30}\/([-\w+]{1,100})$/;
+export const captureResourceIdRegExp = /\w+\/([-\w+]+)/;
 
 // Exp. Patient/de5b1d47-2780-4508-9273-4e0ec133ee3a
-// Exp. /Patient/de5b1d47-2780-4508-9273-4e0ec133ee3a
-export const captureResourceTypeRegExp = /^\/?(\w{1,30})\/[-\w+]{1,100}$/;
+export const captureResourceTypeRegExp = /(\w+)\/[-\w+]+/;
 
 // Exp. Patient/de5b1d47-2780-4508-9273-4e0ec133ee3a/_history/1
 export const captureVersionIdRegExp = /\w+\/[-\w+]+\/_history\/(\w+)/;

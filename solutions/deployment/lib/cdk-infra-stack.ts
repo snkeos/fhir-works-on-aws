@@ -9,6 +9,7 @@ import {
   Stack,
   StackProps
 } from 'aws-cdk-lib';
+import { IUserPool, UserPool } from 'aws-cdk-lib/aws-cognito';
 import {
   ApiKeySourceType,
   AuthorizationType,
@@ -18,7 +19,9 @@ import {
   LambdaIntegration,
   MethodLoggingLevel,
   AccessLogFormat,
-  LogGroupLogDestination
+  LogGroupLogDestination,
+  IResource,
+  TokenAuthorizer
 } from 'aws-cdk-lib/aws-apigateway';
 import { AttributeType, BillingMode, StreamViewType, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb';
 import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
@@ -51,23 +54,47 @@ import BulkExportStateMachine from './bulkExportStateMachine';
 import Backup from './backup';
 import AlarmsResource from './alarms';
 import JavaHapiValidator from './javaHapiValidator';
+import { CloudTrailEncryptionEnabled } from 'cdk-nag/lib/rules/cloudtrail';
 
 export interface FhirWorksStackProps extends StackProps {
   stage: string;
+  stageType: string;
+
   region: string;
-  enableMultiTenancy: boolean;
+
   enableSubscriptions: boolean;
   enableBackup: boolean;
-  useHapiValidator: boolean;
   enableESHardDelete: boolean;
+  enableSecurityLogging: boolean;
+
+  useHapiValidator: boolean;
+
+  enableMultiTenancy: boolean;
+  grantAccessAllTenantsScope: string;
+  useTenantSpecificUrl: boolean;
+  tenantIdClaimPath: string;
+  tenantIdClaimValuePrefix: string;
+
   logLevel: string;
-  oauthRedirect: string;
+
   fhirVersion: string;
+
   igMemoryLimit: number;
   igMemorySize: number;
   igStorageSize: number;
-  enableSecurityLogging: boolean;
+
   validateXHTML: boolean;
+
+  patientCompartmentFileV3: string;
+  patientCompartmentFileV4: string;
+
+  oauthRedirect: string;
+  extUserPoolId: string;
+  extUserPoolClientId: string;
+  extUserPoolDomain: string;
+
+  corsOrigins: string;
+  useApiKeys: boolean;
 }
 
 export default class FhirWorksStack extends Stack {
@@ -75,6 +102,12 @@ export default class FhirWorksStack extends Stack {
 
   constructor(scope: Construct, id: string, props?: FhirWorksStackProps) {
     super(scope, id, props);
+
+    // ServerlessIfElse re-write
+    let cognitoScopes: string[] = ['openid', 'profile', 'aws.cognito.signin.user.admin'];
+    if (props!.grantAccessAllTenantsScope !== "") {
+      cognitoScopes.push(props!.grantAccessAllTenantsScope);
+    }
 
     // Define parameters
     const exportGlueWorkerType = new CfnParameter(this, 'exportGlueWorkerType', {
@@ -91,19 +124,17 @@ export default class FhirWorksStack extends Stack {
     });
 
     // define conditions here:
-    const isDev = props!.stage === 'dev';
+    const isDev = props!.stage === 'dev' || props!.stageType === 'dev';
     const isDevCondition = new CfnCondition(this, 'isDev', {
       expression: Fn.conditionEquals(props!.stage, 'dev')
     });
     const isMultiTenancyEnabled = props!.enableMultiTenancy;
-
+    // if any external user pool properties are empty (extUserPoolID, extUserPoolClientId, or extUserPoolDomain), then use default user pool
+    const isUsingExternalUserPool = props!.extUserPoolId !== '' && props!.extUserPoolClientId !== '' && props!.extUserPoolDomain !== '';
     // define other custom variables here
     const resourceTableName = `resource-db-${props!.stage}`;
     const exportRequestTableName = `export-request-${props!.stage}`;
     const exportRequestTableJobStatusIndex = `jobStatus-index`;
-
-    const PATIENT_COMPARTMENT_V3 = 'patientCompartmentSearchParams.3.0.2.json';
-    const PATIENT_COMPARTMENT_V4 = 'patientCompartmentSearchParams.4.0.1.json';
 
     // Create KMS Resources
     const kmsResources = new KMSResources(this, props!.region, props!.stage, this.account, props!.enableSecurityLogging);
@@ -122,7 +153,6 @@ export default class FhirWorksStack extends Stack {
 
     // Start defining necessary resources
     const fhirLogsBucket = new Bucket(this, 'fhirLogsBucket', {
-      accessControl: BucketAccessControl.LOG_DELIVERY_WRITE,
       encryption: BucketEncryption.S3_MANAGED,
       publicReadAccess: false,
       blockPublicAccess: {
@@ -175,11 +205,13 @@ export default class FhirWorksStack extends Stack {
         name: 'vid'
       },
       tableName: resourceTableName,
-      billingMode: BillingMode.PAY_PER_REQUEST,
       stream: StreamViewType.NEW_AND_OLD_IMAGES,
       pointInTimeRecovery: true,
       encryption: TableEncryption.CUSTOMER_MANAGED,
-      encryptionKey: kmsResources.dynamoDbKMSKey
+      encryptionKey: kmsResources.dynamoDbKMSKey,
+      removalPolicy: RemovalPolicy.DESTROY,
+      readCapacity: 30,
+      writeCapacity: 30
     });
     resourceDynamoDbTable.addGlobalSecondaryIndex({
       indexName: 'activeSubscriptions',
@@ -190,7 +222,9 @@ export default class FhirWorksStack extends Stack {
       sortKey: {
         name: 'id',
         type: AttributeType.STRING
-      }
+      },
+      readCapacity: 30,
+      writeCapacity: 30
     });
 
     const exportRequestDynamoDbTable = new Table(this, exportRequestTableName, {
@@ -261,7 +295,7 @@ export default class FhirWorksStack extends Stack {
       versioned: true,
       encryption: BucketEncryption.KMS,
       encryptionKey: kmsResources.s3KMSKey,
-      removalPolicy: RemovalPolicy.RETAIN,
+      removalPolicy: RemovalPolicy.DESTROY,
       blockPublicAccess: {
         blockPublicAcls: true,
         blockPublicPolicy: true,
@@ -294,8 +328,25 @@ export default class FhirWorksStack extends Stack {
       props!.stage
     );
 
-    // Create Cognito Resources here:
-    const cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+    // Create Cognito Resources here if the external user pool is not defined in the props
+    let cognitoResources: CognitoResources;
+    let defaultUserPool: IUserPool;
+    let userPoolClient: string;
+    let userPoolDomain: string;
+    if (isUsingExternalUserPool) {
+      defaultUserPool = UserPool.fromUserPoolArn(
+        this,
+        'ExistingUserPool',
+        `arn:${this.partition}:cognito-idp:${props!.region}:${this.account}:userpool/${props!.extUserPoolId}`
+      );
+      userPoolClient = props!.extUserPoolClientId;
+      userPoolDomain = props!.extUserPoolDomain;
+    } else {
+      cognitoResources = new CognitoResources(this, this.stackName, props!.oauthRedirect);
+      defaultUserPool = cognitoResources.userPool;
+      userPoolClient = cognitoResources.userPoolClient.ref;
+      userPoolDomain = cognitoResources.userPoolDomain.ref;
+    }
 
     const apiGatewayLogGroup = new LogGroup(this, 'apiGatewayLogGroup', {
       encryptionKey: kmsResources.logKMSKey,
@@ -345,6 +396,7 @@ export default class FhirWorksStack extends Stack {
       ]
     );
 
+    // determine default user pool domain
     const lambdaDefaultEnvVars = {
       API_URL: `https://${apiGatewayRestApi.restApiId}.execute-api.${props!.region}.amazonaws.com/${props!.stage
         }`,
@@ -354,11 +406,10 @@ export default class FhirWorksStack extends Stack {
       EXPORT_REQUEST_TABLE_JOB_STATUS_INDEX: exportRequestTableJobStatusIndex,
       FHIR_BINARY_BUCKET: fhirBinaryBucket.bucketName,
       ELASTICSEARCH_DOMAIN_ENDPOINT: `https://${elasticSearchResources.elasticSearchDomain.domainEndpoint}`,
-      OAUTH2_DOMAIN_ENDPOINT: `https://${cognitoResources.userPoolDomain.ref}.auth.${props!.region
-        }.amazoncognito.com/oauth2`,
+      OAUTH2_DOMAIN_ENDPOINT: `https://${userPoolDomain}.auth.${props!.region}.amazoncognito.com/oauth2`,
       EXPORT_RESULTS_BUCKET: bulkExportResources.bulkExportResultsBucket.bucketName,
       EXPORT_RESULTS_SIGNER_ROLE_ARN: bulkExportResources.exportResultsSignerRole.roleArn,
-      CUSTOM_USER_AGENT: 'AwsSolution/SO0128/GH-v6.1.6',
+      CUSTOM_USER_AGENT: 'AwsSolution/SO0128/GH-v6.1.3',
       ENABLE_MULTI_TENANCY: `${props!.enableMultiTenancy}`,
       ENABLE_SUBSCRIPTIONS: `${props!.enableSubscriptions}`,
       LOG_LEVEL: props!.logLevel,
@@ -367,6 +418,10 @@ export default class FhirWorksStack extends Stack {
         : 'ENCRYPTION_TURNED_OFF',
       ENABLE_SECURITY_LOGGING: `${props!.enableSecurityLogging}`,
       VALIDATE_XHTML: props?.validateXHTML ? 'true' : 'false',
+      TENANT_ID_CLAIM_PATH: props!.tenantIdClaimPath,
+      TENANT_ID_CLAIM_VALUE_PREFIX: props!.tenantIdClaimValuePrefix,
+      USE_TENANT_SPECIFIC_URL: `${props!.useTenantSpecificUrl}`,
+      GRANT_ACCESS_ALL_TENANTS_SCOPE: props!.grantAccessAllTenantsScope
     };
 
     const defaultLambdaBundlingOptions = {
@@ -375,7 +430,7 @@ export default class FhirWorksStack extends Stack {
     const defaultBulkExportLambdaProps: NodejsFunctionProps = {
       timeout: Duration.seconds(30),
       memorySize: 192,
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       description: 'Start the Glue job for bulk export',
       role: bulkExportResources.glueJobRelatedLambdaRole,
       entry: path.join(__dirname, '../bulkExport/index.ts'),
@@ -420,7 +475,7 @@ export default class FhirWorksStack extends Stack {
     const startExportJobLambdaFunction = new NodejsFunction(this, 'startExportJobLambdaFunction', {
       ...defaultBulkExportLambdaProps,
       handler: 'startExportJobHandler',
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       deadLetterQueue: startExportJobLambdaFunctionDLQ,
     });
 
@@ -458,7 +513,7 @@ export default class FhirWorksStack extends Stack {
     const stopExportJobLambdaFunction = new NodejsFunction(this, 'stopExportJobLambdaFunction', {
       ...defaultBulkExportLambdaProps,
       handler: 'stopExportJobHandler',
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       deadLetterQueue: stopExportJobLambdaFunctionDLQ,
     });
 
@@ -496,7 +551,7 @@ export default class FhirWorksStack extends Stack {
     const getJobStatusLambdaFunction = new NodejsFunction(this, 'getJobStatusLambdaFunction', {
       ...defaultBulkExportLambdaProps,
       handler: 'getJobStatusHandler',
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       deadLetterQueue: getJobStatusLambdaFunctionDLQ,
     });
 
@@ -535,7 +590,7 @@ export default class FhirWorksStack extends Stack {
       ...defaultBulkExportLambdaProps,
       handler: 'updateStatusStatusHandler',
       role: bulkExportResources.updateStatusLambdaRole,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       deadLetterQueue: updateStatusLambdaFunctionDLQ,
     });
 
@@ -573,8 +628,8 @@ export default class FhirWorksStack extends Stack {
     const uploadGlueScriptsLambdaFunction = new NodejsFunction(this, 'uploadGlueScriptsLambdaFunction', {
       timeout: Duration.seconds(30),
       memorySize: 192,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
-      runtime: Runtime.NODEJS_16_X,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
+      runtime: Runtime.NODEJS_20_X,
       role: bulkExportResources.uploadGlueScriptsLambdaRole,
       description: 'Upload glue scripts to s3',
       handler: 'handler',
@@ -597,8 +652,8 @@ export default class FhirWorksStack extends Stack {
             return [
               `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/glueScripts/export-script.py`,
               `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/schema/transitiveReferenceParams.json`,
-              `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/schema/${PATIENT_COMPARTMENT_V3}`,
-              `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/schema/${PATIENT_COMPARTMENT_V4}`
+              `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/schema/${props!.patientCompartmentFileV3}`,
+              `node scripts/build_lambda.js ${inputDir} ${outputDir} bulkExport/schema/${props!.patientCompartmentFileV4}`
             ];
           }
         }
@@ -646,8 +701,8 @@ export default class FhirWorksStack extends Stack {
       {
         timeout: Duration.seconds(300),
         memorySize: 512,
-        runtime: Runtime.NODEJS_16_X,
-        reservedConcurrentExecutions: isDev ? 10 : 200,
+        runtime: Runtime.NODEJS_20_X,
+        // reservedConcurrentExecutions: isDev ? 10 : 200,
         description: 'Custom resource Lambda to update the search mappings',
         deadLetterQueue: updateSearchMappingsLambdaFunctionDLQ,
         role: new Role(this, 'updateSearchMappingsLambdaRole', {
@@ -746,7 +801,7 @@ export default class FhirWorksStack extends Stack {
     const apiGatewayAuthorizer = new CognitoUserPoolsAuthorizer(this, 'apiGatewayAuthorizer', {
       authorizerName: `fhir-works-authorizer-${props!.stage}-${props!.region}`,
       identitySource: 'method.request.header.Authorization',
-      cognitoUserPools: [cognitoResources.userPool],
+      cognitoUserPools: [defaultUserPool],
       resultsCacheTtl: Duration.seconds(300)
     });
 
@@ -812,7 +867,7 @@ export default class FhirWorksStack extends Stack {
     const fhirServerLambda = new NodejsFunction(this, 'fhirServer', {
       timeout: Duration.seconds(40),
       memorySize: 512,
-      reservedConcurrentExecutions: isDev ? 100 : 200,
+      // reservedConcurrentExecutions: isDev ? 100 : 200,
       description: 'FHIR API Server',
       entry: path.join(__dirname, '../src/index.ts'),
       handler: 'handler',
@@ -840,13 +895,13 @@ export default class FhirWorksStack extends Stack {
           }
         }
       },
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_20_X,
       environment: {
         ...lambdaDefaultEnvVars,
         EXPORT_STATE_MACHINE_ARN: bulkExportStateMachine.bulkExportStateMachine.stateMachineArn,
-        PATIENT_COMPARTMENT_V3,
-        PATIENT_COMPARTMENT_V4,
-        VALIDATOR_LAMBDA_ALIAS: props!.useHapiValidator ? this.javaHapiValidator!.alias.functionArn : ''
+        PATIENT_COMPARTMENT_V3: props!.patientCompartmentFileV3,
+        PATIENT_COMPARTMENT_V4: props!.patientCompartmentFileV4,
+        VALIDATOR_LAMBDA_ALIAS: props!.useHapiValidator ? this.javaHapiValidator!.alias.functionArn : '',
       },
       role: new Role(this, 'fhirServerLambdaRole', {
         assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
@@ -965,11 +1020,7 @@ export default class FhirWorksStack extends Stack {
     }
     fhirServerLambda.addAlias(`fhir-server-lambda-${props!.stage}`);
 
-    const apiGatewayApiKey = apiGatewayRestApi.addApiKey('developerApiKey', {
-      description: 'Key for developer access to the FHIR Api',
-      apiKeyName: `developer-key-${props!.stage}`
-    });
-    apiGatewayRestApi
+    const usagePlan = apiGatewayRestApi
       .addUsagePlan('apiUsagePlan', {
         throttle: {
           burstLimit: 100, // maximum API request rate limit over a time ranging from one to a few seconds
@@ -982,58 +1033,140 @@ export default class FhirWorksStack extends Stack {
             stage: apiGatewayRestApi.deploymentStage
           }
         ]
-      })
-      .addApiKey(apiGatewayApiKey);
-    apiGatewayRestApi.root.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
+      });
+
+    if (props!.useApiKeys) {
+      const apiGatewayApiKey = apiGatewayRestApi.addApiKey('developerApiKey', {
+        description: 'Key for developer access to the FHIR Api',
+        apiKeyName: `developer-key-${props!.stage}`
+      });
+      usagePlan.addApiKey(apiGatewayApiKey)
+    }
+
+    let fhirServerResource: IResource;
+    let proxyResource: IResource;
+    let metadataResource: IResource;
+
+    // If multitenancy supported and url specific tenant set, create tenant specific endpoints
+    if (props!.enableMultiTenancy && props!.useTenantSpecificUrl) {
+      const tenantEndpoint = apiGatewayRestApi.root.addResource('tenant');
+      fhirServerResource = tenantEndpoint.addResource('{tenantId}');
+    } else {
+      fhirServerResource = apiGatewayRestApi.root;
+    }
+    proxyResource = fhirServerResource.addResource('{proxy+}');
+    metadataResource = fhirServerResource.addResource('metadata');
+
+    // events 0
+    fhirServerResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
       authorizer: apiGatewayAuthorizer,
       authorizationType: AuthorizationType.COGNITO,
-      apiKeyRequired: true
+      apiKeyRequired: props!.useApiKeys,
+      authorizationScopes: cognitoScopes,
     });
-    apiGatewayRestApi.root.addResource('{proxy+}').addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
+
+    // events 1
+    proxyResource.addMethod('ANY', new LambdaIntegration(fhirServerLambda), {
       authorizer: apiGatewayAuthorizer,
       authorizationType: AuthorizationType.COGNITO,
-      apiKeyRequired: true
+      apiKeyRequired: props!.useApiKeys,
+      authorizationScopes: cognitoScopes
     });
-    apiGatewayRestApi.root.addResource('metadata').addMethod('GET', new LambdaIntegration(fhirServerLambda), {
-      authorizationType: AuthorizationType.NONE,
-      apiKeyRequired: false
+    // events 2
+    metadataResource.addMethod('GET', new LambdaIntegration(fhirServerLambda), {
+      apiKeyRequired: props!.useApiKeys
     });
-    apiGatewayRestApi.root
-      .addResource('tenant')
-      .addResource('{tenantId}')
-      .addResource('metadata')
-      .addMethod('GET', new LambdaIntegration(fhirServerLambda), {
-        authorizationType: AuthorizationType.NONE,
+
+    if (props!.corsOrigins != '') {
+      // events 3
+      fhirServerResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
         apiKeyRequired: false
       });
-    NagSuppressions.addResourceSuppressionsByPath(
-      this,
-      `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/metadata/GET/Resource`,
-      [
-        {
-          id: 'AwsSolutions-APIG4',
-          reason: 'The /metadata endpoints do not require Authorization'
-        },
-        {
-          id: 'AwsSolutions-COG4',
-          reason: 'The /metadata endpoints do not require an Authorizer'
-        }
-      ]
-    );
-    NagSuppressions.addResourceSuppressionsByPath(
-      this,
-      `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/GET/Resource`,
-      [
-        {
-          id: 'AwsSolutions-APIG4',
-          reason: 'The /metadata endpoints do not require Authorization'
-        },
-        {
-          id: 'AwsSolutions-COG4',
-          reason: 'The /metadata endpoints do not require an Authorizer'
-        }
-      ]
-    );
+      // events 4
+      proxyResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
+        apiKeyRequired: false
+      });
+      metadataResource.addMethod('OPTIONS', new LambdaIntegration(fhirServerLambda), {
+        apiKeyRequired: false
+      });
+    }
+    // Serverless:
+    //    - If: '"${self:custom.enableMultiTenancy}" == "true" && "${self:custom.useTenantSpecificUrl}" == "true"'
+    //      Exclude:
+    //         - resources.extensions.ApiGatewayMethodMetadataGet
+    if (!props!.enableMultiTenancy && !props!.useTenantSpecificUrl) {
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/metadata/GET/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata endpoints do not require an Authorizer'
+          }
+        ]
+      );
+    } else {
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/GET/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata endpoints do not require an Authorizer'
+          }
+        ]
+      );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/metadata/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /metadata/OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /metadata/OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The /tenant/{tenantId}/OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The /tenant/{tenantId}/OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
+      NagSuppressions.addResourceSuppressionsByPath(
+        this,
+        `/fhir-service-${props!.stage}/apiGatewayRestApi/Default/tenant/{tenantId}/{proxy+}/OPTIONS/Resource`,
+        [
+          {
+            id: 'AwsSolutions-APIG4',
+            reason: 'The proxy /OPTIONS endpoints do not require Authorization'
+          },
+          {
+            id: 'AwsSolutions-COG4',
+            reason: 'The proxy /OPTIONS endpoints do not require an Authorizer'
+          }
+        ]
+      );
+    }
 
     const ddbToEsDLQ = new Queue(this, 'ddbToEsDLQ', {
       retentionPeriod: Duration.days(14),
@@ -1049,8 +1182,8 @@ export default class FhirWorksStack extends Stack {
 
     const ddbToEsLambda = new NodejsFunction(this, 'ddbToEs', {
       timeout: Duration.seconds(300),
-      runtime: Runtime.NODEJS_16_X,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      runtime: Runtime.NODEJS_20_X,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       description: 'Write DDB changes from `resource` table to ElasticSearch service',
       handler: 'handler',
       entry: path.join(__dirname, '../src/ddbToEsLambda/index.ts'),
@@ -1101,7 +1234,12 @@ export default class FhirWorksStack extends Stack {
                 effect: Effect.ALLOW,
                 actions: ['sqs:SendMessage'],
                 resources: [ddbToEsDLQ.queueArn]
-              })
+              }),
+              new PolicyStatement({
+                effect: Effect.ALLOW,
+                actions: ['s3:*Object', 's3:ListBucket', 's3:DeleteObjectVersion'],
+                resources: [fhirBinaryBucket.bucketArn, fhirBinaryBucket.arnForObjects('*')]
+              }),
             ]
           }),
           KMSPolicy: new PolicyDocument({
@@ -1118,7 +1256,7 @@ export default class FhirWorksStack extends Stack {
                   'kms:GenerateDataKey',
                   'kms:GenerateDataKeyWithoutPlaintext'
                 ],
-                resources: [kmsResources.dynamoDbKMSKey.keyArn, kmsResources.elasticSearchKMSKey.keyArn]
+                resources: [kmsResources.s3KMSKey.keyArn, kmsResources.dynamoDbKMSKey.keyArn, kmsResources.elasticSearchKMSKey.keyArn]
               })
             ]
           })
@@ -1162,8 +1300,8 @@ export default class FhirWorksStack extends Stack {
 
     const subscriptionReaper = new NodejsFunction(this, 'subscriptionReaper', {
       timeout: Duration.seconds(30),
-      runtime: Runtime.NODEJS_16_X,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      runtime: Runtime.NODEJS_20_X,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       description: 'Scheduled Lambda to remove expired Subscriptions',
       deadLetterQueue: subscriptionReaperDLQ,
       role: new Role(this, 'subscriptionReaperRole', {
@@ -1243,8 +1381,8 @@ export default class FhirWorksStack extends Stack {
     const subscriptionsMatcher = new NodejsFunction(this, 'subscriptionsMatcher', {
       timeout: Duration.seconds(20),
       memorySize: isDev ? 512 : 1024,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
-      runtime: Runtime.NODEJS_16_X,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
+      runtime: Runtime.NODEJS_20_X,
       description: 'Match ddb events against active Subscriptions and emit notifications',
       deadLetterQueue: subscriptionsMatcherDLQ,
       role: new Role(this, 'subscriptionsMatcherLambdaRole', {
@@ -1383,8 +1521,8 @@ export default class FhirWorksStack extends Stack {
     // eslint-disable-next-line no-new
     new NodejsFunction(this, 'subscriptionsRestHook', {
       timeout: Duration.seconds(10),
-      runtime: Runtime.NODEJS_16_X,
-      reservedConcurrentExecutions: isDev ? 10 : 200,
+      runtime: Runtime.NODEJS_20_X,
+      // reservedConcurrentExecutions: isDev ? 10 : 200,
       description: 'Send rest-hook notification for subscription',
       role: subscriptionsResources.restHookLambdaRole,
       handler: 'handler',
@@ -1422,15 +1560,40 @@ export default class FhirWorksStack extends Stack {
     );
     // create outputs for stack here:
     // eslint-disable-next-line no-new
+    new CfnOutput(this, 'fhirServiceEndpoint', {
+      description: 'FHIRworks Service Endpoint',
+      value: `https://${apiGatewayRestApi.restApiId}.execute-api.${props!.region}.amazonaws.com/${props!.stage
+        }`,
+      exportName: `serviceEndpoint-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolId', {
+      description: 'Provided external UserPool Id',
+      value: `${props!.extUserPoolId}`,
+      exportName: `extUserPoolId-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolClientId', {
+      description: 'Provided external UserPool ClientId',
+      value: `${props!.extUserPoolClientId}`,
+      exportName: `extUserPoolClientId-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
+    new CfnOutput(this, 'extUserPoolDomain', {
+      description: 'Provided external user pool domain',
+      value: `${props!.extUserPoolDomain}`,
+      exportName: `extUserPoolDomain-${props!.stage}`
+    });
+    // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolId', {
       description: 'User pool id for the provisioning users',
-      value: `${cognitoResources.userPool.userPoolId}`,
+      value: `${defaultUserPool.userPoolId}`,
       exportName: `UserPoolId-${props!.stage}`
     });
     // eslint-disable-next-line no-new
     new CfnOutput(this, 'userPoolAppClientId', {
       description: 'App client id for the provisioning users.',
-      value: `${cognitoResources.userPoolClient.ref}`,
+      value: `${userPoolClient}`,
       exportName: `UserPoolAppClientId-${props!.stage}`
     });
     // eslint-disable-next-line no-new
@@ -1464,11 +1627,11 @@ export default class FhirWorksStack extends Stack {
       exportName: `ElasticSearchDomainEndpoint-${props!.stage}`
     });
     // eslint-disable-next-line no-new
-    new CfnOutput(this, 'developerApiKeyOutput', {
-      description: 'Key for developer access to the API',
-      value: `${apiGatewayApiKey}`,
-      exportName: `DeveloperAPIKey-${props!.stage}`
-    });
+    // new CfnOutput(this, 'developerApiKeyOutput', {
+    //   description: 'Key for developer access to the API',
+    //   value: `${apiGatewayApiKey}`,
+    //   exportName: `DeveloperAPIKey-${props!.stage}`
+    // });
 
     if (isDev) {
       // eslint-disable-next-line no-new

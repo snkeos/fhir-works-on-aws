@@ -29,11 +29,11 @@ describe('setContentTypeMiddleware', () => {
     expect(contentType).toHaveBeenCalledWith('application/fhir+json');
   });
 
-  test('request should return application/json if user request application/json in accept header', async () => {
+  test('request should return application/json if user sent application/json', async () => {
     const nextMock = jest.fn();
     const req = {
       headers: {
-        accept: 'application/json'
+        'content-type': 'application/json'
       }
     } as unknown as express.Request;
     const contentType = jest.fn();

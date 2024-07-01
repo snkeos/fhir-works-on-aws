@@ -80,11 +80,7 @@
     "base": "Account",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Account",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Account", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -295,12 +291,7 @@
     "type": "token",
     "description": "A use context assigned to the activity definition",
     "base": "ActivityDefinition",
-    "compiled": [
-      {
-        "resourceType": "ActivityDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ActivityDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -309,10 +300,7 @@
     "description": "A quantity- or range-valued use context assigned to the activity definition",
     "base": "ActivityDefinition",
     "compiled": [
-      {
-        "resourceType": "ActivityDefinition",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "ActivityDefinition", "path": "useContext.valueQuantity" },
       { "resourceType": "ActivityDefinition", "path": "useContext.valueRange" }
     ]
   },
@@ -1265,12 +1253,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [AllergyIntolerance](allergyintolerance.html): Code that identifies the allergy or intolerance\r\n* [Condition](condition.html): Code for the condition\r\n* [DeviceRequest](devicerequest.html): Code for what is being requested/ordered\r\n* [DiagnosticReport](diagnosticreport.html): The code for the report, as opposed to codes for the atomic results, which are the names on the observation resource referred to from the result\r\n* [FamilyMemberHistory](familymemberhistory.html): A search by a condition code\r\n* [List](list.html): What the purpose of this list is\r\n* [Medication](medication.html): Returns medications for a specific code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationDispense](medicationdispense.html): Returns dispenses of this medicine code\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [Observation](observation.html): The code of the observation type\r\n* [Procedure](procedure.html): A code to identify a  procedure\r\n* [ServiceRequest](servicerequest.html): What is being requested/ordered\r\n",
     "base": "MedicationAdministration",
-    "compiled": [
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationAdministration", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -1278,12 +1261,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [AllergyIntolerance](allergyintolerance.html): Code that identifies the allergy or intolerance\r\n* [Condition](condition.html): Code for the condition\r\n* [DeviceRequest](devicerequest.html): Code for what is being requested/ordered\r\n* [DiagnosticReport](diagnosticreport.html): The code for the report, as opposed to codes for the atomic results, which are the names on the observation resource referred to from the result\r\n* [FamilyMemberHistory](familymemberhistory.html): A search by a condition code\r\n* [List](list.html): What the purpose of this list is\r\n* [Medication](medication.html): Returns medications for a specific code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationDispense](medicationdispense.html): Returns dispenses of this medicine code\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [Observation](observation.html): The code of the observation type\r\n* [Procedure](procedure.html): A code to identify a  procedure\r\n* [ServiceRequest](servicerequest.html): What is being requested/ordered\r\n",
     "base": "MedicationDispense",
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -1291,12 +1269,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [AllergyIntolerance](allergyintolerance.html): Code that identifies the allergy or intolerance\r\n* [Condition](condition.html): Code for the condition\r\n* [DeviceRequest](devicerequest.html): Code for what is being requested/ordered\r\n* [DiagnosticReport](diagnosticreport.html): The code for the report, as opposed to codes for the atomic results, which are the names on the observation resource referred to from the result\r\n* [FamilyMemberHistory](familymemberhistory.html): A search by a condition code\r\n* [List](list.html): What the purpose of this list is\r\n* [Medication](medication.html): Returns medications for a specific code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationDispense](medicationdispense.html): Returns dispenses of this medicine code\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [Observation](observation.html): The code of the observation type\r\n* [Procedure](procedure.html): A code to identify a  procedure\r\n* [ServiceRequest](servicerequest.html): What is being requested/ordered\r\n",
     "base": "MedicationRequest",
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -1304,12 +1277,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [AllergyIntolerance](allergyintolerance.html): Code that identifies the allergy or intolerance\r\n* [Condition](condition.html): Code for the condition\r\n* [DeviceRequest](devicerequest.html): Code for what is being requested/ordered\r\n* [DiagnosticReport](diagnosticreport.html): The code for the report, as opposed to codes for the atomic results, which are the names on the observation resource referred to from the result\r\n* [FamilyMemberHistory](familymemberhistory.html): A search by a condition code\r\n* [List](list.html): What the purpose of this list is\r\n* [Medication](medication.html): Returns medications for a specific code\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication code\r\n* [MedicationDispense](medicationdispense.html): Returns dispenses of this medicine code\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions of this medication code\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication code\r\n* [Observation](observation.html): The code of the observation type\r\n* [Procedure](procedure.html): A code to identify a  procedure\r\n* [ServiceRequest](servicerequest.html): What is being requested/ordered\r\n",
     "base": "MedicationStatement",
-    "compiled": [
-      {
-        "resourceType": "MedicationStatement",
-        "path": "medicationCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationStatement", "path": "medicationCodeableConcept" }]
   },
   {
     "name": "code",
@@ -1787,11 +1755,7 @@
     "base": "CarePlan",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "CarePlan",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "CarePlan", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1802,11 +1766,7 @@
     "base": "CareTeam",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "CareTeam",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "CareTeam", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1832,11 +1792,7 @@
     "base": "Composition",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Composition",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Composition", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1847,11 +1803,7 @@
     "base": "Condition",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Condition",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Condition", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1880,11 +1832,7 @@
     "base": "DeviceRequest",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "DeviceRequest",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "DeviceRequest", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1949,11 +1897,7 @@
     "base": "Encounter",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Encounter",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Encounter", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1982,11 +1926,7 @@
     "base": "Flag",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Flag",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Flag", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -1997,11 +1937,7 @@
     "base": "Goal",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Goal",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Goal", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2012,11 +1948,7 @@
     "base": "ImagingStudy",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "ImagingStudy",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "ImagingStudy", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2036,11 +1968,7 @@
     "base": "List",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "List",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "List", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2120,11 +2048,7 @@
     "base": "Observation",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Observation",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Observation", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2135,11 +2059,7 @@
     "base": "Procedure",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "Procedure",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Procedure", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2150,11 +2070,7 @@
     "base": "RiskAssessment",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "RiskAssessment",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "RiskAssessment", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2165,11 +2081,7 @@
     "base": "ServiceRequest",
     "target": ["Patient", "Group"],
     "compiled": [
-      {
-        "resourceType": "ServiceRequest",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "ServiceRequest", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -2652,11 +2564,7 @@
     "base": "AppointmentResponse",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "AppointmentResponse",
-        "path": "actor",
-        "condition": ["actor", "resolve", "Patient"]
-      }
+      { "resourceType": "AppointmentResponse", "path": "actor", "condition": ["actor", "resolve", "Patient"] }
     ]
   },
   {
@@ -2926,11 +2834,7 @@
     "base": "AuditEvent",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "AuditEvent",
-        "path": "agent.who",
-        "condition": ["agent.who", "resolve", "Patient"]
-      },
+      { "resourceType": "AuditEvent", "path": "agent.who", "condition": ["agent.who", "resolve", "Patient"] },
       {
         "resourceType": "AuditEvent",
         "path": "entity.what",
@@ -3020,11 +2924,7 @@
     "base": "Basic",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Basic",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Basic", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -3245,12 +3145,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "CapabilityStatement",
-    "compiled": [
-      {
-        "resourceType": "CapabilityStatement",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "CapabilityStatement", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3258,12 +3153,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "CodeSystem",
-    "compiled": [
-      {
-        "resourceType": "CodeSystem",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "CodeSystem", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3271,12 +3161,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "CompartmentDefinition",
-    "compiled": [
-      {
-        "resourceType": "CompartmentDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "CompartmentDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3284,12 +3169,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "ConceptMap",
-    "compiled": [
-      {
-        "resourceType": "ConceptMap",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ConceptMap", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3297,12 +3177,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "GraphDefinition",
-    "compiled": [
-      {
-        "resourceType": "GraphDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "GraphDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3310,12 +3185,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "ImplementationGuide",
-    "compiled": [
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImplementationGuide", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3323,12 +3193,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "MessageDefinition",
-    "compiled": [
-      {
-        "resourceType": "MessageDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MessageDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3336,12 +3201,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "NamingSystem",
-    "compiled": [
-      {
-        "resourceType": "NamingSystem",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "NamingSystem", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3349,12 +3209,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "OperationDefinition",
-    "compiled": [
-      {
-        "resourceType": "OperationDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "OperationDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3362,12 +3217,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "SearchParameter",
-    "compiled": [
-      {
-        "resourceType": "SearchParameter",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "SearchParameter", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3375,12 +3225,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "StructureDefinition",
-    "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "StructureDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3388,12 +3233,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "StructureMap",
-    "compiled": [
-      {
-        "resourceType": "StructureMap",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "StructureMap", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3401,12 +3241,7 @@
     "type": "token",
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A use context assigned to the value set\r\n",
     "base": "TerminologyCapabilities",
-    "compiled": [
-      {
-        "resourceType": "TerminologyCapabilities",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "TerminologyCapabilities", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context",
@@ -3423,10 +3258,7 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "CapabilityStatement",
     "compiled": [
-      {
-        "resourceType": "CapabilityStatement",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "CapabilityStatement", "path": "useContext.valueQuantity" },
       { "resourceType": "CapabilityStatement", "path": "useContext.valueRange" }
     ]
   },
@@ -3448,14 +3280,8 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "CompartmentDefinition",
     "compiled": [
-      {
-        "resourceType": "CompartmentDefinition",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "CompartmentDefinition",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "CompartmentDefinition", "path": "useContext.valueQuantity" },
+      { "resourceType": "CompartmentDefinition", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -3487,10 +3313,7 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "ImplementationGuide",
     "compiled": [
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "ImplementationGuide", "path": "useContext.valueQuantity" },
       { "resourceType": "ImplementationGuide", "path": "useContext.valueRange" }
     ]
   },
@@ -3501,10 +3324,7 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "MessageDefinition",
     "compiled": [
-      {
-        "resourceType": "MessageDefinition",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "MessageDefinition", "path": "useContext.valueQuantity" },
       { "resourceType": "MessageDefinition", "path": "useContext.valueRange" }
     ]
   },
@@ -3526,10 +3346,7 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "OperationDefinition",
     "compiled": [
-      {
-        "resourceType": "OperationDefinition",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "OperationDefinition", "path": "useContext.valueQuantity" },
       { "resourceType": "OperationDefinition", "path": "useContext.valueRange" }
     ]
   },
@@ -3551,10 +3368,7 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "StructureDefinition",
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "StructureDefinition", "path": "useContext.valueQuantity" },
       { "resourceType": "StructureDefinition", "path": "useContext.valueRange" }
     ]
   },
@@ -3576,14 +3390,8 @@
     "description": "Multiple Resources: \r\n\r\n* [CapabilityStatement](capabilitystatement.html): A quantity- or range-valued use context assigned to the capability statement\r\n* [CodeSystem](codesystem.html): A quantity- or range-valued use context assigned to the code system\r\n* [CompartmentDefinition](compartmentdefinition.html): A quantity- or range-valued use context assigned to the compartment definition\r\n* [ConceptMap](conceptmap.html): A quantity- or range-valued use context assigned to the concept map\r\n* [GraphDefinition](graphdefinition.html): A quantity- or range-valued use context assigned to the graph definition\r\n* [ImplementationGuide](implementationguide.html): A quantity- or range-valued use context assigned to the implementation guide\r\n* [MessageDefinition](messagedefinition.html): A quantity- or range-valued use context assigned to the message definition\r\n* [NamingSystem](namingsystem.html): A quantity- or range-valued use context assigned to the naming system\r\n* [OperationDefinition](operationdefinition.html): A quantity- or range-valued use context assigned to the operation definition\r\n* [SearchParameter](searchparameter.html): A quantity- or range-valued use context assigned to the search parameter\r\n* [StructureDefinition](structuredefinition.html): A quantity- or range-valued use context assigned to the structure definition\r\n* [StructureMap](structuremap.html): A quantity- or range-valued use context assigned to the structure map\r\n* [TerminologyCapabilities](terminologycapabilities.html): A quantity- or range-valued use context assigned to the terminology capabilities\r\n* [ValueSet](valueset.html): A quantity- or range-valued use context assigned to the value set\r\n",
     "base": "TerminologyCapabilities",
     "compiled": [
-      {
-        "resourceType": "TerminologyCapabilities",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "TerminologyCapabilities",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "TerminologyCapabilities", "path": "useContext.valueQuantity" },
+      { "resourceType": "TerminologyCapabilities", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -4446,12 +4254,7 @@
     "description": "Profiles for use cases supported",
     "base": "CapabilityStatement",
     "target": ["StructureDefinition"],
-    "compiled": [
-      {
-        "resourceType": "CapabilityStatement",
-        "path": "rest.resource.supportedProfile"
-      }
-    ]
+    "compiled": [{ "resourceType": "CapabilityStatement", "path": "rest.resource.supportedProfile" }]
   },
   {
     "name": "title",
@@ -5035,11 +4838,7 @@
     "base": "ChargeItem",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "ChargeItem",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "ChargeItem", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -5134,12 +4933,7 @@
     "type": "token",
     "description": "A use context assigned to the charge item definition",
     "base": "ChargeItemDefinition",
-    "compiled": [
-      {
-        "resourceType": "ChargeItemDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ChargeItemDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -5148,14 +4942,8 @@
     "description": "A quantity- or range-valued use context assigned to the charge item definition",
     "base": "ChargeItemDefinition",
     "compiled": [
-      {
-        "resourceType": "ChargeItemDefinition",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "ChargeItemDefinition",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "ChargeItemDefinition", "path": "useContext.valueQuantity" },
+      { "resourceType": "ChargeItemDefinition", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -5510,12 +5298,7 @@
     "type": "token",
     "description": "What was found",
     "base": "ClinicalImpression",
-    "compiled": [
-      {
-        "resourceType": "ClinicalImpression",
-        "path": "finding.itemCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ClinicalImpression", "path": "finding.itemCodeableConcept" }]
   },
   {
     "name": "finding-ref",
@@ -6198,11 +5981,7 @@
     "base": "Communication",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Communication",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Communication", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -7111,12 +6890,7 @@
     "type": "uri",
     "description": "Reference to property mapping depends on",
     "base": "ConceptMap",
-    "compiled": [
-      {
-        "resourceType": "ConceptMap",
-        "path": "group.element.target.dependsOn.property"
-      }
-    ]
+    "compiled": [{ "resourceType": "ConceptMap", "path": "group.element.target.dependsOn.property" }]
   },
   {
     "name": "other",
@@ -7133,12 +6907,7 @@
     "type": "uri",
     "description": "Reference to property mapping depends on",
     "base": "ConceptMap",
-    "compiled": [
-      {
-        "resourceType": "ConceptMap",
-        "path": "group.element.target.product.property"
-      }
-    ]
+    "compiled": [{ "resourceType": "ConceptMap", "path": "group.element.target.product.property" }]
   },
   {
     "name": "source",
@@ -7824,11 +7593,7 @@
     "base": "Contract",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Contract",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Contract", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -9561,12 +9326,7 @@
     "type": "token",
     "description": "Mime type of the content, with charset etc.",
     "base": "DocumentReference",
-    "compiled": [
-      {
-        "resourceType": "DocumentReference",
-        "path": "content.attachment.contentType"
-      }
-    ]
+    "compiled": [{ "resourceType": "DocumentReference", "path": "content.attachment.contentType" }]
   },
   {
     "name": "custodian",
@@ -9623,12 +9383,7 @@
     "type": "token",
     "description": "Human language of the content (BCP-47)",
     "base": "DocumentReference",
-    "compiled": [
-      {
-        "resourceType": "DocumentReference",
-        "path": "content.attachment.language"
-      }
-    ]
+    "compiled": [{ "resourceType": "DocumentReference", "path": "content.attachment.language" }]
   },
   {
     "name": "location",
@@ -9857,12 +9612,7 @@
     "type": "token",
     "description": "A use context assigned to the effect evidence synthesis",
     "base": "EffectEvidenceSynthesis",
-    "compiled": [
-      {
-        "resourceType": "EffectEvidenceSynthesis",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "EffectEvidenceSynthesis", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -9871,14 +9621,8 @@
     "description": "A quantity- or range-valued use context assigned to the effect evidence synthesis",
     "base": "EffectEvidenceSynthesis",
     "compiled": [
-      {
-        "resourceType": "EffectEvidenceSynthesis",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "EffectEvidenceSynthesis",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "EffectEvidenceSynthesis", "path": "useContext.valueQuantity" },
+      { "resourceType": "EffectEvidenceSynthesis", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -10128,12 +9872,7 @@
     "type": "token",
     "description": "Wheelchair, translator, stretcher, etc.",
     "base": "Encounter",
-    "compiled": [
-      {
-        "resourceType": "Encounter",
-        "path": "hospitalization.specialArrangement"
-      }
-    ]
+    "compiled": [{ "resourceType": "Encounter", "path": "hospitalization.specialArrangement" }]
   },
   {
     "name": "status",
@@ -10477,12 +10216,7 @@
     "type": "token",
     "description": "A use context assigned to the event definition",
     "base": "EventDefinition",
-    "compiled": [
-      {
-        "resourceType": "EventDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "EventDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -12338,12 +12072,7 @@
     "type": "token",
     "description": "A use context assigned to the evidence variable",
     "base": "EvidenceVariable",
-    "compiled": [
-      {
-        "resourceType": "EvidenceVariable",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "EvidenceVariable", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -12352,10 +12081,7 @@
     "description": "A quantity- or range-valued use context assigned to the evidence variable",
     "base": "EvidenceVariable",
     "compiled": [
-      {
-        "resourceType": "EvidenceVariable",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "EvidenceVariable", "path": "useContext.valueQuantity" },
       { "resourceType": "EvidenceVariable", "path": "useContext.valueRange" }
     ]
   },
@@ -13113,12 +12839,7 @@
     "type": "token",
     "description": "A use context assigned to the example scenario",
     "base": "ExampleScenario",
-    "compiled": [
-      {
-        "resourceType": "ExampleScenario",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ExampleScenario", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -13350,12 +13071,7 @@
     "description": "UDI associated with a line item detail subdetail product or service",
     "base": "ExplanationOfBenefit",
     "target": ["Device"],
-    "compiled": [
-      {
-        "resourceType": "ExplanationOfBenefit",
-        "path": "item.detail.subDetail.udi"
-      }
-    ]
+    "compiled": [{ "resourceType": "ExplanationOfBenefit", "path": "item.detail.subDetail.udi" }]
   },
   {
     "name": "instantiates-canonical",
@@ -13563,10 +13279,7 @@
     "description": "Value held by characteristic",
     "base": "Group",
     "compiled": [
-      {
-        "resourceType": "Group",
-        "path": "characteristic.valueCodeableConcept"
-      },
+      { "resourceType": "Group", "path": "characteristic.valueCodeableConcept" },
       { "resourceType": "Group", "path": "characteristic.valueBoolean" },
       { "resourceType": "Group", "path": "characteristic.valueQuantity" },
       { "resourceType": "Group", "path": "characteristic.valueRange" },
@@ -13950,12 +13663,7 @@
     "type": "token",
     "description": "The target disease the dose is being administered against",
     "base": "Immunization",
-    "compiled": [
-      {
-        "resourceType": "Immunization",
-        "path": "protocolApplied.targetDisease"
-      }
-    ]
+    "compiled": [{ "resourceType": "Immunization", "path": "protocolApplied.targetDisease" }]
   },
   {
     "name": "vaccine-code",
@@ -14193,10 +13901,7 @@
       "VisionPrescription"
     ],
     "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.supportingPatientInformation"
-      }
+      { "resourceType": "ImmunizationRecommendation", "path": "recommendation.supportingPatientInformation" }
     ]
   },
   {
@@ -14214,12 +13919,7 @@
     "type": "token",
     "description": "Vaccine recommendation status",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.forecastStatus"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.forecastStatus" }]
   },
   {
     "name": "support",
@@ -14229,10 +13929,7 @@
     "base": "ImmunizationRecommendation",
     "target": ["Immunization", "ImmunizationEvaluation"],
     "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.supportingImmunization"
-      }
+      { "resourceType": "ImmunizationRecommendation", "path": "recommendation.supportingImmunization" }
     ]
   },
   {
@@ -14241,12 +13938,7 @@
     "type": "token",
     "description": "Disease to be immunized against",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.targetDisease"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.targetDisease" }]
   },
   {
     "name": "vaccine-type",
@@ -14254,12 +13946,7 @@
     "type": "token",
     "description": "Vaccine  or vaccine group recommendation applies to",
     "base": "ImmunizationRecommendation",
-    "compiled": [
-      {
-        "resourceType": "ImmunizationRecommendation",
-        "path": "recommendation.vaccineCode"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImmunizationRecommendation", "path": "recommendation.vaccineCode" }]
   },
   {
     "name": "depends-on",
@@ -14440,12 +14127,7 @@
       "VerificationResult",
       "VisionPrescription"
     ],
-    "compiled": [
-      {
-        "resourceType": "ImplementationGuide",
-        "path": "definition.resource.reference"
-      }
-    ]
+    "compiled": [{ "resourceType": "ImplementationGuide", "path": "definition.resource.reference" }]
   },
   {
     "name": "address",
@@ -14624,11 +14306,7 @@
     "base": "Invoice",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Invoice",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Invoice", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -17384,11 +17062,7 @@
     "base": "MeasureReport",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "MeasureReport",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "MeasureReport", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -17505,11 +17179,7 @@
     "base": "Media",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Media",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Media", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -17645,10 +17315,7 @@
     "base": "MedicationAdministration",
     "compiled": [
       { "resourceType": "MedicationAdministration", "path": "effective" },
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "effectiveDateTime"
-      },
+      { "resourceType": "MedicationAdministration", "path": "effectiveDateTime" },
       { "resourceType": "MedicationAdministration", "path": "effectivePeriod" }
     ]
   },
@@ -17659,12 +17326,7 @@
     "description": "Multiple Resources: \r\n\r\n* [MedicationAdministration](medicationadministration.html): Return administrations of this medication resource\r\n* [MedicationDispense](medicationdispense.html): Returns dispenses of this medicine resource\r\n* [MedicationRequest](medicationrequest.html): Return prescriptions for this medication reference\r\n* [MedicationStatement](medicationstatement.html): Return statements of this medication reference\r\n",
     "base": "MedicationAdministration",
     "target": ["Medication"],
-    "compiled": [
-      {
-        "resourceType": "MedicationAdministration",
-        "path": "medicationReference"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationAdministration", "path": "medicationReference" }]
   },
   {
     "name": "medication",
@@ -17802,12 +17464,7 @@
     "description": "Multiple Resources: \r\n\r\n* [MedicationDispense](medicationdispense.html): The identity of a prescription to list dispenses from\r\n",
     "base": "MedicationDispense",
     "target": ["MedicationRequest"],
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "authorizingPrescription"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "authorizingPrescription" }]
   },
   {
     "name": "receiver",
@@ -17825,12 +17482,7 @@
     "description": "Returns dispenses with the specified responsible party",
     "base": "MedicationDispense",
     "target": ["Practitioner", "PractitionerRole"],
-    "compiled": [
-      {
-        "resourceType": "MedicationDispense",
-        "path": "substitution.responsibleParty"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationDispense", "path": "substitution.responsibleParty" }]
   },
   {
     "name": "subject",
@@ -17871,12 +17523,7 @@
     "type": "token",
     "description": "Specific category assigned to the medication",
     "base": "MedicationKnowledge",
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "medicineClassification.classification"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "medicineClassification.classification" }]
   },
   {
     "name": "classification-type",
@@ -17884,12 +17531,7 @@
     "type": "token",
     "description": "The type of category for the medication (for example, therapeutic classification, therapeutic sub-classification)",
     "base": "MedicationKnowledge",
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "medicineClassification.type"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "medicineClassification.type" }]
   },
   {
     "name": "code",
@@ -17914,12 +17556,7 @@
     "description": "Medication(s) or substance(s) contained in the medication",
     "base": "MedicationKnowledge",
     "target": ["Substance"],
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "ingredient.itemReference"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "ingredient.itemReference" }]
   },
   {
     "name": "ingredient-code",
@@ -17927,12 +17564,7 @@
     "type": "token",
     "description": "Medication(s) or substance(s) contained in the medication",
     "base": "MedicationKnowledge",
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "ingredient.itemCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "ingredient.itemCodeableConcept" }]
   },
   {
     "name": "manufacturer",
@@ -17949,12 +17581,7 @@
     "type": "token",
     "description": "Name of the reviewing program",
     "base": "MedicationKnowledge",
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "monitoringProgram.name"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "monitoringProgram.name" }]
   },
   {
     "name": "monitoring-program-type",
@@ -17962,12 +17589,7 @@
     "type": "token",
     "description": "Type of program under which the medication is monitored",
     "base": "MedicationKnowledge",
-    "compiled": [
-      {
-        "resourceType": "MedicationKnowledge",
-        "path": "monitoringProgram.type"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationKnowledge", "path": "monitoringProgram.type" }]
   },
   {
     "name": "monograph",
@@ -18024,12 +17646,7 @@
     "type": "date",
     "description": "Multiple Resources: \r\n\r\n* [MedicationRequest](medicationrequest.html): Returns medication request to be administered on a specific date\r\n",
     "base": "MedicationRequest",
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "dosageInstruction.timing.event"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "dosageInstruction.timing.event" }]
   },
   {
     "name": "encounter",
@@ -18047,12 +17664,7 @@
     "description": "Returns prescriptions intended to be dispensed by this Organization",
     "base": "MedicationRequest",
     "target": ["Organization"],
-    "compiled": [
-      {
-        "resourceType": "MedicationRequest",
-        "path": "dispenseRequest.performer"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicationRequest", "path": "dispenseRequest.performer" }]
   },
   {
     "name": "intended-performer",
@@ -18197,12 +17809,7 @@
     "type": "token",
     "description": "Language code for this name",
     "base": "MedicinalProduct",
-    "compiled": [
-      {
-        "resourceType": "MedicinalProduct",
-        "path": "name.countryLanguage.language"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicinalProduct", "path": "name.countryLanguage.language" }]
   },
   {
     "name": "country",
@@ -18304,12 +17911,7 @@
     "type": "token",
     "description": "Coded expression for the route",
     "base": "MedicinalProductPharmaceutical",
-    "compiled": [
-      {
-        "resourceType": "MedicinalProductPharmaceutical",
-        "path": "routeOfAdministration.code"
-      }
-    ]
+    "compiled": [{ "resourceType": "MedicinalProductPharmaceutical", "path": "routeOfAdministration.code" }]
   },
   {
     "name": "target-species",
@@ -18318,10 +17920,7 @@
     "description": "Coded expression for the species",
     "base": "MedicinalProductPharmaceutical",
     "compiled": [
-      {
-        "resourceType": "MedicinalProductPharmaceutical",
-        "path": "routeOfAdministration.targetSpecies.code"
-      }
+      { "resourceType": "MedicinalProductPharmaceutical", "path": "routeOfAdministration.targetSpecies.code" }
     ]
   },
   {
@@ -18670,12 +18269,7 @@
     "type": "token",
     "description": "Reference Sequence of the sequence",
     "base": "MolecularSequence",
-    "compiled": [
-      {
-        "resourceType": "MolecularSequence",
-        "path": "referenceSeq.referenceSeqId"
-      }
-    ]
+    "compiled": [{ "resourceType": "MolecularSequence", "path": "referenceSeq.referenceSeqId" }]
   },
   {
     "name": "type",
@@ -18715,12 +18309,7 @@
     "type": "number",
     "description": "Start position (0-based inclusive, 1-based inclusive, that means the nucleic acid or amino acid at this position will be included) of the reference sequence.",
     "base": "MolecularSequence",
-    "compiled": [
-      {
-        "resourceType": "MolecularSequence",
-        "path": "referenceSeq.windowStart"
-      }
-    ]
+    "compiled": [{ "resourceType": "MolecularSequence", "path": "referenceSeq.windowStart" }]
   },
   {
     "name": "contact",
@@ -18792,12 +18381,7 @@
     "type": "token",
     "description": "Type of module component to add to the feeding",
     "base": "NutritionOrder",
-    "compiled": [
-      {
-        "resourceType": "NutritionOrder",
-        "path": "enteralFormula.additiveType"
-      }
-    ]
+    "compiled": [{ "resourceType": "NutritionOrder", "path": "enteralFormula.additiveType" }]
   },
   {
     "name": "datetime",
@@ -18813,12 +18397,7 @@
     "type": "token",
     "description": "Type of enteral or infant formula",
     "base": "NutritionOrder",
-    "compiled": [
-      {
-        "resourceType": "NutritionOrder",
-        "path": "enteralFormula.baseFormulaType"
-      }
-    ]
+    "compiled": [{ "resourceType": "NutritionOrder", "path": "enteralFormula.baseFormulaType" }]
   },
   {
     "name": "instantiates-canonical",
@@ -18924,10 +18503,7 @@
     "base": "Observation",
     "compiled": [
       { "resourceType": "Observation", "path": "valueCodeableConcept" },
-      {
-        "resourceType": "Observation",
-        "path": "component.valueCodeableConcept"
-      }
+      { "resourceType": "Observation", "path": "component.valueCodeableConcept" }
     ]
   },
   {
@@ -18974,12 +18550,7 @@
     "type": "token",
     "description": "The value of the component observation, if the value is a CodeableConcept",
     "base": "Observation",
-    "compiled": [
-      {
-        "resourceType": "Observation",
-        "path": "component.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "Observation", "path": "component.valueCodeableConcept" }]
   },
   {
     "name": "component-value-quantity",
@@ -18990,10 +18561,7 @@
     "compiled": [
       { "resourceType": "Observation", "path": "component.valueQuantity" },
       { "resourceType": "Observation", "path": "component.valueSampledData" },
-      {
-        "resourceType": "Observation",
-        "path": "component.valueCodeableConcept"
-      },
+      { "resourceType": "Observation", "path": "component.valueCodeableConcept" },
       { "resourceType": "Observation", "path": "component.valueString" },
       { "resourceType": "Observation", "path": "component.valueBoolean" },
       { "resourceType": "Observation", "path": "component.valueInteger" },
@@ -19560,12 +19128,7 @@
     "description": "The organization that provides services to the primary organization",
     "base": "OrganizationAffiliation",
     "target": ["Organization"],
-    "compiled": [
-      {
-        "resourceType": "OrganizationAffiliation",
-        "path": "participatingOrganization"
-      }
-    ]
+    "compiled": [{ "resourceType": "OrganizationAffiliation", "path": "participatingOrganization" }]
   },
   {
     "name": "phone",
@@ -19862,11 +19425,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n",
     "base": "Patient",
     "compiled": [
-      {
-        "resourceType": "Patient",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Patient", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -19876,11 +19435,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n",
     "base": "Person",
     "compiled": [
-      {
-        "resourceType": "Person",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Person", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -19890,11 +19445,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n",
     "base": "Practitioner",
     "compiled": [
-      {
-        "resourceType": "Practitioner",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "Practitioner", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -19904,11 +19455,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n",
     "base": "PractitionerRole",
     "compiled": [
-      {
-        "resourceType": "PractitionerRole",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "PractitionerRole", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -19918,11 +19465,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact\r\n",
     "base": "RelatedPerson",
     "compiled": [
-      {
-        "resourceType": "RelatedPerson",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "email"]
-      }
+      { "resourceType": "RelatedPerson", "path": "telecom", "condition": ["telecom.system", "=", "email"] }
     ]
   },
   {
@@ -20047,11 +19590,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n",
     "base": "Patient",
     "compiled": [
-      {
-        "resourceType": "Patient",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Patient", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -20061,11 +19600,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n",
     "base": "Person",
     "compiled": [
-      {
-        "resourceType": "Person",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Person", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -20075,11 +19610,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n",
     "base": "Practitioner",
     "compiled": [
-      {
-        "resourceType": "Practitioner",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "Practitioner", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -20089,11 +19620,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n",
     "base": "PractitionerRole",
     "compiled": [
-      {
-        "resourceType": "PractitionerRole",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "PractitionerRole", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -20103,11 +19630,7 @@
     "description": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact\r\n",
     "base": "RelatedPerson",
     "compiled": [
-      {
-        "resourceType": "RelatedPerson",
-        "path": "telecom",
-        "condition": ["telecom.system", "=", "phone"]
-      }
+      { "resourceType": "RelatedPerson", "path": "telecom", "condition": ["telecom.system", "=", "phone"] }
     ]
   },
   {
@@ -20610,11 +20133,7 @@
     "base": "Person",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Person",
-        "path": "link.target",
-        "condition": ["link.target", "resolve", "Patient"]
-      }
+      { "resourceType": "Person", "path": "link.target", "condition": ["link.target", "resolve", "Patient"] }
     ]
   },
   {
@@ -20814,12 +20333,7 @@
     "type": "token",
     "description": "A use context assigned to the plan definition",
     "base": "PlanDefinition",
-    "compiled": [
-      {
-        "resourceType": "PlanDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "PlanDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -20857,10 +20371,7 @@
     "target": ["Questionnaire", "PlanDefinition", "ActivityDefinition"],
     "compiled": [
       { "resourceType": "PlanDefinition", "path": "action.definition" },
-      {
-        "resourceType": "PlanDefinition",
-        "path": "action.definitionCanonical"
-      },
+      { "resourceType": "PlanDefinition", "path": "action.definitionCanonical" },
       { "resourceType": "PlanDefinition", "path": "action.definitionUri" }
     ]
   },
@@ -22014,11 +21525,7 @@
     "base": "Provenance",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Provenance",
-        "path": "target",
-        "condition": ["target", "resolve", "Patient"]
-      }
+      { "resourceType": "Provenance", "path": "target", "condition": ["target", "resolve", "Patient"] }
     ]
   },
   {
@@ -22214,12 +21721,7 @@
     "type": "token",
     "description": "A use context assigned to the questionnaire",
     "base": "Questionnaire",
-    "compiled": [
-      {
-        "resourceType": "Questionnaire",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "Questionnaire", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -22724,11 +22226,7 @@
     "base": "RequestGroup",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "RequestGroup",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "RequestGroup", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -22923,12 +22421,7 @@
     "type": "token",
     "description": "A use context assigned to the research definition",
     "base": "ResearchDefinition",
-    "compiled": [
-      {
-        "resourceType": "ResearchDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ResearchDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -22937,10 +22430,7 @@
     "description": "A quantity- or range-valued use context assigned to the research definition",
     "base": "ResearchDefinition",
     "compiled": [
-      {
-        "resourceType": "ResearchDefinition",
-        "path": "useContext.valueQuantity"
-      },
+      { "resourceType": "ResearchDefinition", "path": "useContext.valueQuantity" },
       { "resourceType": "ResearchDefinition", "path": "useContext.valueRange" }
     ]
   },
@@ -23860,12 +23350,7 @@
     "type": "token",
     "description": "A use context assigned to the research element definition",
     "base": "ResearchElementDefinition",
-    "compiled": [
-      {
-        "resourceType": "ResearchElementDefinition",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "ResearchElementDefinition", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -23874,14 +23359,8 @@
     "description": "A quantity- or range-valued use context assigned to the research element definition",
     "base": "ResearchElementDefinition",
     "compiled": [
-      {
-        "resourceType": "ResearchElementDefinition",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "ResearchElementDefinition",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "ResearchElementDefinition", "path": "useContext.valueQuantity" },
+      { "resourceType": "ResearchElementDefinition", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -24827,14 +24306,8 @@
     "base": "RiskAssessment",
     "compiled": [
       { "resourceType": "RiskAssessment", "path": "prediction.probability" },
-      {
-        "resourceType": "RiskAssessment",
-        "path": "prediction.probabilityDecimal"
-      },
-      {
-        "resourceType": "RiskAssessment",
-        "path": "prediction.probabilityRange"
-      }
+      { "resourceType": "RiskAssessment", "path": "prediction.probabilityDecimal" },
+      { "resourceType": "RiskAssessment", "path": "prediction.probabilityRange" }
     ]
   },
   {
@@ -24860,12 +24333,7 @@
     "type": "token",
     "description": "A use context assigned to the risk evidence synthesis",
     "base": "RiskEvidenceSynthesis",
-    "compiled": [
-      {
-        "resourceType": "RiskEvidenceSynthesis",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "RiskEvidenceSynthesis", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -24874,14 +24342,8 @@
     "description": "A quantity- or range-valued use context assigned to the risk evidence synthesis",
     "base": "RiskEvidenceSynthesis",
     "compiled": [
-      {
-        "resourceType": "RiskEvidenceSynthesis",
-        "path": "useContext.valueQuantity"
-      },
-      {
-        "resourceType": "RiskEvidenceSynthesis",
-        "path": "useContext.valueRange"
-      }
+      { "resourceType": "RiskEvidenceSynthesis", "path": "useContext.valueQuantity" },
+      { "resourceType": "RiskEvidenceSynthesis", "path": "useContext.valueRange" }
     ]
   },
   {
@@ -25395,11 +24857,7 @@
     "base": "Specimen",
     "target": ["Patient"],
     "compiled": [
-      {
-        "resourceType": "Specimen",
-        "path": "subject",
-        "condition": ["subject", "resolve", "Patient"]
-      }
+      { "resourceType": "Specimen", "path": "subject", "condition": ["subject", "resolve", "Patient"] }
     ]
   },
   {
@@ -25433,12 +24891,7 @@
     "type": "token",
     "description": "The type of specimen conditioned in container expected by the lab",
     "base": "SpecimenDefinition",
-    "compiled": [
-      {
-        "resourceType": "SpecimenDefinition",
-        "path": "typeTested.container.type"
-      }
-    ]
+    "compiled": [{ "resourceType": "SpecimenDefinition", "path": "typeTested.container.type" }]
   },
   {
     "name": "identifier",
@@ -25480,14 +24933,8 @@
     "description": "Path that identifies the base element",
     "base": "StructureDefinition",
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.base.path"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "differential.element.base.path"
-      }
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.base.path" },
+      { "resourceType": "StructureDefinition", "path": "differential.element.base.path" }
     ]
   },
   {
@@ -25537,14 +24984,8 @@
     "description": "A path that is constrained in the StructureDefinition",
     "base": "StructureDefinition",
     "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.path"
-      },
-      {
-        "resourceType": "StructureDefinition",
-        "path": "differential.element.path"
-      }
+      { "resourceType": "StructureDefinition", "path": "snapshot.element.path" },
+      { "resourceType": "StructureDefinition", "path": "differential.element.path" }
     ]
   },
   {
@@ -25562,12 +25003,7 @@
     "description": "A vocabulary binding reference",
     "base": "StructureDefinition",
     "target": ["ValueSet"],
-    "compiled": [
-      {
-        "resourceType": "StructureDefinition",
-        "path": "snapshot.element.binding.valueSet"
-      }
-    ]
+    "compiled": [{ "resourceType": "StructureDefinition", "path": "snapshot.element.binding.valueSet" }]
   },
   {
     "name": "contact",
@@ -25633,10 +25069,7 @@
     "base": "Substance",
     "compiled": [
       { "resourceType": "Substance", "path": "code" },
-      {
-        "resourceType": "Substance",
-        "path": "ingredient.substanceCodeableConcept"
-      }
+      { "resourceType": "Substance", "path": "ingredient.substanceCodeableConcept" }
     ]
   },
   {
@@ -26174,13 +25607,7 @@
     "description": "Search by patient",
     "base": "Task",
     "target": ["Patient"],
-    "compiled": [
-      {
-        "resourceType": "Task",
-        "path": "for",
-        "condition": ["for", "resolve", "Patient"]
-      }
-    ]
+    "compiled": [{ "resourceType": "Task", "path": "for", "condition": ["for", "resolve", "Patient"] }]
   },
   {
     "name": "performer",
@@ -26433,12 +25860,7 @@
     "type": "token",
     "description": "A use context assigned to the test script",
     "base": "TestScript",
-    "compiled": [
-      {
-        "resourceType": "TestScript",
-        "path": "useContext.valueCodeableConcept"
-      }
-    ]
+    "compiled": [{ "resourceType": "TestScript", "path": "useContext.valueCodeableConcept" }]
   },
   {
     "name": "context-quantity",
@@ -26521,12 +25943,7 @@
     "type": "string",
     "description": "TestScript required and validated capability",
     "base": "TestScript",
-    "compiled": [
-      {
-        "resourceType": "TestScript",
-        "path": "metadata.capability.description"
-      }
-    ]
+    "compiled": [{ "resourceType": "TestScript", "path": "metadata.capability.description" }]
   },
   {
     "name": "title",

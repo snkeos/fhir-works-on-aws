@@ -6,9 +6,8 @@
 import {
   BatchReadWriteRequest,
   BatchReadWriteResponse,
-  TypeOperation,
   SystemOperation,
-  isResourceNotFoundError
+  TypeOperation
 } from '@aws/fhir-works-on-aws-interface';
 import { DynamoDB } from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +16,7 @@ import DOCUMENT_STATUS from './documentStatus';
 import { DynamoDBConverter, RESOURCE_TABLE } from './dynamoDb';
 import DynamoDbHelper from './dynamoDbHelper';
 import DynamoDbParamBuilder from './dynamoDbParamBuilder';
-import { buildHashKey, DOCUMENT_STATUS_FIELD, DynamoDbUtil } from './dynamoDbUtil';
+import { DOCUMENT_STATUS_FIELD, DynamoDbUtil, buildHashKey } from './dynamoDbUtil';
 
 export interface ItemRequest {
   id: string;
@@ -76,7 +75,8 @@ export default class DynamoDbBundleServiceHelper {
         case 'update': {
           // Create new entry with status = PENDING
           // When updating a resource, create a new Document for that resource
-          const { id } = request.resource;
+          // If availabe the id of the request shall be used (condition update use case)
+          const id = request.id || request.resource.id;
           const vid = (idToVersionId[id] || 0) + 1;
           const Item = DynamoDbUtil.prepItemForDdbInsert(
             request.resource,
@@ -95,7 +95,8 @@ export default class DynamoDbBundleServiceHelper {
 
           const { stagingResponse, itemLocked } = this.addStagingResponseAndItemsLocked(request.operation, {
             ...request.resource,
-            meta: { ...Item.meta }
+            meta: { ...Item.meta },
+            id
           });
           newBundleEntryResponses = newBundleEntryResponses.concat(stagingResponse);
           newLocks = newLocks.concat(itemLocked);
@@ -172,9 +173,9 @@ export default class DynamoDbBundleServiceHelper {
         case 'create':
         case 'update': {
           /*
-                        DELETE latest record
-                        and remove lock entry from lockedItems
-                     */
+              DELETE latest record
+              and remove lock entry from lockedItems
+           */
           const { transactionRequest, itemToRemoveFromLock } =
             this.generateDeleteLatestRecordAndItemToRemoveFromLock(
               stagingResponse.resourceType,
@@ -261,34 +262,10 @@ export default class DynamoDbBundleServiceHelper {
     return { stagingResponse, itemLocked };
   }
 
-  private static createBatchResource(createObject: any) {
-    const { request, id, vid, tenantId, originalRequestIndex, resourceType } = createObject;
-    let { item } = createObject;
-    item = DynamoDbUtil.prepItemForDdbInsert(request.resource, id, vid, DOCUMENT_STATUS.AVAILABLE, tenantId);
-
-    const createItem = {
-      PutRequest: {
-        Item: DynamoDBConverter.marshall(item)
-      },
-      originalRequestIndex
-    };
-    const batchReadWriteItem = {
-      id,
-      vid: item.meta.versionId,
-      operation: request.operation,
-      lastModified: item.meta.lastUpdated,
-      resourceType,
-      resource: item
-    };
-
-    return { createItem, batchReadWriteItem };
-  }
-
   static async sortBatchRequests(
     requests: BatchReadWriteRequest[],
     dynamoDbHelper: DynamoDbHelper,
-    tenantId?: string,
-    updateCreateSupported?: boolean
+    tenantId?: string
   ) {
     const deleteRequests: any[] = [];
     const createRequests: any[] = [];
@@ -304,7 +281,6 @@ export default class DynamoDbBundleServiceHelper {
       const { resourceType, operation } = request;
       let item;
       // we need to query to get the VersionID of the resource for non-create operations
-
       if (operation === 'create') {
         vid = 1;
         id = request.id ? request.id : uuidv4();
@@ -314,52 +290,44 @@ export default class DynamoDbBundleServiceHelper {
           item = await dynamoDbHelper.getMostRecentUserReadableResource(resourceType, id, tenantId);
           vid = Number(item.resource?.meta.versionId);
         } catch (e: any) {
-          // if upsert supported and update operation
-          if (updateCreateSupported && operation === 'update' && isResourceNotFoundError(e)) {
-            vid = 1;
-            id = request.id ? request.id : uuidv4();
-            const createObject = {
-              item,
-              request,
-              id,
-              vid,
-              tenantId,
-              originalRequestIndex,
-              resourceType
-            };
-            const { createItem, batchReadWriteItem } = this.createBatchResource(createObject);
-            createRequests.push(createItem);
-            batchReadWriteResponses.push(batchReadWriteItem);
-          } else {
-            console.log(`Failed to find resource ${id}`);
-            batchReadWriteResponses.push({
-              id,
-              vid: `${vid}`,
-              operation,
-              resourceType,
-              resource: {},
-              lastModified: '',
-              error: '404 Not Found'
-            });
-          }
+          console.log(`Failed to find resource ${id}`);
+          batchReadWriteResponses.push({
+            id,
+            vid: `${vid}`,
+            operation,
+            resourceType,
+            resource: {},
+            lastModified: '',
+            error: '404 Not Found'
+          });
           // eslint-disable-next-line no-continue
           continue;
         }
       }
       switch (operation) {
         case 'create': {
-          const createObject = {
-            item,
-            request,
+          item = DynamoDbUtil.prepItemForDdbInsert(
+            request.resource,
             id,
             vid,
-            tenantId,
-            originalRequestIndex,
-            resourceType
-          };
-          const { createItem, batchReadWriteItem } = this.createBatchResource(createObject);
-          createRequests.push(createItem);
-          batchReadWriteResponses.push(batchReadWriteItem);
+            DOCUMENT_STATUS.AVAILABLE,
+            tenantId
+          );
+
+          createRequests.push({
+            PutRequest: {
+              Item: DynamoDBConverter.marshall(item)
+            },
+            originalRequestIndex
+          });
+          batchReadWriteResponses.push({
+            id,
+            vid: item.meta.versionId,
+            operation: request.operation,
+            lastModified: item.meta.lastUpdated,
+            resourceType,
+            resource: item
+          });
           break;
         }
         case 'update': {

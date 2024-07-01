@@ -21,8 +21,8 @@ import ConfigHandler from '../../configHandler';
 import { MAX_BUNDLE_ENTRIES } from '../../constants';
 import { uuidRegExp, utcTimeRegExp } from '../../regExpressions';
 import r4FhirConfigGeneric from '../../sampleData/r4FhirConfigGeneric';
-import DynamoDbBundleService from '../__mocks_/dynamoDbBundleService';
-import DynamoDbDataService from '../__mocks_/dynamoDbDataService';
+import DynamoDbBundleService from '../mocks/dynamoDbBundleService';
+import DynamoDbDataService from '../mocks/dynamoDbDataService';
 import JsonSchemaValidator from '../validation/jsonSchemaValidator';
 import BundleHandler from './bundleHandler';
 
@@ -474,7 +474,7 @@ describe('ERROR Cases: Validation of Bundle request', () => {
         dummyRequestContext,
         dummyServerUrl
       )
-    ).rejects.toThrowError(new InvalidResourceError("not a valid 'Bundle'"));
+    ).rejects.toThrowError(new InvalidResourceError("resource should have required property 'resourceType'"));
   });
 
   test('Bundle request has unsupported operation: SEARCH', async () => {
@@ -571,7 +571,7 @@ describe('SUCCESS Cases: Testing Bundle with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [
@@ -654,7 +654,7 @@ describe('SUCCESS Cases: Testing Bundle with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: []
@@ -681,7 +681,7 @@ describe('SUCCESS Cases: Testing Batch with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: []
@@ -706,7 +706,7 @@ describe('SUCCESS Cases: Testing Batch with CRUD entries', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [
@@ -877,7 +877,7 @@ describe('ERROR Cases: Bundle not authorized', () => {
       link: [
         {
           relation: 'self',
-          url: 'https://API_URL.com'
+          url: dummyServerUrl
         }
       ],
       entry: [

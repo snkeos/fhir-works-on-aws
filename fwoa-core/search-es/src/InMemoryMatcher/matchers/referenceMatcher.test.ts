@@ -85,10 +85,7 @@ describe('referenceMatch', () => {
 
   describe('idOnly', () => {
     test('relative reference in resource', () => {
-      const searchValue: ReferenceSearchValue = {
-        id: '111',
-        referenceType: 'idOnly'
-      };
+      const searchValue: ReferenceSearchValue = { id: '111', referenceType: 'idOnly' };
       const resourceValue = { reference: 'Patient/111' };
       expect(
         referenceMatch(searchValue, resourceValue, {
@@ -99,10 +96,7 @@ describe('referenceMatch', () => {
     });
 
     test('matching full url in resource', () => {
-      const searchValue: ReferenceSearchValue = {
-        id: '111',
-        referenceType: 'idOnly'
-      };
+      const searchValue: ReferenceSearchValue = { id: '111', referenceType: 'idOnly' };
       const resourceValue = { reference: 'https://fwoa.com/Patient/111' };
       expect(
         referenceMatch(searchValue, resourceValue, {

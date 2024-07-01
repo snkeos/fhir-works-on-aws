@@ -15,7 +15,7 @@ const httpsAgent = new https.Agent({
 });
 
 const REQUEST_TIMEOUT = 5_000;
-const MAX_NOTIFICATION_REQUESTS_CONCURRENCY = 10;
+const MAX_NOTIFICATION_REQUESTS_CONCURRENCY = 5;
 
 axios.defaults.httpsAgent = httpsAgent;
 axios.defaults.timeout = REQUEST_TIMEOUT;

@@ -50,7 +50,5 @@ export function referenceQuery(
   }
 
   const keywordSuffix = useKeywordSubFields ? '.keyword' : '';
-  return {
-    terms: { [`${compiled.path}.reference${keywordSuffix}`]: references }
-  };
+  return { terms: { [`${compiled.path}.reference${keywordSuffix}`]: references } };
 }

@@ -191,15 +191,11 @@ export class FHIRSearchParametersRegistry {
     const searchParam = this.getSearchParameter(resourceType, name);
 
     if (searchParam === undefined) {
-      return {
-        error: `Search parameter ${name} does not exist in resource ${resourceType}`
-      };
+      return { error: `Search parameter ${name} does not exist in resource ${resourceType}` };
     }
 
     if (searchParam.type !== 'reference') {
-      return {
-        error: `Search parameter ${name} is not of type reference in resource ${resourceType}`
-      };
+      return { error: `Search parameter ${name} is not of type reference in resource ${resourceType}` };
     }
 
     if (targetResourceType !== undefined && !searchParam.target?.includes(targetResourceType)) {

@@ -11,9 +11,7 @@ const fhirSearchParametersRegistry = new FHIRSearchParametersRegistry('4.0.1');
 
 describe('queryParser', () => {
   test('string with modifier', () => {
-    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', {
-      'name:exact': 'John'
-    });
+    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', { 'name:exact': 'John' });
     expect(q).toMatchInlineSnapshot(`
             Object {
               "resourceType": "Patient",
@@ -46,16 +44,12 @@ describe('queryParser', () => {
 
   test('string with unknown modifier', () => {
     expect(() =>
-      parseQuery(fhirSearchParametersRegistry, 'Patient', {
-        'name:unknownModifier': 'John'
-      })
+      parseQuery(fhirSearchParametersRegistry, 'Patient', { 'name:unknownModifier': 'John' })
     ).toThrowErrorMatchingInlineSnapshot(`"Unsupported string search modifier: unknownModifier"`);
   });
 
   test('string OR', () => {
-    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', {
-      'name:exact': 'John,Anna'
-    });
+    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', { 'name:exact': 'John,Anna' });
     expect(q).toMatchInlineSnapshot(`
             Object {
               "resourceType": "Patient",
@@ -88,9 +82,7 @@ describe('queryParser', () => {
   });
 
   test('string AND', () => {
-    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', {
-      'name:exact': ['John', 'Anna']
-    });
+    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', { 'name:exact': ['John', 'Anna'] });
     expect(q).toMatchInlineSnapshot(`
             Object {
               "resourceType": "Patient",
@@ -143,9 +135,7 @@ describe('queryParser', () => {
   });
 
   test('number', () => {
-    const q = parseQuery(fhirSearchParametersRegistry, 'ChargeItem', {
-      'factor-override': '10'
-    });
+    const q = parseQuery(fhirSearchParametersRegistry, 'ChargeItem', { 'factor-override': '10' });
     expect(q).toMatchInlineSnapshot(`
             Object {
               "resourceType": "ChargeItem",
@@ -184,9 +174,7 @@ describe('queryParser', () => {
   });
 
   test('date', () => {
-    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', {
-      birthdate: '1999-09-09'
-    });
+    const q = parseQuery(fhirSearchParametersRegistry, 'Patient', { birthdate: '1999-09-09' });
     expect(q).toMatchInlineSnapshot(`
             Object {
               "resourceType": "Patient",
