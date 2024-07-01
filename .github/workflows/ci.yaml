@@ -13,13 +13,9 @@ on:
     tags:
       - v*
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.repository }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   # General init section to setup global variables e.g., compiler version, test os
-  init:
+  build-and-test:
     # Workaround for environment variables as workflow parameters: https://github.com/orgs/community/discussions/26671
     runs-on: ubuntu-22.04
     steps:
@@ -27,4 +23,4 @@ jobs:
         uses: actions/checkout@v4.1.6
 
       - name: Run unit tests
-        run: cd deployment &&./run-unit-tests.sh && ./run-unit-tests.sh
+        run: cd deployment && chmod +x ./run-unit-tests.sh && ./run-unit-tests.sh
