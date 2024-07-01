@@ -15,16 +15,8 @@ app.node.setContext('@aws-cdk/core:bootstrapQualifier', app.node.tryGetContext('
 const allowedLogLevels = ['error', 'info', 'debug', 'warn'];
 const allowedFHIRVersions = ['4.0.1', '3.0.1'];
 
-
-
 let region: string = app.node.tryGetContext('region') || 'us-west-2';
 let account: string = process.env.CDK_DEFAULT_ACCOUNT!;
-
-// In solutions pipeline build, resolve region and account to token value to be resolved on CF deployment
-if (process.env.SOLUTION_ID === solutionId) {
-  region = cdk.Aws.REGION;
-  account = cdk.Aws.ACCOUNT_ID;
-}
 
 const qualifier: string = app.node.tryGetContext('qualifier') || 'hnb659fds';
 const stage: string = app.node.tryGetContext('stage') || 'dev';
@@ -63,6 +55,12 @@ const solutionVersion: string = '6.0.0';
 const applicationType: string = 'AWS-Solutions';
 const attributeGroupName: string = `${qualifier}-fhir-works-AttributeGroup`;
 const appRegistryApplicationName: string = `${qualifier}-fhir-works-on-aws`;
+
+// In solutions pipeline build, resolve region and account to token value to be resolved on CF deployment
+if (process.env.SOLUTION_ID === solutionId) {
+  region = cdk.Aws.REGION;
+  account = cdk.Aws.ACCOUNT_ID;
+}
 
 // workaround for https://github.com/aws/aws-cdk/issues/15054
 // CDK won't allow having lock file with ".." relatively to project folder
