@@ -69,11 +69,10 @@ artifacts:
     - fwoa-tools/**/*
     - fwoa-utilities/**/*
     - solutions/**/*
-    - buildspec-deploy.yml
     - buildspec.yml
     - CHANGELOG.md
-    - LICENSE
-    - NOTICE
+    - LICENSE.txt
+    - NOTICE.txt
     - CODE_OF_CONDUCT.md
     - CONTRIBUTING.md
     - README.md
